@@ -1,3 +1,3 @@
 # The Notebook
 
-This is my personal source of truth for, like, anything tech-related
+Welcome to my notes!

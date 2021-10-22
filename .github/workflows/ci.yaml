@@ -1,9 +1,13 @@
 name: ci 
+
+# Trigger only on pushing to main
 on:
   push:
     branches: 
       - master
       - main
+  
+# Build with GitHub Actions runner
 jobs:
   deploy:
     runs-on: ubuntu-latest
