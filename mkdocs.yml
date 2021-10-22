@@ -3,15 +3,14 @@ site_name: The Notebook
 # Graphics
 theme:
   name: material
-  logo: logo.png
-  favicon: logo.png
+  logo: images/logo.png
+  favicon: images/logo.png
   # custom_dir: material
 
   # Color theme
   palette:
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: blue
       toggle:
         icon: material/lightbulb
         name: Switch to dark mode
@@ -27,7 +26,10 @@ theme:
     - navigation.top
 
 # Nav bar
-
+nav:
+  - Home: index.md
+  - About: about.md
+  
 # Extensions
 markdown_extensions:
   # Table of content
