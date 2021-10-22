@@ -4,6 +4,7 @@ site_name: The Notebook
 nav:
   - Home: index.md
   - About: about.md
+  - Git: git.md
 
 # Repo info
 repo_url: https://github.com/sannae/the-notebook
