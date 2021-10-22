@@ -27,3 +27,19 @@ theme:
     - navigation.top
 
 # Nav bar
+
+# Extensions
+markdown_extensions:
+  # Table of content
+  - toc:
+      permalink: ⚓︎
+  # tags support
+  - meta
+  # buttons
+  - attr_list
+  # tabs
+  - pymdownx.tabbed
+  - pymdownx.superfences
+  # admonitions
+  - admonition
+  - pymdownx.details
