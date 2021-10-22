@@ -2,11 +2,12 @@ site_name: The Notebook
 
 # Nav bar
 nav:
-  - Home: index.md
-  - About: about.md
-  - Git: git.md
-  - Web:
-    - Django: web/django.md
+  - home: index.md
+  - about: about.md
+  - projects: projects.md
+  - git: git.md
+  - web:
+    - django: web/django.md
 
 # Repo info
 repo_url: https://github.com/sannae/the-notebook

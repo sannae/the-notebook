@@ -14,7 +14,7 @@ All the required Python packages are listed in `requirements.txt` (to be updatab
 * The project structure is created with `py -m django startproject`
     * The project automatically includes a `db.sqlite` database for testing purposes
 * Within the project, there may be several *apps*: each app structure is created with `py -m django startapp`
-* The live web server is started with `py -m django manage runserver` and is reachable at http://localhost:8000
+* The live web server is started with `py -m django manage runserver` and is reachable at <http://localhost:8000>
 * Django follows the MVC architecture (Model-View-Controller), although it uses a non-idiomatic way of naming its parts:  
 ```
 Idiomatic term | Django term | Meaning
@@ -27,7 +27,6 @@ A schematic view is available below:
 * The views of the app call the templates saved in `APPLICATION_NAME/templates/APPLICATION_NAME` (according to a Django's convention)
 * The templates use a combination of HTML/CSS/JS and Django's `{% block %}` syntax: this lets you modularize the code
 * The HTML/CSS/JS templates use [Bootstrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/)
-* Bootstrap was not installed, we just copied/edited some templates found online
 * Oversimplifying, to add a feature you
   1) Update the model in `models.py` (if needed)
   2) Create or update the corresponding view in `views.py`
@@ -91,17 +90,17 @@ SECRET_KEY = get_secret('SECRET_KEY')
 
 #### Postgresql
 * After first testing, migrate the db from SQLite to PostgreSQL using [these instructions](https://medium.com/djangotube/django-sqlite-to-postgresql-database-migration-e3c1f76711e1).
-  * To start PostgreSQL CLI, `sudo -u postgres psql`
-  * To send a command, `sudo su - postgres -c "COMMAND"` 
-  * To list databases, `\l`
-  * To choose a database, `\c DATABASE_NAME`
-  * To show all the tables in the database, `\dt`
-  * To look for a specific table in the database, `\dt *PATTERN*`
+    * To start PostgreSQL CLI, `sudo -u postgres psql`
+    * To send a command, `sudo su - postgres -c "COMMAND"` 
+    * To list databases, `\l`
+    * To choose a database, `\c DATABASE_NAME`
+    * To show all the tables in the database, `\dt`
+    * To look for a specific table in the database, `\dt *PATTERN*`
 
 ### About deployment
 * Before deploying, remember to:
-  * Turn `Debug = FALSE` in `settings.py`
-  * Add the remote host to the `ALLOWED_HOSTS` in `settings.py`, like
+    * Turn `Debug = FALSE` in `settings.py`
+    * Add the remote host to the `ALLOWED_HOSTS` in `settings.py`, like
 ```
 ALLOWED_HOSTS = [
     get_secret('HEROKU_HOST'),      # For production purposes (Debug=FALSE)
@@ -110,15 +109,15 @@ ALLOWED_HOSTS = [
 ```
 
 * To deploy on [Heroku](https://www.heroku.com/), your project needs the [Gunicorn](https://gunicorn.org/) and [Whitenoise](http://whitenoise.evans.io/en/stable/) pip modules installed
-  * After logging in (`heroku login -i`), connect to your Heroku app using the Heroku CLI an running `heroku git:remote --app=HEROKU_APP_NAME` to add a remote origin to your Git tracking in the project
-  * Add a [`procfile`](https://devcenter.heroku.com/articles/procfile) (no extension!) to your project: it's needed by Heroku to specify a process type. Inside of it, just type `web: gunicorn YOUR_APP_WSGI_NAME.wsgi --log-file -`
-  * Remember to specific a _build pack_ (i.e. Python) in your Heroku app settings
-  * In the manual deploy from the Heroku app page, you may need to remove some specific requirements' versions (as described in [this post](https://stackoverflow.com/questions/47304291/heroku-upload-could-not-find-a-version-that-satisfies-the-requirement-anaconda/56754565)) from `requirements.txt` (but first, remember to [check this](#pip-freeze-warning)!)
-  * Heroku doesn't know how to serve static files, so it is better to install [Whitenoise](http://whitenoise.evans.io/en/stable/) and use it in the `MIDDLEWARE` section of your `settings.py` file
+    * After logging in (`heroku login -i`), connect to your Heroku app using the Heroku CLI an running `heroku git:remote --app=HEROKU_APP_NAME` to add a remote origin to your Git tracking in the project
+    * Add a [`procfile`](https://devcenter.heroku.com/articles/procfile) (no extension!) to your project: it's needed by Heroku to specify a process type. Inside of it, just type `web: gunicorn YOUR_APP_WSGI_NAME.wsgi --log-file -`
+    * Remember to specific a _build pack_ (i.e. Python) in your Heroku app settings
+    * In the manual deploy from the Heroku app page, you may need to remove some specific requirements' versions (as described in [this post](https://stackoverflow.com/questions/47304291/heroku-upload-could-not-find-a-version-that-satisfies-the-requirement-anaconda/56754565)) from `requirements.txt` (but first, remember to [check this](#pip-freeze-warning)!)
+    * Heroku doesn't know how to serve static files, so it is better to install [Whitenoise](http://whitenoise.evans.io/en/stable/) and use it in the `MIDDLEWARE` section of your `settings.py` file
 
 * To deploy on [Docker](https://www.docker.com/)
 
-## **Definitely** review:
+## **Definitely** review
 * [Forms](https://docs.djangoproject.com/en/3.2/topics/forms/) and [Formsets](https://docs.djangoproject.com/en/3.2/topics/forms/formsets/)
 * Users' authentication and register page
 * How to use decorators
