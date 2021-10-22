@@ -5,11 +5,17 @@ nav:
   - Home: index.md
   - About: about.md
 
+# Repo info
+repo_url: https://github.com/sannae/the-notebook
+
+
 # Graphics
 theme:
   name: material
   logo: images/logo.png
   favicon: images/logo.png
+  icon:
+    repo: fontawesome/brands/git-alt
   # custom_dir: material
 
   # Color theme
