@@ -39,7 +39,32 @@ A schematic view is available below:
 <!-- {% This is an uncommented Django tag %} -->
 <!-- {#% This is a commented Django tag %#} -->
 ```
-* General application secrets (i.e. database user, database password, secret key, etc.) are decoupled from the application with a JSON file not tracked by Git and using the `get_secret` function in `settings.py`
+* General application secrets (i.e. database user, database password, secret key, etc.) are decoupled from the application with a JSON file not tracked by Git and using the `get_secret` function in `settings.py`. The function is:
+```python
+# Secrets
+with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
+    secrets = json.load(secrets_file)
+
+def get_secret(setting, secrets=secrets):
+    """Get secret setting or fail with ImproperlyConfigured"""
+    try:
+        return secrets[setting]
+    except KeyError:
+        raise ImproperlyConfigured("Set the {} setting".format(setting))
+```
+Then create your git-untracked `secrets.json` file with the following structure:
+```json
+{
+    "SECRET_KEY" : "YOUR_SECRET_KEY",
+    "DB_USER": "YOUR_DB_USER",
+    "DB_PASSWORD": "YOUR_DB_PASSWORD",
+    ...
+}
+```
+So that you can call your secrets from within the rest of the app by using:
+```python
+SECRET_KEY = get_secret('SECRET_KEY')
+```
 
 ### About user authentication
 * To restrict the user's login, add the `@login_required(login_url='login')` decorator from `django.contrib.auth.decorators` above any restricted view in `views.py` [**manual method**]
