@@ -1,5 +1,10 @@
 site_name: The Notebook
 
+# Nav bar
+nav:
+  - Home: index.md
+  - About: about.md
+
 # Graphics
 theme:
   name: material
@@ -25,11 +30,6 @@ theme:
     - navigation.indexes
     - navigation.top
 
-# Nav bar
-nav:
-  - Home: index.md
-  - About: about.md
-  
 # Extensions
 markdown_extensions:
   # Table of content
