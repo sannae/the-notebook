@@ -5,6 +5,8 @@ nav:
   - Home: index.md
   - About: about.md
   - Git: git.md
+  - Web:
+    - Django: web/django.md
 
 # Repo info
 repo_url: https://github.com/sannae/the-notebook
