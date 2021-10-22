@@ -58,3 +58,13 @@ markdown_extensions:
   # admonitions
   - admonition
   - pymdownx.details
+  # icons
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  # checklist
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - def_list
+  - pymdownx.arithmatex:
+      generic: true
