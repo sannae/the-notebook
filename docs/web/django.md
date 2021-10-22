@@ -23,7 +23,7 @@ View           | Template    | Responsible for generating the HTML and other UI
 Controller     | View        | Contains the logic to tie the other parts together and to generate a response to a user request
 ```
 A schematic view is available below:
-![Django Structure](./images/django-structure.png)
+![Django Structure](../images/django-structure.png)
 * The views of the app call the templates saved in `APPLICATION_NAME/templates/APPLICATION_NAME` (according to a Django's convention)
 * The templates use a combination of HTML/CSS/JS and Django's `{% block %}` syntax: this lets you modularize the code
 * The HTML/CSS/JS templates use [Bootstrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/)
