@@ -20,10 +20,10 @@ repo_url: https://github.com/sannae/the-notebook
 # Graphics
 theme:
   name: material
-  logo: images/logo.png
   favicon: images/logo.png
   icon:
     repo: fontawesome/brands/git-alt
+    logo: material/library
   # custom_dir: material
 
   # Color theme

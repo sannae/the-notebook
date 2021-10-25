@@ -2,6 +2,8 @@
 
 A few notes on setting up a Raspberry Pi 3 for some experiments.
 
+"Getting started" documentation: <https://www.raspberrypi.com/documentation/computers/getting-started.html> 
+
 ## Initial
 * Update all the packages
 ```bash
@@ -16,29 +18,29 @@ sudo apt-get update && sudo apt-get upgrade
     ```
 	use=web 
 	ssl=yes 
-	protocol=[provider]
-	login=[username]
-	password='[password]'
-	[full_hostname]
+	protocol=PROVIDER
+	login=MY_USERNAME
+	password='MY_PASSWORD'
+	FULL_HOSTNAME
     ```
     * Restart the service with `sudo service ddclient restart`
-    * Remember to create `[full_hostname]` on `[provider]`
+    * Remember to create `FULL_HOSTNAME` on `PROVIDER`
 * Set up static IP address
 ```bash
 # Set a static ip by editing /etc/dhcpcd.conf
 interface [eth0,wlan0] 
-static ip_address=[static_ip_address]
-static routers=[router_ip_address]
-static domain_name_servers=[dns_ip_address]
+static ip_address=STATIC_IP_ADDRESS
+static routers=ROUTER_IP_ADDRESS
+static domain_name_servers=DNS_IP_ADDRESS
 ```
 * Set port forwarding on router
 * Open SSH connection
     * Edit the file `/etc/ssh/sshd_config`:
     ```bash
-    port=[port_number]  # Change SSH default port 
+    port=PORT_NUMBER  # Change SSH default port 
     PermitRootlogin=no entry # Changed SSH login of root 
     AllowUsers=user # Allowed SSH login of 'user'
-    Banner=[path_of_banner_file] # Created ssh-banner file containing a warning, then edited Banner entry with the path
+    Banner=PATH_OF_BANNER_FILE # Created ssh-banner file containing a warning, then edited Banner entry with the path
     ```
     * Restart the service with `/etc/init.d/ssh restart`
     * Basically, now you can login as 'user' and then switch to a different administrator user
@@ -58,30 +60,30 @@ apt-get install exfat-fuse
 ```bash
 lsblk -o UUID,NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL,MODEL 
 ```  
-* Getting the location of the disk partition, usually /dev/<disk-location>
+* Getting the location of the disk partition, usually `/dev/DISK_LOCATION`
 ```bash
 blkid
 ```
 * Creating a target folder to be the mount point of the USB drive
 ```bash
-mkdir /mnt/[mount-point-name] 
+mkdir /mnt/MOUNT_POINT_NAME 
 ```
 * *Mounting the drive from the location of the partition to the mount point
 ```bash
-mount /dev/[disk-location] /mnt/[mount-point-name]
+mount /dev/DISK_LOCATION /mnt/MOUNT_POINT_NAME
 ```
 * Check the content of the drive
 ```
-ls -l /mnt/[mount-point-name]
+ls -l /mnt/MOUNT_POINT_NAME
 ```
 * Setting automounting
     * Retrieving the UUID
     ```bash
     blkid
     ```
-    * editing the file with the location of all partitions to be mounted at boot
+    * editing the file `/etc/fstab` with the location of all partitions to be mounted at boot. Add the line
     ```bash
-    nano /etc/fstab # add line "UUID=<UUID> /mnt/<mount-point-name> <format> <boot-options> 0 2"
+    UUID=<UUID> /mnt/MOUNT_POINT_NAME FORMAT BOOT_OPTIONS 0 2
     ```
 * Format the USB drive in VFAT
     * retrieving the partition location
@@ -90,11 +92,11 @@ ls -l /mnt/[mount-point-name]
     ```
     * unmounting: it's mandatory before formatting
     ```bash
-    umount /dev/[partition]
+    umount /dev/PARTITION
     ```
     * formatting with VFAT
     ```bash
-    mkfs.vfat -n '[partition-name]' /dev/[partition]  
+    mkfs.vfat -n 'PARTITION_NAME' /dev/PARTITION  
     ```
 USB key -made of one single VFAT partition- perfectly usable!
 
