@@ -4,6 +4,9 @@ site_name: The Notebook
 nav:
   - home: index.md
   - projects: projects.md
+  - cloud:
+    - aws: cloud/aws.md
+    - azure: cloud/azure.md
   - git: git.md
   - hw:
     - raspberry: hw/raspberrypi3.md
