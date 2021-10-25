@@ -3,7 +3,6 @@ site_name: The Notebook
 # Nav bar
 nav:
   - home: index.md
-  - about: about.md
   - projects: projects.md
   - git: git.md
   - hw:
