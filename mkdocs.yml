@@ -12,6 +12,7 @@ nav:
     - python: langs/python.md
   - web:
     - django: web/django.md
+    - rails: web/rails.md
 
 # Repo info
 repo_url: https://github.com/sannae/the-notebook
