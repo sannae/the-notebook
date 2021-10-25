@@ -17,6 +17,7 @@
 
 ## Misc.
 General ["build-your-own-x" projects](https://github.com/danistefanovic/build-your-own-x):
+
 * Python
     * Build a [stock market predictor](https://www.datacamp.com/community/tutorials/lstm-python-stock-market)
     * Build a [Web Server](https://ruslanspivak.com/lsbaws-part1/). Also a tutorial on 
