@@ -1,5 +1,8 @@
 # Django
 
+!!! info
+    My current Django project is [djangocrm](https://github.com/sannae/djangocrm).
+
 The main Django documentation is available [here](https://docs.djangoproject.com/en/).
 
 Another nice learning path is in [Microsoft Learn](https://docs.microsoft.com/en-us/learn/paths/django-create-data-driven-websites/).
