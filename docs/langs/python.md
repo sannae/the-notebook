@@ -1,7 +1,8 @@
 # Python
 
 ## Set up and use
-Setting up Python 3 in VS Code: https://code.visualstudio.com/docs/python/python-tutorial
+Setting up Python 3 in VS Code: <https://code.visualstudio.com/docs/python/python-tutorial>
+
 * `py -m pip install --upgrade pip` : it installs and upgrades pip
 * `py -m pip install MODULE`: it installs the required module
 
