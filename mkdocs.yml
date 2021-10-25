@@ -7,13 +7,12 @@ nav:
   - projects: projects.md
   - git: git.md
   - languages: 
-    - python: python.md
+    - python: languages/python.md
   - web:
     - django: web/django.md
 
 # Repo info
 repo_url: https://github.com/sannae/the-notebook
-
 
 # Graphics
 theme:
