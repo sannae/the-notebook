@@ -39,6 +39,7 @@ Atlassian's tutorials in [https://www.atlassian.com/git/tutorials](https://www.a
 
 ### Merge a branch
 Sample procedure:
+
 * `git checkout -b NEW-FEATURE main` : Start a new feature by creating the branch NEW-FEATURE from MAIN
 * `git add <file>`: add a new file in the feature
 * `git commit -m "Start a feature"`: commit the edit
@@ -48,11 +49,13 @@ Sample procedure:
 * `git push`: sync with remote repo
 
 ## .gitignore
+
 * Compile your `\.gitignore` file to prevent git from tracking files. Sample file:
 ```
 *.exe						# Ignore _all_ exe files
 .virtualenvironment/		# Ignore the folder .virtualenvironment and its whole content
 ```
+
 * Make git forget about a file that's been tracked since now:
 	* `git rm --cached <file>` - for the single file
 	* `git rm -r --cached <folder>` - for a whole folder and all files in it recursively

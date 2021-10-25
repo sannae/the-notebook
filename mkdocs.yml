@@ -7,7 +7,7 @@ nav:
   - projects: projects.md
   - git: git.md
   - languages: 
-    - python: languages/python.md
+    - python: langs/python.md
   - web:
     - django: web/django.md
 
