@@ -2,6 +2,8 @@
 
 The main Django documentation is available [here](https://docs.djangoproject.com/en/).
 
+Another nice learning path is in [Microsoft Learn](https://docs.microsoft.com/en-us/learn/paths/django-create-data-driven-websites/).
+
 ## Requirements
 * [Python](https://www.python.org/downloads/)
 * [Django](https://www.djangoproject.com/download/)
@@ -97,7 +99,7 @@ SECRET_KEY = get_secret('SECRET_KEY')
     * To show all the tables in the database, `\dt`
     * To look for a specific table in the database, `\dt *PATTERN*`
 
-### About deployment
+### Deployment
 * Before deploying, remember to:
     * Turn `Debug = FALSE` in `settings.py`
     * Add the remote host to the `ALLOWED_HOSTS` in `settings.py`, like
@@ -116,6 +118,8 @@ ALLOWED_HOSTS = [
     * Heroku doesn't know how to serve static files, so it is better to install [Whitenoise](http://whitenoise.evans.io/en/stable/) and use it in the `MIDDLEWARE` section of your `settings.py` file
 
 * To deploy on [Docker](https://www.docker.com/)
+
+* To deploy on [Azure Web Apps](https://docs.microsoft.com/en-us/learn/modules/django-deployment/)
 
 ## **Definitely** review
 * [Forms](https://docs.djangoproject.com/en/3.2/topics/forms/) and [Formsets](https://docs.djangoproject.com/en/3.2/topics/forms/formsets/)

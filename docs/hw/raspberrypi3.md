@@ -1,5 +1,8 @@
 # Raspberry Pi 3
 
+!!! info
+    My current Django project is [djangocrm](https://github.com/sannae/djangocrm).
+
 A few notes on setting up a Raspberry Pi 3 for some experiments.
 
 "Getting started" documentation: <https://www.raspberrypi.com/documentation/computers/getting-started.html> 
