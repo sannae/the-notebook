@@ -6,6 +6,8 @@ nav:
   - about: about.md
   - projects: projects.md
   - git: git.md
+  - hw:
+    - raspberry: hw/raspberrypi3.md
   - languages: 
     - python: langs/python.md
   - web:
