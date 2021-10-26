@@ -8,6 +8,13 @@
 !!! warning
     Always use a Powershell session as Administrator!
 
+### On Windows 11 / Windows 10 2004 build >= 19041
+
+### On Windows 10 1903 build >= 18362
+
+
+## To be ordered
+
 * Activate WSL
     * On Windows 10 build >= 19041 or Windows 11: `wsl --install`
     * On previous versions of Windows: 
