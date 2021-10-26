@@ -25,7 +25,7 @@ rbenv init # Copy in ~/.profile
     * Install the [yarn](https://yarnpkg.com/) package manager: `npm install -g yarn`
     * Install [node](https://nodejs.org/it/): `brew install node`
     * Install [libsqlite3-dev](https://packages.debian.org/it/sid/libsqlite3-dev): `apt-get install libsqlite3-dev`
-    * Install the rails gem: `gem install rails`
+    * Install the [rails gem](https://rubygems.org/gems/rails/versions/5.0.0): `gem install rails`
     * Install [webpacker](https://github.com/rails/webpacker): `rails webpacker:install`
 
 ### Get started
