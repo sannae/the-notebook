@@ -1,6 +1,8 @@
 # aws
 
-## Set up a remote dev environment on an EC2 Debian machine
+## EC2
+
+### Set up a remote dev environment on an EC2 Debian machine
 
 * Test SSH to remote host: `ssh -i FULL/PATH/TO/PRIVATE/KEYFILE.pem USER@REMOTE-HOSTNAME`
 > <kbd>-i</kbd>: A file from which the [identity key (private key)](https://www.ssh.com/academy/ssh/identity-key) for [public key authentication](https://www.ssh.com/academy/ssh/public-key-authentication) is read.

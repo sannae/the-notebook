@@ -12,7 +12,9 @@ nav:
   - hw:
     - raspberry: hw/raspberrypi3.md
   - languages: 
+    - powershell: langs/powershell.md
     - python: langs/python.md
+    - tsql: langs/tsql.md
   - web:
     - django: web/django.md
     - rails: web/rails.md

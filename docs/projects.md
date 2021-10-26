@@ -1,4 +1,9 @@
 # Projects
+
+> > "The better way to get a project done faster is to start sooner"- Jim Highsmith
+
+## Just ideas for now :bulb:
+
 * Store management website CRUD app
 * CRM dockerized web application
 * Ecommerce web site
