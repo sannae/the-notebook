@@ -9,4 +9,4 @@
     * Reduce permissions on the private key: <https://superuser.com/questions/1296024/windows-ssh-permissions-for-private-key-are-too-open>
 * Open and save SSH VSCode workspace
 * Forward used ports (`Rails` uses port 3000): `ssh -L 3000:localhost:3000 USER@REMOTE-HOSTNAME`
-* Ready to go!
+* Ready to go! :star_struck:
