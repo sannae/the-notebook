@@ -1,4 +1,4 @@
-# The Notebook
+# The Notebook :books:
 
 Welcome to my notes!
 
@@ -8,4 +8,6 @@ This notebook is a static website based on markdown documentation built with [Ma
 
 The website configuration (including navigation, custom themes, extensions, plugins, etc.) is available in the [mkdocs.yml](https://github.com/sannae/the-notebook/blob/main/mkdocs.yml) file.
 
-Publishing is made on [GitHub Pages](https://pages.github.com/) and is handled by [GitHub Actions](https://github.com/features/actions) with a [cloud-hosted runner](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners). The workflow is available [here](https://github.com/sannae/the-notebook/blob/main/.github/workflows/ci.yaml) and is triggered on any push on the `main` branch.
+Publishing is made on [GitHub Pages](https://pages.github.com/) and is handled by [GitHub Actions](https://github.com/features/actions) with a [cloud-hosted runner](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners). 
+
+The workflow YAML file is available [here](https://github.com/sannae/the-notebook/blob/main/.github/workflows/ci.yaml) and is triggered by any push on the `main` branch.
