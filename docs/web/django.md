@@ -1,11 +1,10 @@
 # Django
 
-!!! info
-    My current Django project is [djangocrm](https://github.com/sannae/djangocrm).
+The reference repository is [:github: sannae/djangocrm](https://github.com/sannae/djangocrm).
 
 The main Django documentation is available [here](https://docs.djangoproject.com/en/).
 
-Another nice learning path is in [Microsoft Learn](https://docs.microsoft.com/en-us/learn/paths/django-create-data-driven-websites/).
+Another nice learning path is in [:Microsoft: Microsoft Learn](https://docs.microsoft.com/en-us/learn/paths/django-create-data-driven-websites/).
 
 ## Requirements
 * [Python](https://www.python.org/downloads/)
@@ -102,7 +101,16 @@ SECRET_KEY = get_secret('SECRET_KEY')
     * To show all the tables in the database, `\dt`
     * To look for a specific table in the database, `\dt *PATTERN*`
 
-### Deployment
+## Testing
+* Check out the [Django documentation about testing tools!](https://docs.djangoproject.com/en/3.2/topics/testing/tools/)
+* To get started with testing, create a folder `APPLICATION_NAME\Tests` containing all your `test_WHATEVER.py` files, where WHATEVER includes models, views, forms, etc.
+    * In this case you will have to delete the `APPLICATION_NAME\tests.py` file, originally created with the app
+    * Remember to create the `__init__.py` file in the `Tests/` folder! Or the tests contained in it won't be found by the Django integrated test runner
+* To make Django go through the tests, just run `python3 -m manage test APPLICATION_NAME`: Django will recursively look for all the classes and functions whose name starts with `test*`
+* In any test, the `assert` statement is the one being tested: a failing test will return `AssertionError`
+* Assertions are part of the `SimpleTestCase` class, containing the most simple unit tests (like testing HTML responses, comparing URLs, verifying HTTP redirect, testing form fields, etc.)
+
+## Deployment
 * Before deploying, remember to:
     * Turn `Debug = FALSE` in `settings.py`
     * Add the remote host to the `ALLOWED_HOSTS` in `settings.py`, like
