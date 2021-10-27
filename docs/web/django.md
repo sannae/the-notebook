@@ -1,12 +1,13 @@
 # Django
 
-The reference repository is [:github: sannae/djangocrm](https://github.com/sannae/djangocrm).
+The reference repository is [:material-github: sannae/djangocrm](https://github.com/sannae/djangocrm).
 
 The main Django documentation is available [here](https://docs.djangoproject.com/en/).
 
-Another nice learning path is in [:Microsoft: Microsoft Learn](https://docs.microsoft.com/en-us/learn/paths/django-create-data-driven-websites/).
+Another nice learning path is in [:material-microsoft-windows: Microsoft Learn](https://docs.microsoft.com/en-us/learn/paths/django-create-data-driven-websites/).
 
 ## Requirements
+
 * [Python](https://www.python.org/downloads/)
 * [Django](https://www.djangoproject.com/download/)
 

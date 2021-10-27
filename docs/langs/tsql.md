@@ -1,10 +1,10 @@
 # tsql
 
-The reference repository is [:github: sannae/tsql-queries](https://github.com/sannae/tsql-queries).
+The reference repository is [:material-github: sannae/tsql-queries](https://github.com/sannae/tsql-queries).
 
 ## About database administration
 
-* [:github:](https://github.com/sannae/tsql-queries/blob/master/TSQL/Get-Connections.sql) List all the processes with an open connection to the current instance:
+* [:material-github:](https://github.com/sannae/tsql-queries/blob/master/TSQL/Get-Connections.sql) List all the processes with an open connection to the current instance:
 
 ```sql
 SELECT hostname, COUNT(hostname) AS Processes
@@ -15,7 +15,7 @@ GROUP BY hostname
 ORDER BY COUNT(hostname) DESC
 ```
 
-* [:github:](https://github.com/sannae/tsql-queries/blob/master/TSQL/Get-CurrentResources.sql) Show the currently allocated physical memory:
+* [:material-github:](https://github.com/sannae/tsql-queries/blob/master/TSQL/Get-CurrentResources.sql) Show the currently allocated physical memory:
 
 ```sql
 -- The following queries return information about currently allocated memory.
@@ -40,7 +40,7 @@ sqlserver_start_time,
 FROM sys.dm_os_sys_info;
 ```
 
-* [:github:](https://github.com/sannae/tsql-queries/blob/master/TSQL/Get-SqlErrorLogPath.sql) Retrieve the SQL Server Error Log: it returns the error log path for the current SQL Server instance ([guide here](https://blog.sqlauthority.com/2015/03/24/sql-server-where-is-errorlog-various-ways-to-find-its-location/)):
+* [:material-github:](https://github.com/sannae/tsql-queries/blob/master/TSQL/Get-SqlErrorLogPath.sql) Retrieve the SQL Server Error Log: it returns the error log path for the current SQL Server instance ([guide here](https://blog.sqlauthority.com/2015/03/24/sql-server-where-is-errorlog-various-ways-to-find-its-location/)):
 
 ```sql
 USE master
