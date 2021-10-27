@@ -42,6 +42,37 @@ sqlserver_start_time,
 FROM sys.dm_os_sys_info;
 ```
 
+* [:material-github:](https://github.com/sannae/tsql-queries/blob/master/Get-DatabaseAndTableSize.sql) It returns infos about the size of the database and the corresponding objects (tables, rows, etc.). On SQL Server:
+```sql
+/* SQL Server */
+-- Returns database Name, Log Size, Row Size, Total Size for current db
+SELECT 
+      [Database Name] = DB_NAME(database_id)
+    , [Log Size (MB)] = CAST(SUM(CASE WHEN type_desc = 'LOG' THEN size END) * 8./1024 AS DECIMAL(8,2))
+    , [Row Size (MB)] = CAST(SUM(CASE WHEN type_desc = 'ROWS' THEN size END) * 8./1024 AS DECIMAL(8,2))
+    , [Total Size (MB)] = CAST(SUM(size) * 8. / 1024 AS DECIMAL(8,2))
+FROM sys.master_files WITH(NOWAIT)
+WHERE database_id = DB_ID() -- for current db 
+GROUP BY database_id
+```                                                                
+And on MySQL:
+```sql
+/* MySql */
+-- Returns the database sizes in MB
+SELECT 
+  table_schema AS "Database", 
+  ROUND(SUM(data_length + index_length) / 1024 / 1024, 2) AS "Size (MB)" 
+FROM information_schema.TABLES 
+GROUP BY table_schema;
+
+-- Returns the table of a specific DATABASE_NAME
+SELECT table_name AS "Table",
+ROUND(((data_length + index_length) / 1024 / 1024), 2) AS "Size (MB)"
+FROM information_schema.TABLES
+WHERE table_schema = "database_name"
+ORDER BY (data_length + index_length) DESC;
+```
+
 ### Users and authentication
 
 * [:material-github:](https://github.com/sannae/tsql-queries/blob/master/TSQL/Set-SqlMixedAuthentication.sql) It activates the [:material-microsoft-windows: Mixed Mode Authentication](https://docs.microsoft.com/en-us/sql/relational-databases/security/choose-an-authentication-mode?view=sql-server-ver15#connecting-through-sql-server-authentication) in the current SQL Server instance:
@@ -181,4 +212,20 @@ LEFT OUTER JOIN sys.schemas s ON t.schema_id = s.schema_id
 WHERE t.NAME NOT LIKE 'dt%' AND t.is_ms_shipped = 0 AND i.OBJECT_ID > 255 
 GROUP BY t.Name, s.Name, p.Rows
 ORDER BY t.Name
+```
+
+* [:material-github:](https://github.com/sannae/tsql-queries/blob/master/New-TempTable.sql) Create a *+temporary table** with the result of two other `SELECT`s on other tables:
+```sql
+-- Total n.1
+DECLARE @Total1 NVARCHAR(100)
+SET @Total1 = (SELECT COUNT(*) AS [Total1] FROM Table1)
+-- Total n.2
+DECLARE @Total2 NVARCHAR(100)
+SET @Total2 = (SELECT COUNT(*) AS [Total2] FROM Table2)
+-- Summary table
+DECLARE @Totals TABLE (TableNumber NVARCHAR(100), Total INT)
+INSERT INTO @Totals VALUES
+	('Table1',@Total1),
+	('Table2',@Total2)
+SELECT * FROM @Totals
 ```
