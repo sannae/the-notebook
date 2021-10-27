@@ -44,7 +44,19 @@ FROM sys.dm_os_sys_info;
 
 ### Users and authentication
 
-* [:material-github](https://github.com/sannae/tsql-queries/blob/master/TSQL/Get-SqlUsersRoles.sql) It lists all SQL server users, specifying the corresponding roles:
+* [:material-github:](https://github.com/sannae/tsql-queries/blob/master/TSQL/Set-SqlMixedAuthentication.sql) It activates the [:material-microsoft-windows: Mixed Mode Authentication](https://docs.microsoft.com/en-us/sql/relational-databases/security/choose-an-authentication-mode?view=sql-server-ver15#connecting-through-sql-server-authentication) in the current SQL Server instance:
+
+```sql
+USE [master]
+GO
+/* [Note: 2 indicates mixed mode authentication. 1 is for windows only authentication] */
+EXEC xp_instance_regwrite N'HKEY_LOCAL_MACHINE', N'Software\Microsoft\MSSQLServer\MSSQLServer', N'LoginMode', REG_DWORD, 2
+GO
+```
+:warning: Remember to restart the SQL Server engine service!
+
+
+* [:material-github:](https://github.com/sannae/tsql-queries/blob/master/TSQL/Get-SqlUsersRoles.sql) It lists all SQL server users, specifying the corresponding roles:
 
 ```sql
 SELECT spU.name, MAX(CASE WHEN srm.role_principal_id = 3 THEN 1 END) AS sysadmin
@@ -107,18 +119,37 @@ GO
 
 ### Troubleshooting
 
+* [:material-github:](https://github.com/sannae/tsql-queries/blob/master/TSQL/Stop-SqlConnections.sql) Isolate the database (i.e. put it in "single user mode") from any connection in order to perform maintenance tasks:
+    ```sql
+    USE YOUR_DATABASE
+    GO
+    ALTER DATABASE YOUR_DATABASE
+    SET SINGLE_USER
+    WITH ROLLBACK IMMEDIATE
+    GO
+    ```
+    Then do all your operations, and finally:
+    ```sql
+    -- Set the database back in to multiple user mode
+    USE YOUR_DATABASE
+    GO
+    ALTER DATABASE YOUR_DATABASE 
+    SET MULTI_USER
+    GO
+    ```
+
 * [:material-github:](https://github.com/sannae/tsql-queries/blob/master/TSQL/Get-SqlErrorLogPath.sql) Retrieves the SQL Server Error Log: it returns the error log path for the current SQL Server instance ([guide here](https://blog.sqlauthority.com/2015/03/24/sql-server-where-is-errorlog-various-ways-to-find-its-location/)):
 
-```sql
-USE master
-GO
-EXEC xp_readerrorlog 0, 1, N'Logging SQL Server messages in file'
-GO
-```
-If the connection to SQL Server is not available, you may find the error log with the following options:
+    ```sql
+    USE master
+    GO
+    EXEC xp_readerrorlog 0, 1, N'Logging SQL Server messages in file'
+    GO
+    ```
+    If the connection to SQL Server is not available, you may find the error log with the following options:
 
-1. SQL Server Configuration Manager > SQL Server Services > SQL Server (INSTANCE_NAME) > Properties > Startup Parameters > add `-e`
-2. Open **regedit** > Go to `Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SQL Server\(version)\MSSQLServer\Parameters`
+    1. SQL Server Configuration Manager > SQL Server Services > SQL Server (INSTANCE_NAME) > Properties > Startup Parameters > add `-e`
+    2. Open **regedit** > Go to `Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SQL Server\(version)\MSSQLServer\Parameters`
 
 ## Browsing data and tables
 
