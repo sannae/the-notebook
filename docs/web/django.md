@@ -95,12 +95,7 @@ SECRET_KEY = get_secret('SECRET_KEY')
 
 #### Postgresql
 * After first testing, migrate the db from SQLite to PostgreSQL using [these instructions](https://medium.com/djangotube/django-sqlite-to-postgresql-database-migration-e3c1f76711e1).
-    * To start PostgreSQL CLI, `sudo -u postgres psql`
-    * To send a command, `sudo su - postgres -c "COMMAND"` 
-    * To list databases, `\l`
-    * To choose a database, `\c DATABASE_NAME`
-    * To show all the tables in the database, `\dt`
-    * To look for a specific table in the database, `\dt *PATTERN*`
+
 
 ## Testing
 * Check out the [Django documentation about testing tools!](https://docs.djangoproject.com/en/3.2/topics/testing/tools/)

@@ -9,6 +9,7 @@ nav:
     #- azure: cloud/azure.md
     - windows: cloud/windows.md
   - database:
+    - postgres: db/postgres.md
     - sqlserver: db/sqlserver.md
   - git: git.md
   - hw:
