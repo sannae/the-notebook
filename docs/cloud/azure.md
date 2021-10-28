@@ -13,12 +13,12 @@ Import-Module -Name Az
 ```powershell
 Connect-AzAccount
 ```
-* Create the Resource Group and the VM; remember to set the `$region` and the 
+* Create the Resource Group and the VM; remember to set the `$region` and the `$user` variables. The password is prompted interactively.
 ```powershell
 $ResourceGroup = 'dev-test'
 $region = 'westeurope'
-$usr = "edoardo.sanna"
 $passwd = ConvertTo-SecureString $(Read-Host "Password") -AsPlainText -Force
-$Credential = New-Object System.Management.Automation.PSCredential ($usr, $passwd);
+$Credential = New-Object System.Management.Automation.PSCredential ($user, $passwd);
 New-AzResourceGroup -Name $ResourceGroup -Location $region -Verbose
 New-AzVM -ResourceGroupName $ResourceGroup -Location $region -Name $ResourceGroup -Image Win2019Datacenter -Credential $Credential -Priority Spot -Verbose
+```

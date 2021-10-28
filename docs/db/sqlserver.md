@@ -1,10 +1,16 @@
-# tsql
+# Microsoft SQL Server
 
 The reference repository is [:material-github: sannae/tsql-queries](https://github.com/sannae/tsql-queries).
 
 ## About database administration
 
-### Resources and processes
+### Resources, services and processes
+
+* Name of the service and name of the instance:
+```sql
+select @@servername		-- Hostname and instance name
+select @@servicename	-- Instance service name
+```
 
 * [:material-github:](https://github.com/sannae/tsql-queries/blob/master/TSQL/Get-Connections.sql) List all the processes with an open connection to the current instance:
 
@@ -181,6 +187,11 @@ GO
 
     1. SQL Server Configuration Manager > SQL Server Services > SQL Server (INSTANCE_NAME) > Properties > Startup Parameters > add `-e`
     2. Open **regedit** > Go to `Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SQL Server\(version)\MSSQLServer\Parameters`
+
+* :name_badge: **Cannot open user default database:*_Cannot open user default database. Login Failed. Login failed for user... (Microsoft SQL Server, Error: 4064)
+    * Insert your login data in the connection window
+    * Advanced Options > Properties > Connect to database = `tempdb` (it's a temporary database, being re-created every time the SQL Server instance service is restarted. This gives you a temporary connection to work with.)
+
 
 ## Browsing data and tables
 
