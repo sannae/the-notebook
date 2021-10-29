@@ -44,6 +44,7 @@ All the required Python packages are listed in `requirements.txt` (to be updatab
         views.py            # views of the app
     ```
     * Remember to add the `APPLICATION_NAME\urls.py` to map the routes in your application
+    * Remember to register the application in the `PROJECT_NAME\apps.py` file and to add it to the `INSTALLED_APPS` list in `settings.py` or the project won't be able to load it when running!
 * The live web server is started with `py -m django manage runserver` and is reachable at <http://localhost:8000>
 * Django follows the MVC architecture (Model-View-Controller), although it uses a non-idiomatic way of naming its parts:  
 ```
