@@ -9,16 +9,41 @@ Another nice learning path is in [:material-microsoft-windows: Microsoft Learn](
 ## Requirements
 
 * [Python](https://www.python.org/downloads/)
-* [Django](https://www.djangoproject.com/download/)
+* [Django](https://www.djangoproject.com/download/), check if it's installed with a simple `python -m django --version`
 
 All the required Python packages are listed in `requirements.txt` (to be updatable with `pip freeze > requirements.txt`), run `pip install -r requirements.txt` to load them in your environment.
 
 <a name="pip-freeze-warning">:warning:</a> **Always** run `pip freeze` from a virtual environment! Or it will just go on filling with c**p when deploying from any Cloud platform.
 
 ## Random notes
-* The project structure is created with `py -m django startproject`
-    * The project automatically includes a `db.sqlite` database for testing purposes
-* Within the project, there may be several *apps*: each app structure is created with `py -m django startapp`
+* A **Django project** is "A Python package – i.e. a directory of code – that contains all the settings for an instance of Django. This would include database configuration, Django-specific options and application-specific settings." ([source](https://docs.djangoproject.com/en/3.2/glossary/#term-project) and [tutorial](https://docs.djangoproject.com/en/3.2/intro/tutorial01/#creating-a-project))
+* The project structure is created with `py -m django startproject PROJECT_NAME .`
+    * The `.` at the end tells `django` to create a project in the current directory: if you don't add it, it will create an additional subdirectory
+    * The command `startproject` will create the following folder structure:
+    ```
+    manage.py           # django command-line utility (check "python manage.py --help")
+    PROJECT_NAME/       # main project folder
+        __init__.py         # empty file telling Python that this directory should be considered a package
+        settings.py         # all of your settings or configurations
+        urls.py             # URLs within the project
+        asgi.py             # entry point for your web servers if asgi server is deployed
+        wsgi.py             # entry point for your web servers if wsgi server is deployed
+    ``` 
+    * The project automatically creates a `db.sqlite` database for testing purposes
+* Within the project, there may be several *apps*: each app structure is created with `py -m django startapp APPLICATION_NAME` (from the same directory as `manage.py`)
+    * The app has the following structure:
+    ```
+    APPLICATION_NAME/           # main app folder
+        __init__.py         # empty file telling Python that this directory should be considered a package   
+        admin.py            # file used to register admin templates
+        apps.py             # list of apps
+        migrations/         # list of migrations
+            __init__.py         # empty file telling Python that this directory should be considered a package 
+        models.py           # models of the app
+        tests.py            # tests included in the app, see the corresponding section
+        views.py            # views of the app
+    ```
+    * Remember to add the `APPLICATION_NAME\urls.py` to map the routes in your application
 * The live web server is started with `py -m django manage runserver` and is reachable at <http://localhost:8000>
 * Django follows the MVC architecture (Model-View-Controller), although it uses a non-idiomatic way of naming its parts:  
 ```
@@ -32,6 +57,20 @@ A schematic view is available below:
 * The views of the app call the templates saved in `APPLICATION_NAME/templates/APPLICATION_NAME` (according to a Django's convention)
 * The templates use a combination of HTML/CSS/JS and Django's `{% block %}` syntax: this lets you modularize the code
 * The HTML/CSS/JS templates use [Bootstrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/)
+* In using the `ForeignKey` relationship between a 'parent' field and a 'child' field in `models.py`, Django automatically adds a property to the parent to provide access to all children called <child>_set, where <child> is the name of the child object. Below an example:
+```python
+from django.db import models
+class Product(models.Model):
+    name = models.TextField()
+    category = models.ForeignKey(
+        'Category', #The name of the model
+        on_delete=models.PROTECT
+    )
+
+class Category(models.Model):
+    name = models.TextField()
+    # product_set will be automatically created
+```
 * Oversimplifying, to add a feature you
   1) Update the model in `models.py` (if needed)
   2) Create or update the corresponding view in `views.py`
@@ -118,6 +157,7 @@ ALLOWED_HOSTS = [
 ```
 
 * To deploy on [Heroku](https://www.heroku.com/), your project needs the [Gunicorn](https://gunicorn.org/) and [Whitenoise](http://whitenoise.evans.io/en/stable/) pip modules installed
+
     * After logging in (`heroku login -i`), connect to your Heroku app using the Heroku CLI an running `heroku git:remote --app=HEROKU_APP_NAME` to add a remote origin to your Git tracking in the project
     * Add a [`procfile`](https://devcenter.heroku.com/articles/procfile) (no extension!) to your project: it's needed by Heroku to specify a process type. Inside of it, just type `web: gunicorn YOUR_APP_WSGI_NAME.wsgi --log-file -`
     * Remember to specific a _build pack_ (i.e. Python) in your Heroku app settings
