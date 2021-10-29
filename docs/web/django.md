@@ -4,7 +4,7 @@ The reference repository is [:material-github: sannae/djangocrm](https://github.
 
 The main Django documentation is available [here](https://docs.djangoproject.com/en/).
 
-Another nice learning path is in [:material-microsoft-windows: Microsoft Learn](https://docs.microsoft.com/en-us/learn/paths/django-create-data-driven-websites/).
+Another nice learning path is in [:material-microsoft-windows: Microsoft Learn](https://docs.microsoft.com/en-us/learn/paths/django-create-data-driven-websites/) and in the [:material-youtube: Microsoft Developers](https://www.youtube.com/playlist?list=PLlrxD0HtieHjHCQ0JB_RrhbQp_9ccJztr) Youtube channel.
 
 ## Requirements
 
