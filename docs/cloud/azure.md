@@ -1,5 +1,7 @@
 # azure
 
+:material-microsoft-azure:
+
 ## Azure VMs
 
 ### Set up a Windows Server VM
