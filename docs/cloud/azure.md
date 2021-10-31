@@ -1,6 +1,4 @@
-# azure
-
-:material-microsoft-azure:
+# azure :material-microsoft-azure:
 
 ## Azure VMs
 

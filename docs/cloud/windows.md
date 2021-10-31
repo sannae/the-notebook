@@ -1,6 +1,4 @@
-# Windows 
-
-:material-microsoft-windows:
+# Windows :material-microsoft-windows:
 
 ## Windows Subsystems for Linux (WSL) 2
 
