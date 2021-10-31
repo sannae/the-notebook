@@ -110,8 +110,14 @@ So that you can call your secrets from within the rest of the app by using:
 ```python
 SECRET_KEY = get_secret('SECRET_KEY')
 ```
+* In the admin site, the display shows the **name** of the `Customer` or the `Product` for the registered models. This information appears because we set the `__str__` method on our objects. The default display of any object is the value returned by `__str__`.
+
 
 ### About user authentication
+* Django comes with a built-in user management and authentication system, where you can manage: 
+  * Simple users (`user`), unable to access the admin site
+  * Staff users (`staff`), i.e. accessing the admin site but unable to change Data
+  * superusers: you can create one with `python manage.py createsuperuser`
 * To restrict the user's login, add the `@login_required(login_url='login')` decorator from `django.contrib.auth.decorators` above any restricted view in `views.py` [**manual method**]
 * Likewise, you don't want any logged-in user to be able to access the `'login'` or the `'register'` page: add the `if request.user.is_authenticated` in those views to handle it [ **manual method** ]
 * Decorators can be listed in a dedicated `\APPLICATION_NAME\decorators.py` file. A **decorator** is a function that takes another function as a parameter. Decorators are called with the `@` symbol
