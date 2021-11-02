@@ -4,7 +4,7 @@ Welcome to my notes!
 
 ## About this documentation
 
-This notebook is a collection of ideas, code snippets, projects, interesting articles, links to blog posts, and anything else catching my attention. Here I gather troubleshooting procedures, notes while learning new languages or technologies, and so on. 
+This notebook is a collection of ideas, code snippets, projects, interesting articles, links to blog posts, and anything else catching my attention.
 
 ### Workflow behind these docs
 

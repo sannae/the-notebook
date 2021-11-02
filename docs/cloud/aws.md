@@ -1,4 +1,4 @@
-# aws
+# aws :material-aws:
 
 ## EC2
 

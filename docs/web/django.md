@@ -2,9 +2,10 @@
 
 The reference repository is [:material-github: sannae/djangocrm](https://github.com/sannae/djangocrm).
 
-The main Django documentation is available [here](https://docs.djangoproject.com/en/).
+Resources:
 
-Another nice learning path is in [:material-microsoft-windows: Microsoft Learn](https://docs.microsoft.com/en-us/learn/paths/django-create-data-driven-websites/) and in the [:material-youtube: Microsoft Developers](https://www.youtube.com/playlist?list=PLlrxD0HtieHjHCQ0JB_RrhbQp_9ccJztr) Youtube channel.
+* The main Django documentation is available [here](https://docs.djangoproject.com/en/).
+* Another nice learning path is in [:material-microsoft-windows: Microsoft Learn](https://docs.microsoft.com/en-us/learn/paths/django-create-data-driven-websites/) and in the [:material-youtube: Microsoft Developers](https://www.youtube.com/playlist?list=PLlrxD0HtieHjHCQ0JB_RrhbQp_9ccJztr) Youtube channel.
 
 ## Requirements
 
@@ -44,6 +45,7 @@ All the required Python packages are listed in `requirements.txt` (to be updatab
         views.py            # views of the app
     ```
     * Remember to add the `APPLICATION_NAME\urls.py` to map the routes in your application
+    * Remember to register the application in the `PROJECT_NAME\apps.py` file and to add it to the `INSTALLED_APPS` list in `settings.py` or the project won't be able to load it when running!
 * The live web server is started with `py -m django manage runserver` and is reachable at <http://localhost:8000>
 * Django follows the MVC architecture (Model-View-Controller), although it uses a non-idiomatic way of naming its parts:  
 ```
@@ -124,12 +126,31 @@ SECRET_KEY = get_secret('SECRET_KEY')
 ### About database and relationships
 * To initiate the database, run `py -m manage migrate`: the database's settings are in `SETTINGS.py` and SQLite3 is the default.
 * To run progressive migrations, edit your models then run `py -m manage makemigrations` to create your migration files (preparation files before actual migration) in `/APPLICATION_NAME/migrations/`. Remember to register your models in the _admin_ panel to see them.
+> The `makemigrations` command uses the current list of migrations to get a starting point, and then uses the current state of your models to determine the delta (the changes that need to be made). It then generates the necessary code to update the database. 
+* To view the SQL commands related to a specific migration, run `python manage.py sqlmigrate APPLICATION_NAME MIGRATION_NAME`
+* To list the migrations, `python manage.py showmigrations`
 * To retrieve data from the db, use [this reference guide](https://docs.djangoproject.com/en/2.2/ref/models/querysets):
   1) Open your Django shell (`py -m manage shell`)
   2) Import all your models (`from APPLICATION_NAME.models import *`)
   3) Specific tables are then available as objects with `TABLENAME.objects.all()` and other methods. 
      1) Example: to retrieve all the customers saved with the `Customer` method, run `Customer.objects.all()`
      2) Example: to retrieve all the customers with a specific name, run `Customer.objects.all().filter(name="YOURNAME")`
+* For foreign keys, you can use the `_set` property of the parent object:
+```python
+Product.customer_set.all()
+```
+* Example of `INSERT` from `python manage.py shell`:
+```python
+first_customer = Customer(
+  name="Mary Ann", 
+  location="USA",
+  ...)
+first_customer.save()
+```
+or
+```python
+Product(name="Shoes", customer=first_customer).save()
+```
 * A function to specifically create random orders was implemented in the `management\commands\populate-db.py` function, inspired by [this article](https://testdriven.io/blog/django-charts/).
 
 #### Postgresql
