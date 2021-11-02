@@ -8,7 +8,7 @@ Another nice learning path is in [:material-microsoft-windows: Microsoft Learn](
 
 ## Requirements
 
-* [Python](https://www.python.org/downloads/)
+* [Python](https://www.python.org/downloads/) (`python3 -V` on Linux, `python -V` on Windows)
 * [Django](https://www.djangoproject.com/download/), check if it's installed with a simple `python -m django --version`
 
 All the required Python packages are listed in `requirements.txt` (to be updatable with `pip freeze > requirements.txt`), run `pip install -r requirements.txt` to load them in your environment.
@@ -57,7 +57,7 @@ A schematic view is available below:
 * The views of the app call the templates saved in `APPLICATION_NAME/templates/APPLICATION_NAME` (according to a Django's convention)
 * The templates use a combination of HTML/CSS/JS and Django's `{% block %}` syntax: this lets you modularize the code
 * The HTML/CSS/JS templates use [Bootstrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/)
-* In using the `ForeignKey` relationship between a 'parent' field and a 'child' field in `models.py`, Django automatically adds a property to the parent to provide access to all children called <child>_set, where <child> is the name of the child object. Below an example:
+* In using the `ForeignKey` relationship between a 'parent' field and a 'child' field in `models.py`, Django automatically adds a property to the parent to provide access to all children called `<child>_set`, where `<child>` is the name of the child object. Below an example:
 ```python
 from django.db import models
 class Product(models.Model):
