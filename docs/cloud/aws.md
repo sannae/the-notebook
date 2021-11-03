@@ -12,3 +12,43 @@
 * Open and save SSH VSCode workspace
 * Forward used ports (`Rails` uses port 3000): `ssh -L 3000:localhost:3000 USER@REMOTE-HOSTNAME`
 * Ready to go! :star_struck:
+
+## S3
+
+### Connect your web project with an S3 bucket
+
+* Create your S3 bucket on aws.amazon.com
+* In Properties > Permissions > CORS (Cross-Origin Resource Sharing) Configuration, add
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+<CORSRule>
+    <AllowedOrigin>*</AllowedOrigin>
+    <AllowedMethod>GET</AllowedMethod>
+    <AllowedMethod>POST</AllowedMethod>
+    <AllowedMethod>PUT</AllowedMethod>
+    <AllowHeader>*</AllowHeader>
+</CORSRule>
+</CORSConfiguration>
+```
+Or, in JSON format
+```json
+[
+    {
+        "AllowedOrigins": [
+            "*"
+        ],
+        "AllowedMethods": [
+            "GET",
+            "POST",
+            "PUT"
+        ],
+        "AllowedHeaders": [
+                "*"
+        ],
+    }
+]
+```
+* Go to `IAM > Users` and create a new user selecting `Programmatic Access Type`
+* To the same user, in `Set Permissions`, select `Attach existing policies direcly` and choose `AmazonS3FullAccess`
+* This will create a special **Access key ID** and **Secret Access Key** that you can copy and paste in your secrets management function

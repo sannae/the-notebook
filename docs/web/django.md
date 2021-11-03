@@ -110,6 +110,19 @@ So that you can call your secrets from within the rest of the app by using:
 ```python
 SECRET_KEY = get_secret('SECRET_KEY')
 ```
+* To upload the static files into an [AWS S3 bucket](./../cloud/aws.md), check out the documentation of [django-storages](https://django-storages.readthedocs.io/en/latest/). You basically need the `django-storages` and `boto3` Python libraries, as well as the following additional settings in `settings.py`:
+```python
+AWS_ACCESS_KEY_ID = get_secret('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = get_secret('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = get_secret('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_HOST = 's3.eu-west-3.amazonaws.com'
+AWS_S3_REGION_NAME = 'eu-west-3'
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+```
+Here's a [nice tutorial on creating a Django project with static files on AWS S3](https://testdriven.io/blog/storing-django-static-and-media-files-on-amazon-s3/) and Docker Compose. [This one also](https://www.caktusgroup.com/blog/2014/11/10/Using-Amazon-S3-to-store-your-Django-sites-static-and-media-files/#s3-bucket-access) is a _very_ good article.
 
 ### About user authentication
 * To restrict the user's login, add the `@login_required(login_url='login')` decorator from `django.contrib.auth.decorators` above any restricted view in `views.py` [**manual method**]
