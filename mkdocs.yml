@@ -6,7 +6,7 @@ nav:
   - projects: projects.md
   - cloud:
     - aws: cloud/aws.md
-    #- azure: cloud/azure.md
+    - azure: cloud/azure.md
     - windows: cloud/windows.md
   - database:
     - postgres: db/postgres.md
