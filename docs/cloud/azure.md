@@ -1,10 +1,16 @@
 # azure :material-microsoft-azure:
 
+## Resources
+
+* Adam Marczak's [Azure for Everyone]() and especially its [Azure Fundamentals]() playlist
+* John Savill's [Azure Masterclass]()
+* The [Azure Fundamentals Learning Path]() in [Microsoft Learn]()
+
 ## Azure VMs
 
-### Set up a Windows Server VM
+### Set up a Windows Server VM with the Azure Powershell Module
 
-* Install and import the Azure Powershell module in the current session
+* Install and import the Azure `Az` Powershell module in the current session
 ```powershell
 Install-Module -Name Az -Force -Verbose
 Import-Module -Name Az
