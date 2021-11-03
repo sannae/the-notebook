@@ -2,13 +2,13 @@
 
 ## Resources
 
-* Adam Marczak's [Azure for Everyone]() and especially its [Azure Fundamentals]() playlist
-* John Savill's [Azure Masterclass]()
-* The [Azure Fundamentals Learning Path]() in [Microsoft Learn]()
+* Adam Marczak's [Azure for Everyone](https://www.youtube.com/channel/UCdmEIMC3LBil4o0tjaTbj0w) and especially its [Azure Fundamentals](https://www.youtube.com/playlist?list=PLGjZwEtPN7j-Q59JYso3L4_yoCjj2syrM) playlist
+* John Savill's [Azure Masterclass](https://www.youtube.com/playlist?list=PLlVtbbG169nGccbp8VSpAozu3w9xSQJoY)
+* The [Azure Fundamentals Learning Path](https://docs.microsoft.com/en-us/learn/paths/az-900-describe-cloud-concepts/) in [Microsoft Learn](https://docs.microsoft.com/en-us/learn/)
 
 ## Azure VMs
 
-### Set up a Windows Server VM with the Azure Powershell Module
+### Set up a spot Windows Server 2019 VM with the Azure Powershell Module
 
 * Install and import the Azure `Az` Powershell module in the current session
 ```powershell
