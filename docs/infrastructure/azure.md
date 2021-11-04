@@ -1,10 +1,10 @@
 # azure :material-microsoft-azure:
 
-## :notepad: Resources
+## Resources
 
 * Adam Marczak's [:material-youtube: Azure for Everyone](https://www.youtube.com/channel/UCdmEIMC3LBil4o0tjaTbj0w) and especially its [:material-youtube: Azure Fundamentals](https://www.youtube.com/playlist?list=PLGjZwEtPN7j-Q59JYso3L4_yoCjj2syrM) playlist
 * John Savill's [:material-youtube: Azure Masterclass](https://www.youtube.com/playlist?list=PLlVtbbG169nGccbp8VSpAozu3w9xSQJoY)
-* The [Azure Fundamentals Learning Path](https://docs.microsoft.com/en-us/learn/paths/az-900-describe-cloud-concepts/) in [Microsoft Learn](https://docs.microsoft.com/en-us/learn/)
+* The [Azure Fundamentals Learning Path](https://docs.microsoft.com/en-us/learn/paths/az-900-describe-cloud-concepts/) in [:material-microsoft: Microsoft Learn](https://docs.microsoft.com/en-us/learn/)
 
 ## Azure VMs
 
@@ -25,6 +25,8 @@ $ResourceGroup = 'dev-test'
 $region = 'westeurope'
 $passwd = ConvertTo-SecureString $(Read-Host "Password") -AsPlainText -Force
 $Credential = New-Object System.Management.Automation.PSCredential ($user, $passwd);
+# Create resource group
 New-AzResourceGroup -Name $ResourceGroup -Location $region -Verbose
+# Create VM
 New-AzVM -ResourceGroupName $ResourceGroup -Location $region -Name $ResourceGroup -Image Win2019Datacenter -Credential $Credential -Priority Spot -Verbose
 ```
