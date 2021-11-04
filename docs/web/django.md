@@ -58,6 +58,8 @@ A schematic view is available below:
 ![Django Structure](../static/images/django-structure.png)
 * The views of the app call the templates saved in `APPLICATION_NAME/templates/APPLICATION_NAME` (according to a Django's convention)
 * The templates use a combination of HTML/CSS/JS and Django's `{% block %}` syntax: this lets you modularize the code
+* The variables in the templates are called like in the corresponding views and rendered with the field `{{ variable }}`
+    * They can even be piped to a specific function within the double curly braces, like in `{{ variable.field | function }}`
 * The HTML/CSS/JS templates use [Bootstrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/)
 * In using the `ForeignKey` relationship between a 'parent' field and a 'child' field in `models.py`, Django automatically adds a property to the parent to provide access to all children called `<child>_set`, where `<child>` is the name of the child object. Below an example:
 ```python

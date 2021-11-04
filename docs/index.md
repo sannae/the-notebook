@@ -2,6 +2,10 @@
 
 Welcome to my notes!
 
+!!! info
+    * unordered list item
+    * unordered list item
+
 ## About this documentation
 
 This notebook is a collection of ideas, code snippets, projects, interesting articles, links to blog posts, and anything else catching my attention.
