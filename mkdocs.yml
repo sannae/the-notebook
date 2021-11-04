@@ -7,6 +7,7 @@ nav:
   - infrastructure:
     - aws: infrastructure/aws.md
     - azure: infrastructure/azure.md
+    - docker: infrastructure/docker.md
     - windows: infrastructure/windows.md
   - database:
     - postgres: db/postgres.md
