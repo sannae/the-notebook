@@ -1,9 +1,9 @@
 # azure :material-microsoft-azure:
 
-## Resources
+## :notepad: Resources
 
-* Adam Marczak's [Azure for Everyone](https://www.youtube.com/channel/UCdmEIMC3LBil4o0tjaTbj0w) and especially its [Azure Fundamentals](https://www.youtube.com/playlist?list=PLGjZwEtPN7j-Q59JYso3L4_yoCjj2syrM) playlist
-* John Savill's [Azure Masterclass](https://www.youtube.com/playlist?list=PLlVtbbG169nGccbp8VSpAozu3w9xSQJoY)
+* Adam Marczak's [:material-youtube: Azure for Everyone](https://www.youtube.com/channel/UCdmEIMC3LBil4o0tjaTbj0w) and especially its [:material-youtube: Azure Fundamentals](https://www.youtube.com/playlist?list=PLGjZwEtPN7j-Q59JYso3L4_yoCjj2syrM) playlist
+* John Savill's [:material-youtube: Azure Masterclass](https://www.youtube.com/playlist?list=PLlVtbbG169nGccbp8VSpAozu3w9xSQJoY)
 * The [Azure Fundamentals Learning Path](https://docs.microsoft.com/en-us/learn/paths/az-900-describe-cloud-concepts/) in [Microsoft Learn](https://docs.microsoft.com/en-us/learn/)
 
 ## Azure VMs
