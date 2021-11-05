@@ -2,16 +2,17 @@
 
 ## Resources
 
-* [:material-docker: Docker docs](https://docs.docker.com/)!
+* [:material-docker: Docker docs](https://docs.docker.com/)! The starting point
 * [:material-youtube: Dev containers](https://www.youtube.com/playlist?list=PLj6YeMhvp2S5G_X6ZyMc8gfXPMFPg3O31), a playlist from the VS Code YouTube channel about containerized dev environments
 
 ## Architecture
 
 * Container virtualization layers:
-
 ![container-virtualization-layers](https://docs.microsoft.com/en-us/learn/modules/intro-to-docker-containers/media/5-efficient-use-hardware.svg)
 
 * Components of the Docker Engine:
+    * **docker client**: a CLI-based application named `docker` to interact with the local or remote Docker server via the Docker REST API. 
+    * **docker server** or **docker daemon**: a daemon named `dockerd`, responding to requests from the client via the Docker REST API and interacting with other daemons.
 
 ![components-of-docker-engine](https://docs.microsoft.com/en-us/learn/modules/intro-to-docker-containers/media/2-docker-architecture.svg)
 
@@ -37,15 +38,12 @@
 
 > Example: `docker pull postgres:14.0-alpine` will download the official `postgres` image at its 14th version on Linux Alpine
 
-#### Issues
-
-**How to pull the image of a specific distro (es. Alpine) without specifying the tag version?**
-
-Optional answer (:warning: to be tested): get all the tags of a specific `image` in a list (you will need the JSON processor [jq](https://stedolan.github.io/jq/), just use `apt-get install jq`) and filtering them by distro with `grep`:
-```bash
-wget -q https://registry.hub.docker.com/v1/repositories/postgres/tags -O - | jq -r '.[].name' | grep '-alpine'
-```
-Replace `postgres` with your image name
+!!! info
+    **How to pull the image of a specific distro (es. Alpine) without specifying the tag version?** (:warning: to be tested): get all the tags of a specific `image` in a list (you will need the JSON processor [jq](https://stedolan.github.io/jq/), just use `apt-get install jq`) and filtering them by distro with `grep`:
+    ```bash
+    wget -q https://registry.hub.docker.com/v1/repositories/postgres/tags -O - | jq -r '.[].name' | grep '\-alpine'
+    ```
+    Replace `postgres` with your image name
 
 ### Containers
 
