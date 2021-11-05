@@ -2,9 +2,6 @@
 
 Welcome to my notes!
 
-!!! info
-    * unordered list item
-    * unordered list item
 
 ## About this documentation
 

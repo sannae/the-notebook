@@ -47,10 +47,14 @@
 
 ### Containers
 
+### Operate on containers
+
 * `docker container`: main command for managing containers
     * `docker container ls -al`: it lists all the containers, even the stopped ones
     * `docker container rm CONTAINER_ID`: it removes the container with the specified ID
     * `docker container cp FILE CONTAINER_NAME:/`: it copies `FILE` in the root folder of the `CONTAINER_NAME`
+
+### Run containers
 
 * `docker run`: main command for running containers
     * `docker run --name YOUR_CONTAINER_NAME -e ENVIRONMENT_VARIABLE=variable_value -d IMAGE_NAME`: it will run (and optionally pull, if the corresponding `IMAGE_NAME` hasn't been downloaded yet) a new container in the background (detached mode, or `-d`), naming it `YOUR_CONTAINER_NAME` and setting the specified `ENVIRONMENT_VARIABLE`
@@ -60,10 +64,14 @@
 
 :warning: The error **docker: Error response from daemon: driver failed programming external connectivity on endpoint ...: Error starting userland proxy: listen tcp4 0.0.0.0:5432: bind: address already in use** means that the specified local port (i.e. in the example, the bind `0.0.0.0:5432`) is already used by another process... Just change the host port :ok_hand:.
 
+### Execute commands on containers
+
 * `docker exec`: main command for executing commands on a container
     * `docker exec -it CONTAINER_NAME_OR_ID COMMAND [ARGS]`: it will run interactively (i.e. by opening a shell session, `-it`) the `COMMAND` with its `ARGS` in the `CONTAINER_NAME_OR_ID`
 
 > Example: `docker exec -it postgres14 psql -U root`
+
+### View container logs
 
 * `docker logs CONTAINER_NAME_OR_ID`: it shows the logs of the specified `CONTAINER_NAME_OR_ID`
 

@@ -22,7 +22,6 @@ The command `echo $?` will return the exit code of `pg_isready`, i.e.
     * `3` = no attempt was made (for example due to invalid parameters).
 
 
-
 ## Random notes
 
 * A `bigserial` type of number is a "big (8byte/64bit) autoincrementing integer"
@@ -112,6 +111,7 @@ Notice the `bigserial` number type and the `now()` function in the dbdiagram syn
 ## Deploy on [:material-docker: Docker](./../infrastructure/docker.md)
 
 * All the steps to set up a running `postgres` Docker container are exhaustively explained in the [description of the official postgres image](https://hub.docker.com/_/postgres?tab=description) on Docker Hub.
+
 * To run *.sql scripts on a postgres container, 
     1. Copy your `SCRIPT.sql` file to the `CONTAINER_NAME` running container's root:
     ```bash
@@ -126,3 +126,6 @@ Notice the `bigserial` number type and the `now()` function in the dbdiagram syn
     ```bash
     docker container exec -it CONTAINER_NAME psql --dbname=your_database_name --username root -f /SCRIPT.sql
     ```
+
+!!! warning
+    This whole sequence could probably be bypassed by using a Dockerfile
