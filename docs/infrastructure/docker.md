@@ -2,15 +2,20 @@
 
 ## Resources
 
+* [:material-docker: Docker docs](https://docs.docker.com/)!
 * [:material-youtube: Dev containers](https://www.youtube.com/playlist?list=PLj6YeMhvp2S5G_X6ZyMc8gfXPMFPg3O31), a playlist from the VS Code YouTube channel about containerized dev environments
 
 ## Architecture
 
-* Components of the Docker Engine
+* Container virtualization layers:
+
+![container-virtualization-layers](https://docs.microsoft.com/en-us/learn/modules/intro-to-docker-containers/media/5-efficient-use-hardware.svg)
+
+* Components of the Docker Engine:
 
 ![components-of-docker-engine](https://docs.microsoft.com/en-us/learn/modules/intro-to-docker-containers/media/2-docker-architecture.svg)
 
-* Container lifecycle
+* Container lifecycle:
 
 ![container-lifecycle](https://docs.microsoft.com/en-us/learn/modules/intro-to-docker-containers/media/4-docker-container-lifecycle.svg)
 
@@ -32,7 +37,9 @@
 
 > Example: `docker pull postgres:14.0-alpine` will download the official `postgres` image at its 14th version on Linux Alpine
 
-### How to pull the image of a specific distro (es. Alpine) without specifying the tag version?
+#### Issues
+
+**How to pull the image of a specific distro (es. Alpine) without specifying the tag version?**
 
 Optional answer (:warning: to be tested): get all the tags of a specific `image` in a list (you will need the JSON processor [jq](https://stedolan.github.io/jq/), just use `apt-get install jq`) and filtering them by distro with `grep`:
 ```bash

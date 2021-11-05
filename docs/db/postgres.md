@@ -9,7 +9,7 @@
     * To choose a database, `\c DATABASE_NAME`
     * To show all the tables in the database, `\dt`
     * To look for a specific table in the database, `\dt *PATTERN*`
-    * To create a database, `create database YOUR_DATABASE_NAME`
+    * To create a database, `CREATE DATABASE your_db_name;`
 
 * To test a connection to a specific database, use [pg_isready](https://www.postgresql.org/docs/current/app-pg-isready.html):
 ```bash
@@ -20,6 +20,8 @@ The command `echo $?` will return the exit code of `pg_isready`, i.e.
     * `1` = the server is rejecting connections (e.g. during startup)
     * `2` = there was no response to the connection attempt
     * `3` = no attempt was made (for example due to invalid parameters).
+
+
 
 ## Random notes
 
@@ -115,10 +117,12 @@ Notice the `bigserial` number type and the `now()` function in the dbdiagram syn
     ```bash
     docker container cp SCRIPT.sql CONTAINER_NAME:/
     ```
-    2. Instruct the `psql` client to run the file you just copied as the default username `root` on the default database `root`
+    2. Verify that the file is there:
     ```bash
-    docker container exec -it CONTAINER_NAME psql --dbname=root --username root -f /SCRIPT.sql
+    docker container exec -it CONTAINER_NAME bash
     ```
-
-!!! question
-    How do I create a new database within a postgres container?
+    Then `ls SCRIPT*`
+    3. Instruct the `psql` client to run the file you just copied as the default username `root` on the database `your_database_name`
+    ```bash
+    docker container exec -it CONTAINER_NAME psql --dbname=your_database_name --username root -f /SCRIPT.sql
+    ```
