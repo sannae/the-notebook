@@ -2,6 +2,9 @@
 
 Welcome to my notes!
 
+
+
+
 ## About this documentation
 
 This notebook is a collection of ideas, code snippets, projects, interesting articles, links to blog posts, and anything else catching my attention.

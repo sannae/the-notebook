@@ -81,7 +81,7 @@ ORDER BY (data_length + index_length) DESC;
 
 ### Users and authentication
 
-* [:material-github:](https://github.com/sannae/tsql-queries/blob/master/TSQL/Set-SqlMixedAuthentication.sql) It activates the [:material-microsoft-windows: Mixed Mode Authentication](https://docs.microsoft.com/en-us/sql/relational-databases/security/choose-an-authentication-mode?view=sql-server-ver15#connecting-through-sql-server-authentication) in the current SQL Server instance:
+* [:material-github:](https://github.com/sannae/tsql-queries/blob/master/TSQL/Set-SqlMixedAuthentication.sql) It activates the [:material-microsoft: Mixed Mode Authentication](https://docs.microsoft.com/en-us/sql/relational-databases/security/choose-an-authentication-mode?view=sql-server-ver15#connecting-through-sql-server-authentication) in the current SQL Server instance:
 
 ```sql
 USE [master]
@@ -125,7 +125,7 @@ GO
 
 ### Data and log files
 
-* [:material-github:](https://github.com/sannae/tsql-queries/blob/master/TSQL/Restore-DatabaseBackupWithMove.sql) It restores a backup set from a bak file in the current SQL Server instance, also moving the corresponding files (i.e. basically restoring to a new location, you can find a good guide on this [:material-microsoft-windows: Microsoft Docs page](https://docs.microsoft.com/en-us/sql/relational-databases/backup-restore/restore-a-database-to-a-new-location-sql-server?view=sql-server-ver15)). 
+* [:material-github:](https://github.com/sannae/tsql-queries/blob/master/TSQL/Restore-DatabaseBackupWithMove.sql) It restores a backup set from a bak file in the current SQL Server instance, also moving the corresponding files (i.e. basically restoring to a new location, you can find a good guide on this [:material-microsoft: Microsoft Docs page](https://docs.microsoft.com/en-us/sql/relational-databases/backup-restore/restore-a-database-to-a-new-location-sql-server?view=sql-server-ver15)). 
     * Start by getting the logical names of the data and log files. The following `RESTORE` statement cannot be embedded into a `SELECT`, although you can use it to `INSERT` the values in a temporary table (following [:material-stack-overflow: this answer on Stack Overflow](https://stackoverflow.com/a/4018782))
     ```sql
     -- Get logical names

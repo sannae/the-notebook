@@ -2,7 +2,8 @@
 
 A few notes on setting up a Raspberry Pi 3 for some experiments.
 
-"Getting started" documentation: <https://www.raspberrypi.com/documentation/computers/getting-started.html> 
+??? Resources
+    * "Getting started" documentation: <https://www.raspberrypi.com/documentation/computers/getting-started.html> 
 
 ## Initial
 * Update all the packages

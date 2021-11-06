@@ -4,14 +4,18 @@ site_name: The Notebook
 nav:
   - home: index.md
   - projects: projects.md
-  - cloud:
-    - aws: cloud/aws.md
-    #- azure: cloud/azure.md
-    - windows: cloud/windows.md
-  - database:
+  - cloud&os:
+    - aws: infrastructure/aws.md
+    - azure: infrastructure/azure.md
+    - docker: infrastructure/docker.md
+    - windows: infrastructure/windows.md
+  - db:
     - postgres: db/postgres.md
     - sqlserver: db/sqlserver.md
-  - git: git.md
+  - dev: 
+    - git: dev/git.md
+    #- github: dev/github.md
+    #- gitpod: dev/gitpod.md
   - hw:
     - raspberry: hw/raspberrypi3.md
   - scripts: 
