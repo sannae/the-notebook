@@ -2,10 +2,8 @@
 
 Welcome to my notes!
 
-Test for embedded drawio:
 
-Image:
-![diagram-img](./static/index-image.html)
+
 
 ## About this documentation
 

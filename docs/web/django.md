@@ -17,6 +17,9 @@ All the required Python packages are listed in `requirements.txt` (to be updatab
 <a name="pip-freeze-warning">:warning:</a> **Always** run `pip freeze` from a virtual environment! Or it will just go on filling with c**p when deploying from any Cloud platform.
 
 ## Random notes
+
+### About Django's architecture and MVT pattern
+
 * A **Django project** is "A Python package – i.e. a directory of code – that contains all the settings for an instance of Django. This would include database configuration, Django-specific options and application-specific settings." ([source](https://docs.djangoproject.com/en/3.2/glossary/#term-project) and [tutorial](https://docs.djangoproject.com/en/3.2/intro/tutorial01/#creating-a-project))
 * The project structure is created with `py -m django startproject PROJECT_NAME .`
     * The `.` at the end tells `django` to create a project in the current directory: if you don't add it, it will create an additional subdirectory
@@ -56,36 +59,10 @@ Controller     | View        | Contains the logic to tie the other parts togethe
 ```
 A schematic view is available below:
 ![Django Structure](../static/images/django-structure.png)
-* The views of the app call the templates saved in `APPLICATION_NAME/templates/APPLICATION_NAME` (according to a Django's convention)
-* The templates use a combination of HTML/CSS/JS and Django's `{% block %}` syntax: this lets you modularize the code
-* The variables in the templates are called like in the corresponding views and rendered with the field `{{ variable }}`
-    * They can even be piped to a specific function within the double curly braces, like in `{{ variable.field | function }}`
-* The HTML/CSS/JS templates use [Bootstrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/)
-* In using the `ForeignKey` relationship between a 'parent' field and a 'child' field in `models.py`, Django automatically adds a property to the parent to provide access to all children called `<child>_set`, where `<child>` is the name of the child object. Below an example:
-```python
-from django.db import models
-class Product(models.Model):
-    name = models.TextField()
-    category = models.ForeignKey(
-        'Category', #The name of the model
-        on_delete=models.PROTECT
-    )
-
-class Category(models.Model):
-    name = models.TextField()
-    # product_set will be automatically created
-```
 * Oversimplifying, to add a feature you
   1) Update the model in `models.py` (if needed)
   2) Create or update the corresponding view in `views.py`
   3) If the new feature opens a new page, create the new html page in `templates/` and add it to `urls.py`
-* Django is embedded in HTML via [template tags](https://docs.djangoproject.com/en/3.2/ref/templates/builtins/)
-* :warning: Do _not_ comment Django template tags with usual HTML comments, as described [:material-stack-overflow: in this Stack Overflow post](https://stackoverflow.com/questions/62793267/reverse-for-create-order-with-no-arguments-not-found)!! 
-```html
-<!-- this is the usual HTML comment -->
-<!-- {% This is an uncommented Django tag %} -->
-<!-- {#% This is a commented Django tag %#} -->
-```
 * General application secrets (i.e. database user, database password, secret key, etc.) are decoupled from the application with a JSON file not tracked by Git and using the `get_secret` function in `settings.py`. The function is:
 ```python
 # Secrets
@@ -112,6 +89,59 @@ So that you can call your secrets from within the rest of the app by using:
 ```python
 SECRET_KEY = get_secret('SECRET_KEY')
 ```
+
+### About templates
+
+* Django is embedded in HTML via [template tags](https://docs.djangoproject.com/en/3.2/ref/templates/builtins/)
+* The views of the app call the templates saved in `APPLICATION_NAME/templates/APPLICATION_NAME` (according to a Django's convention)
+* The templates use a combination of HTML/CSS/JS and Django's `{% templatetags %}` syntax: this lets you modularize the code
+    * Template tags can also be used to create the usual blocks to be run inside the template:
+        * if/else statements:
+        ```html
+        {% if somethings %}
+            <h3>There are {{ somethings.length }} things</h3>
+        {% else %}
+            <h3>Nothing here!</h3>
+        {% endif %}
+        ```
+        * for loops:
+        ```html
+        <ul>
+        {% for thing in somethings %}
+            <li>{{ thing.name}}</li>
+        {% endfor %}
+        </ul>
+        ```
+
+* The variables in the templates are called like in the corresponding views and rendered with the field `{{ variable }}`
+    * They can even be piped to a specific function or filter within the double curly braces, like in `{{ variable.field | function }}`
+* The HTML/CSS/JS templates use [Bootstrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/)
+* :warning: Do _not_ comment Django template tags with usual HTML comments, as described [:material-stack-overflow: in this Stack Overflow post](https://stackoverflow.com/questions/62793267/reverse-for-create-order-with-no-arguments-not-found)!! 
+```html
+<!-- this is the usual HTML comment -->
+<!-- {% This is an uncommented Django tag %} -->
+<!-- {#% This is a commented Django tag %#} -->
+```
+
+### About models
+
+* In using the `ForeignKey` relationship between a 'parent' field and a 'child' field in `models.py`, Django automatically adds a property to the parent to provide access to all children called `<child>_set`, where `<child>` is the name of the child object. Below an example:
+```python
+from django.db import models
+class Product(models.Model):
+    name = models.TextField()
+    category = models.ForeignKey(
+        'Category', #The name of the model
+        on_delete=models.PROTECT
+    )
+
+class Category(models.Model):
+    name = models.TextField()
+    # product_set will be automatically created
+```
+
+### About static files
+
 * To upload the static files into an [AWS S3 bucket](./../cloud/aws.md), check out the documentation of [django-storages](https://django-storages.readthedocs.io/en/latest/). You basically need the `django-storages` and `boto3` Python libraries, as well as the following additional settings in `settings.py`:
 ```python
 AWS_ACCESS_KEY_ID = get_secret('AWS_ACCESS_KEY_ID')
@@ -127,18 +157,21 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 Here's a [nice tutorial on creating a Django project with static files on AWS S3](https://testdriven.io/blog/storing-django-static-and-media-files-on-amazon-s3/) and Docker Compose. [This one also](https://www.caktusgroup.com/blog/2014/11/10/Using-Amazon-S3-to-store-your-Django-sites-static-and-media-files/#s3-bucket-access) is a _very_ good article.
 
 ### About user authentication
+
 * To restrict the user's login, add the `@login_required(login_url='login')` decorator from `django.contrib.auth.decorators` above any restricted view in `views.py` [**manual method**]
 * Likewise, you don't want any logged-in user to be able to access the `'login'` or the `'register'` page: add the `if request.user.is_authenticated` in those views to handle it [ **manual method** ]
 * Decorators can be listed in a dedicated `\APPLICATION_NAME\decorators.py` file. A **decorator** is a function that takes another function as a parameter. Decorators are called with the `@` symbol
 * Adding a property to a user: check [this documentation](https://docs.djangoproject.com/en/dev/topics/auth/customizing/#extending-the-existing-user-model)
 
 ### Sending emails (e.g. to reset the user's password)
+
 * The main settings are saved in the `settings.py` file under the `EMAIL_` parameters
 * In our example, Gmail was used as the SMTP host; any external login attempt would be blocked by default by Gmail unless you allow "less secure apps" access ([here](https://myaccount.google.com/lesssecureapps)'s the link). BTW it doesn't work directly with MFA accounts, where you'd need a specific [App password](https://support.google.com/accounts/answer/185833?hl=en).
 * The `urls.py` must met specific criteria: use the predefined [Authentication Views](https://docs.djangoproject.com/en/3.2/topics/auth/default/#module-django.contrib.auth.views) from `django.contrib.auth` and remember to use the corresponding URLs' names
 * If you want to customize all the pre-built forms used by Django's Authentication Views, you can find the templates' names within their [definitions](https://github.com/django/django/blob/master/django/contrib/auth/views.py). Override the default in your `urls.py` by specifying `.as_view(template_name="accounts/TEMPLATE_NAME.html")` in the URL line
 
 ### About database and relationships
+
 * To initiate the database, run `py -m manage migrate`: the database's settings are in `SETTINGS.py` and SQLite3 is the default.
 * To run progressive migrations, edit your models then run `py -m manage makemigrations` to create your migration files (preparation files before actual migration) in `/APPLICATION_NAME/migrations/`. Remember to register your models in the _admin_ panel to see them.
 > The `makemigrations` command uses the current list of migrations to get a starting point, and then uses the current state of your models to determine the delta (the changes that need to be made). It then generates the necessary code to update the database. 
@@ -169,10 +202,12 @@ Product(name="Shoes", customer=first_customer).save()
 * A function to specifically create random orders was implemented in the `management\commands\populate-db.py` function, inspired by [this article](https://testdriven.io/blog/django-charts/).
 
 #### Postgresql
+
 * After first testing, migrate the db from SQLite to PostgreSQL using [these instructions](https://medium.com/djangotube/django-sqlite-to-postgresql-database-migration-e3c1f76711e1).
 
 
-## Testing
+## Tests
+
 * Check out the [Django documentation about testing tools!](https://docs.djangoproject.com/en/3.2/topics/testing/tools/)
 * To get started with testing, create a folder `APPLICATION_NAME\Tests` containing all your `test_WHATEVER.py` files, where WHATEVER includes models, views, forms, etc.
     * In this case you will have to delete the `APPLICATION_NAME\tests.py` file, originally created with the app
@@ -182,6 +217,7 @@ Product(name="Shoes", customer=first_customer).save()
 * Assertions are part of the `SimpleTestCase` class, containing the most simple unit tests (like testing HTML responses, comparing URLs, verifying HTTP redirect, testing form fields, etc.)
 
 ## Deployment
+
 * Before deploying, remember to:
     * Turn `Debug = FALSE` in `settings.py`
     * Add the remote host to the `ALLOWED_HOSTS` in `settings.py`, like
@@ -200,11 +236,12 @@ ALLOWED_HOSTS = [
     * In the manual deploy from the Heroku app page, you may need to remove some specific requirements' versions (as described in [this post](https://stackoverflow.com/questions/47304291/heroku-upload-could-not-find-a-version-that-satisfies-the-requirement-anaconda/56754565)) from `requirements.txt` (but first, remember to [check this](#pip-freeze-warning)!)
     * Heroku doesn't know how to serve static files, so it is better to install [Whitenoise](http://whitenoise.evans.io/en/stable/) and use it in the `MIDDLEWARE` section of your `settings.py` file
 
-* To deploy on [Docker](https://www.docker.com/)
+* To deploy on [Docker](https://www.docker.com/) :warning: TBD
 
-* To deploy on [Azure Web Apps](https://docs.microsoft.com/en-us/learn/modules/django-deployment/)
+* To deploy on [Azure Web Apps](https://docs.microsoft.com/en-us/learn/modules/django-deployment/) :warning: TBD
 
 ## **Definitely** review
+
 * [Forms](https://docs.djangoproject.com/en/3.2/topics/forms/) and [Formsets](https://docs.djangoproject.com/en/3.2/topics/forms/formsets/)
 * Users' authentication and register page
 * How to use decorators
