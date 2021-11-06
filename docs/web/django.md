@@ -115,7 +115,7 @@ SECRET_KEY = get_secret('SECRET_KEY')
 
 * The variables in the templates are called like in the corresponding views and rendered with the field `{{ variable }}`
     * They can even be piped to a specific function or filter within the double curly braces, like in `{{ variable.field | function }}`
-* The HTML/CSS/JS templates use [Bootstrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/)
+* The HTML/CSS/JS templates use [:material-bootstrap: Bootstrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/)
 * :warning: Do _not_ comment Django template tags with usual HTML comments, as described [:material-stack-overflow: in this Stack Overflow post](https://stackoverflow.com/questions/62793267/reverse-for-create-order-with-no-arguments-not-found)!! 
 ```html
 <!-- this is the usual HTML comment -->
@@ -247,12 +247,12 @@ ALLOWED_HOSTS = [
     * After logging in (`heroku login -i`), connect to your Heroku app using the Heroku CLI an running `heroku git:remote --app=HEROKU_APP_NAME` to add a remote origin to your Git tracking in the project
     * Add a [`procfile`](https://devcenter.heroku.com/articles/procfile) (no extension!) to your project: it's needed by Heroku to specify a process type. Inside of it, just type `web: gunicorn YOUR_APP_WSGI_NAME.wsgi --log-file -`
     * Remember to specific a _build pack_ (i.e. Python) in your Heroku app settings
-    * In the manual deploy from the Heroku app page, you may need to remove some specific requirements' versions (as described in [this post](https://stackoverflow.com/questions/47304291/heroku-upload-could-not-find-a-version-that-satisfies-the-requirement-anaconda/56754565)) from `requirements.txt` (but first, remember to [check this](#pip-freeze-warning)!)
+    * In the manual deploy from the Heroku app page, you may need to remove some specific requirements' versions (as described in [:material-stack-overflow: this post](https://stackoverflow.com/questions/47304291/heroku-upload-could-not-find-a-version-that-satisfies-the-requirement-anaconda/56754565)) from `requirements.txt` (but first, remember to [check this](#pip-freeze-warning)!)
     * Heroku doesn't know how to serve static files, so it is better to install [Whitenoise](http://whitenoise.evans.io/en/stable/) and use it in the `MIDDLEWARE` section of your `settings.py` file
 
-* To deploy on [Docker](https://www.docker.com/) :warning: TBD
+* To deploy on [:material-docker: Docker](https://www.docker.com/) :warning: TBD
 
-* To deploy on [Azure Web Apps](https://docs.microsoft.com/en-us/learn/modules/django-deployment/) :warning: TBD
+* To deploy on [:material-microsoft-azure: Azure Web Apps](https://docs.microsoft.com/en-us/learn/modules/django-deployment/) :warning: TBD
 
 ## **Definitely** review
 

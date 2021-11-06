@@ -21,6 +21,7 @@ The command `echo $?` will return the exit code of `pg_isready`, i.e.
     * `2` = there was no response to the connection attempt
     * `3` = no attempt was made (for example due to invalid parameters).
 
+To test a login, try `psql -d "postgresql://USER:PASSWORD@HOST:PORT/t" -c "select now()"`.
 
 ## Random notes
 
@@ -129,3 +130,46 @@ Notice the `bigserial` number type and the `now()` function in the dbdiagram syn
 
 !!! warning
     This whole sequence could probably be bypassed by using a Dockerfile
+
+## Migrations
+
+To easily perform migrations on PostgreSQL, you may use the [:material-github: golang-migrate](https://github.com/golang-migrate/migrate) CLI tool, written in [:language-go: Go](https://golang.org/). 
+
+```bash
+# Install golang-migrate
+brew install golang-migrate
+
+# Test installation
+migrate -version
+
+# Create the db migrations folder in your project folder
+mkdir -p db/migrations
+
+# Create your first migration
+migrate create -ext sql -dir db/migrations -seq initial_schema
+``` 
+
+The last command will create the first migration called `initial_schema` in files with `.sql` extension, in the path specified by `-dir` and with a sequential (`-seq`) number to keep track of progressing migrations. The first two files are:
+
+```bash
+./db/migrations/000001_initial_schema.up.sql      # Script to "migrate up", i.e. moving forward in migrations 
+./db/migrations/000001_initial_schema.down.sql    # Script to "migrate down", i.e. moving backwards in migrations
+```
+
+If you wish to do it manually, copy your schema creation script in the first file, and edit the second file with the reverse commands (i.e. dropping every object in the database).
+
+To run your first migration, use:
+
+```bash
+migrate -path ./db/migrations -database "postgresql://USERNAME:PASSWORD@HOSTNAME:PORT/DATABASE_NAME?PARAMETERS" -verbose up
+```
+
+Where:
+* the `-database` switch requires the whole [:material-github: database URL](https://github.com/golang-migrate/migrate#database-urls)
+* the `up` argument specifies the direction of the migration
+* the `PARAMETERS` (more specifically `?PARAMETER1=VALUE1&PARAMETER2=VALUE2`) can be used to add any additional parameter
+
+!!! warning
+    If you encounter the **SSL is not enabled on the server** error (like in a [Docker](../cloud/docker.md) PostgreSQL container), use the `?sslmode=disable` parameter after the `DATABASE_NAME` in the URL.
+
+The first migration (containing the schema initialization scripts) will also add the `schema_migrations` table in the database.

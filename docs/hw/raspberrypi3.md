@@ -1,4 +1,4 @@
-# Raspberry Pi 3
+# Raspberry Pi 3 :material-raspberry-pi:
 
 A few notes on setting up a Raspberry Pi 3 for some experiments.
 
@@ -6,6 +6,7 @@ A few notes on setting up a Raspberry Pi 3 for some experiments.
     * "Getting started" documentation: <https://www.raspberrypi.com/documentation/computers/getting-started.html> 
 
 ## Initial
+
 * Update all the packages
 ```bash
 sudo apt-get update && sudo apt-get upgrade
@@ -51,7 +52,8 @@ static domain_name_servers=DNS_IP_ADDRESS
   * Ruby (`apt-get install ruby-full`) an Rails (`gem install rails`)
 
 ## Set up an external storage
-Full instructions at <raspberrypi.org/documentation/configuration/external-storage.md>
+
+Full instructions [here](https://raspberrypi.org/documentation/configuration/external-storage.md>).
 
 * Install exFAT driver: it may be useful in mounting the HDD storage
 ```bash
@@ -128,9 +130,11 @@ jupyter notebook
 ```
 !!! warning
     If port 8888 is still not reachable from SSH, go to PuTTY `Settings > Tunnels > Source port = 8888, Destination=127.0.0.1:8888`
+    
 * Now your Jupyter Notebook is working from browser on <127.0.0.1:8888/TOKEN> !
 
 ### Next steps
+
 * Making an SD gzipped image of the system and uploading it in the cloud (e.g. Dropbox)
-* Mounting an external HDD + Installing OwnCloud/NextCloud (<raspberrypi.org/documentation/configuration/external-storage.md>)
+* Mounting an [external HDD](raspberrypi.org/documentation/configuration/external-storage.md) + Installing OwnCloud/NextCloud
 * Continuing on SSH security: DSA public key authentication

@@ -2,7 +2,7 @@
 
 > "The better way to get a project done faster is to start sooner"- Jim Highsmith
 
-<img src="https://www.commitstrip.com/wp-content/uploads/2014/11/Strip-Side-project-650-finalenglish.jpg">
+<a href="https://www.commitstrip.com/en/?"><img src="https://www.commitstrip.com/wp-content/uploads/2014/11/Strip-Side-project-650-finalenglish.jpg"></a>
 
 ## Just ideas for now :bulb:
 
