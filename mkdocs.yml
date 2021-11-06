@@ -4,11 +4,11 @@ site_name: The Notebook
 nav:
   - home: index.md
   - projects: projects.md
-  - cloud&os:
-    - aws: infrastructure/aws.md
-    - azure: infrastructure/azure.md
-    - docker: infrastructure/docker.md
-    - windows: infrastructure/windows.md
+  - cloud:
+    - aws: cloud/aws.md
+    - azure: cloud/azure.md
+    - docker: cloud/docker.md
+    - windows: cloud/windows.md
   - db:
     - postgres: db/postgres.md
     - sqlserver: db/sqlserver.md
