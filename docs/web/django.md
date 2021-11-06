@@ -90,9 +90,6 @@ SECRET_KEY = get_secret('SECRET_KEY')
 ```
 * In the admin site, the display shows the **name** of the `Customer` or the `Product` for the registered models. This information appears because we set the `__str__` method on our objects. The default display of any object is the value returned by `__str__`.
 
-<<<<<<< ours
-
-=======
 ### About templates
 
 * Django is embedded in HTML via [template tags](https://docs.djangoproject.com/en/3.2/ref/templates/builtins/)
@@ -125,6 +122,13 @@ SECRET_KEY = get_secret('SECRET_KEY')
 <!-- {% This is an uncommented Django tag %} -->
 <!-- {#% This is a commented Django tag %#} -->
 ```
+* The {% url %} tag
+* [Template inheritance]()
+Parent page
+Child page
+Default values
+Django's ORM caching
+
 
 ### About models
 

@@ -18,9 +18,9 @@ nav:
     #- gitpod: dev/gitpod.md
   - hw:
     - raspberry: hw/raspberrypi3.md
-  - scripts: 
-    #- powershell: scripts/powershell.md
-    - python: scripts/python.md
+  - langs: 
+    #- powershell: langs/powershell.md
+    - python: langs/python.md
   - web:
     - django: web/django.md
     - rails: web/rails.md
