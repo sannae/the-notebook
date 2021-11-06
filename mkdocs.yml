@@ -19,6 +19,7 @@ nav:
   - hw:
     - raspberry: hw/raspberrypi3.md
   - langs: 
+    - javascript: langs/javascript.md
     #- powershell: langs/powershell.md
     - python: langs/python.md
   - web:

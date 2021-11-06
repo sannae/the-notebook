@@ -122,13 +122,16 @@ SECRET_KEY = get_secret('SECRET_KEY')
 <!-- {% This is an uncommented Django tag %} -->
 <!-- {#% This is a commented Django tag %#} -->
 ```
+
+<!-- ********************************* TO BE COMPLETED
+
 * The {% url %} tag
 * [Template inheritance]()
 Parent page
 Child page
 Default values
 Django's ORM caching
-
+**************************************** -->
 
 ### About models
 
@@ -163,16 +166,12 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 ```
 Here's a [nice tutorial on creating a Django project with static files on AWS S3](https://testdriven.io/blog/storing-django-static-and-media-files-on-amazon-s3/) and Docker Compose. [This one also](https://www.caktusgroup.com/blog/2014/11/10/Using-Amazon-S3-to-store-your-Django-sites-static-and-media-files/#s3-bucket-access) is a _very_ good article.
 
->>>>>>> theirs
 ### About user authentication
-<<<<<<< ours
 * Django comes with a built-in user management and authentication system, where you can manage: 
   * Simple users (`user`), unable to access the admin site
   * Staff users (`staff`), i.e. accessing the admin site but unable to change Data
   * superusers: you can create one with `python manage.py createsuperuser`
-=======
 
->>>>>>> theirs
 * To restrict the user's login, add the `@login_required(login_url='login')` decorator from `django.contrib.auth.decorators` above any restricted view in `views.py` [**manual method**]
 * Likewise, you don't want any logged-in user to be able to access the `'login'` or the `'register'` page: add the `if request.user.is_authenticated` in those views to handle it [ **manual method** ]
 * Decorators can be listed in a dedicated `\APPLICATION_NAME\decorators.py` file. A **decorator** is a function that takes another function as a parameter. Decorators are called with the `@` symbol
