@@ -1,9 +1,8 @@
 # docker :material-docker:
 
-## Resources
-
-* [:material-docker: Docker docs](https://docs.docker.com/)! The starting point
-* [:material-youtube: Dev containers](https://www.youtube.com/playlist?list=PLj6YeMhvp2S5G_X6ZyMc8gfXPMFPg3O31), a playlist from the VS Code YouTube channel about containerized dev environments
+??? Resources
+    * [:material-docker: Docker docs](https://docs.docker.com/)! The starting point
+    * [:material-youtube: Dev containers](https://www.youtube.com/playlist?list=PLj6YeMhvp2S5G_X6ZyMc8gfXPMFPg3O31), a playlist from the VS Code YouTube channel about containerized dev environments
 
 ## Architecture
 

@@ -1,9 +1,8 @@
 # git
 
-## Resources
-
-Official documentation in [https://git-scm.com/docs](https://git-scm.com/docs).
-Atlassian's tutorials in [https://www.atlassian.com/git/tutorials](https://www.atlassian.com/git/tutorials).
+??? Resources
+	* Official documentation in [https://git-scm.com/docs](https://git-scm.com/docs).
+	* Atlassian's tutorials in [https://www.atlassian.com/git/tutorials](https://www.atlassian.com/git/tutorials).
 
 ## Most used commands
 * `git add FILENAME(S)`: it adds the files in "stage", i.e. preparing to commit
