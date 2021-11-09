@@ -278,7 +278,7 @@ Your project needs the [Gunicorn](https://gunicorn.org/) and [Whitenoise](http:/
 * In the manual deploy from the Heroku app page, you may need to remove some specific requirements' versions (as described in [:material-stack-overflow: this post](https://stackoverflow.com/questions/47304291/heroku-upload-could-not-find-a-version-that-satisfies-the-requirement-anaconda/56754565)) from `requirements.txt` (but first, remember to [check this](#pip-freeze-warning)!)
 * Heroku doesn't know how to serve static files, so it is better to install [Whitenoise](http://whitenoise.evans.io/en/stable/) and use it in the `MIDDLEWARE` section of your `settings.py` file
 
-### Deploy on [:material-docker: Docker](https://www.docker.com/):
+### Deploy on [:material-docker: Docker](https://www.docker.com/)
 
 * Write your Dockerfile: the base image is the [official Python Docker image](https://hub.docker.com/_/python) as the Django image is deprecated. The application directory is copied in the workdir `/usr/src/app` and the requirements are installed using the `requirements.txt` file. Lastly, the `manage runserver` command is executed to start the web server.
 ```dockerfile
@@ -305,14 +305,15 @@ CMD [ "python", "manage.py", "runserver", "0.0.0.0:8000" ]
 * Open your web application on a browser with <http://HOSTNAME:8000> where `HOSTNAME` is included in the `ALLOWED_HOSTS` list in `settings.py` 
 * [optional] Interact with your container with `docker exec -it my-django-cont bash`
 
-!!! info
-    Clean your environment:
+!!! info "Clean your environment"
     * docker stop my-django-cont
     * docker rm my-django-cont
     * docker image rm my-django-image 
     * docker image rm python
 
-### Deploy on [:material-microsoft-azure: Azure Web Apps](https://docs.microsoft.com/en-us/learn/modules/django-deployment/) :warning: TBD
+### Deploy on [:material-microsoft-azure: Azure Web Apps](https://docs.microsoft.com/en-us/learn/modules/django-deployment/) 
+
+:warning: TBD
 
 ## **Definitely** review
 
