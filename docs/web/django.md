@@ -268,39 +268,40 @@ ALLOWED_HOSTS = [
     ]
 ```
 
-* To deploy on [Heroku](https://www.heroku.com/), your project needs the [Gunicorn](https://gunicorn.org/) and [Whitenoise](http://whitenoise.evans.io/en/stable/) pip modules installed
+### Deploy on [Heroku](https://www.heroku.com/), your project needs the [Gunicorn](https://gunicorn.org/) and [Whitenoise](http://whitenoise.evans.io/en/stable/) pip modules installed
 
-    * After logging in (`heroku login -i`), connect to your Heroku app using the Heroku CLI an running `heroku git:remote --app=HEROKU_APP_NAME` to add a remote origin to your Git tracking in the project
-    * Add a [`procfile`](https://devcenter.heroku.com/articles/procfile) (no extension!) to your project: it's needed by Heroku to specify a process type. Inside of it, just type `web: gunicorn YOUR_APP_WSGI_NAME.wsgi --log-file -`
-    * Remember to specific a _build pack_ (i.e. Python) in your Heroku app settings
-    * In the manual deploy from the Heroku app page, you may need to remove some specific requirements' versions (as described in [:material-stack-overflow: this post](https://stackoverflow.com/questions/47304291/heroku-upload-could-not-find-a-version-that-satisfies-the-requirement-anaconda/56754565)) from `requirements.txt` (but first, remember to [check this](#pip-freeze-warning)!)
-    * Heroku doesn't know how to serve static files, so it is better to install [Whitenoise](http://whitenoise.evans.io/en/stable/) and use it in the `MIDDLEWARE` section of your `settings.py` file
+* After logging in (`heroku login -i`), connect to your Heroku app using the Heroku CLI an running `heroku git:remote --app=HEROKU_APP_NAME` to add a remote origin to your Git tracking in the project
+* Add a [`procfile`](https://devcenter.heroku.com/articles/procfile) (no extension!) to your project: it's needed by Heroku to specify a process type. Inside of it, just type `web: gunicorn YOUR_APP_WSGI_NAME.wsgi --log-file -`
+* Remember to specific a _build pack_ (i.e. Python) in your Heroku app settings
+* In the manual deploy from the Heroku app page, you may need to remove some specific requirements' versions (as described in [:material-stack-overflow: this post](https://stackoverflow.com/questions/47304291/heroku-upload-could-not-find-a-version-that-satisfies-the-requirement-anaconda/56754565)) from `requirements.txt` (but first, remember to [check this](#pip-freeze-warning)!)
+* Heroku doesn't know how to serve static files, so it is better to install [Whitenoise](http://whitenoise.evans.io/en/stable/) and use it in the `MIDDLEWARE` section of your `settings.py` file
 
-* To deploy on [:material-docker: Docker](https://www.docker.com/):
-    * Write your Dockerfile: the base image is the [official Python Docker image](https://hub.docker.com/_/python) as the Django image is deprecated. The application directory is copied in the workdir `/usr/src/app` and the requirements are installed using the `requirements.txt` file. Lastly, the `manage runserver` command is executed to start the web server.
-    ```dockerfile
-    # Base image
-    FROM python
+### Deploy on [:material-docker: Docker](https://www.docker.com/):
 
-    # Working directory
-    WORKDIR /usr/src/app
+* Write your Dockerfile: the base image is the [official Python Docker image](https://hub.docker.com/_/python) as the Django image is deprecated. The application directory is copied in the workdir `/usr/src/app` and the requirements are installed using the `requirements.txt` file. Lastly, the `manage runserver` command is executed to start the web server.
+```dockerfile
+# Base image
+FROM python
 
-    # Install dependencies
-    COPY requirements.txt ./
-    RUN pip install --upgrade pip
-    RUN pip install --no-cache-dir -r requirements.txt
+# Working directory
+WORKDIR /usr/src/app
 
-    # Copy the whole app folder
-    COPY . .
+# Install dependencies
+COPY requirements.txt ./
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt
 
-    # Run web server
-    CMD [ "python", "manage.py", "runserver", "0.0.0.0:8000" ]
-    ```
-    * Build the image using `docker build -t my-django-image .` from the path of the Dockerfile (it may require a few minutes 🕰)
-    * Start the container with `docker run --name my-django-cont -d -p 8000:8000 my-django-image`
-    * Verify that your container has been created with `docker ps -a`
-    * Open your web application on a browser with <http://HOSTNAME:8000> where `HOSTNAME` is included in the `ALLOWED_HOSTS` list in `settings.py` 
-    * [optional] Interact with your container with `docker exec -it my-django-cont bash`
+# Copy the whole app folder
+COPY . .
+
+# Run web server
+CMD [ "python", "manage.py", "runserver", "0.0.0.0:8000" ]
+```
+* Build the image using `docker build -t my-django-image .` from the path of the Dockerfile (it may require a few minutes 🕰)
+* Start the container with `docker run --name my-django-cont -d -p 8000:8000 my-django-image`
+* Verify that your container has been created with `docker ps -a`
+* Open your web application on a browser with <http://HOSTNAME:8000> where `HOSTNAME` is included in the `ALLOWED_HOSTS` list in `settings.py` 
+* [optional] Interact with your container with `docker exec -it my-django-cont bash`
 
 !!! info
     Clean your environment:
@@ -309,7 +310,7 @@ ALLOWED_HOSTS = [
     * docker image rm my-django-image 
     * docker image rm python
 
-* To deploy on [:material-microsoft-azure: Azure Web Apps](https://docs.microsoft.com/en-us/learn/modules/django-deployment/) :warning: TBD
+### Deploy on [:material-microsoft-azure: Azure Web Apps](https://docs.microsoft.com/en-us/learn/modules/django-deployment/) :warning: TBD
 
 ## **Definitely** review
 
