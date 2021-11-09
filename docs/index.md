@@ -1,6 +1,6 @@
 # The Notebook :books:
 
-Welcome to my notes!
+Welcome to my notes! 👋
 
 
 

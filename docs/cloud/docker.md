@@ -21,7 +21,7 @@
 
 ### Processes
 
-* `docker ps -a`: list of containers and their statuses
+* `docker ps -a`: list of all containers and their statuses
 
 ### Images
 
@@ -86,7 +86,7 @@ target: prerequisites
     command
     command
 ```
-Therefore an example would be:
+Therefore an example of handling database migrations on a [PostgreSQL](./../db/postgres.md) container would be:
 ```bash
 # Variables
 containername = YOUR-CONTAINER-NAME
@@ -122,7 +122,6 @@ Then quickly recall the commands with `make`! 🎉🎊 For example:
 make runbash    # It will open a bash shell on the specified container
 ```
 For instance, to quickly set up your new containerized database, just:
-
 ```bash
 make runpostgres # Create the container and start it
 make createdb # Create the database
