@@ -20,20 +20,23 @@ All the required Python packages are listed in `requirements.txt` (to be updatab
 ### About Django's architecture and MVT pattern
 
 * A **Django project** is "A Python package – i.e. a directory of code – that contains all the settings for an instance of Django. This would include database configuration, Django-specific options and application-specific settings." ([source](https://docs.djangoproject.com/en/3.2/glossary/#term-project) and [tutorial](https://docs.djangoproject.com/en/3.2/intro/tutorial01/#creating-a-project))
-* The project structure is created with `py -m django startproject PROJECT_NAME .`
-    * The `.` at the end tells `django` to create a project in the current directory: if you don't add it, it will create an additional subdirectory
-    * The command `startproject` will create the following folder structure:
+* To get started with a project:
+    * Create a folder for your project: `mkdir PROJECT_NAME`:
+    * Move in your project folder: `cd PROJECT_NAME`
+    * Remember to activate your [virtual environment](./../langs/python.md): `python3 -m venv venv` and `source venv/bin/activate`
+    * Install the dependencies (`python3 -m pip install django`) and freeze them in a file (`python3 -m pip freeze > requirements.txt`)
+    * Create the core of the project: `django startproject core .`
+    * The command `startproject` will create the following folder structure in your project folder:
     ```
     manage.py           # django command-line utility (check "python manage.py --help")
-    PROJECT_NAME/       # main project folder
+    core/           # main project folder
         __init__.py         # empty file telling Python that this directory should be considered a package
         settings.py         # all of your settings or configurations
         urls.py             # URLs within the project
         asgi.py             # entry point for your web servers if asgi server is deployed
         wsgi.py             # entry point for your web servers if wsgi server is deployed
     ``` 
-    * The project automatically creates a `db.sqlite` database for testing purposes
-* Within the project, there may be several *apps*: each app structure is created with `py -m django startapp APPLICATION_NAME` (from the same directory as `manage.py`)
+* Within the project, there may be several *apps*: each app structure is created in your project folder with `py -m django startapp APPLICATION_NAME` (from the same directory as `manage.py`)
     * The app has the following structure:
     ```
     APPLICATION_NAME/           # main app folder
@@ -46,14 +49,37 @@ All the required Python packages are listed in `requirements.txt` (to be updatab
         tests.py            # tests included in the app, see the corresponding section
         views.py            # views of the app
     ```
-    * Remember to add the `APPLICATION_NAME\urls.py` to map the routes in your application
-    * Remember to register the application in the `PROJECT_NAME\apps.py` file and to add it to the `INSTALLED_APPS` list in `settings.py` or the project won't be able to load it when running!
+    * Add the `APPLICATION_NAME\urls.py` to map the routes in your application, with the following default content to create the home path:
+    ```python
+    from django.urls import path
+    from . import views
+
+    urlpatterns = [
+    path('', views.index, name='index'),
+    ]
+    ```
+    * The path management must also be handled by the main `PROJECT_NAME\urls.py` file, where you should add at the beginning:
+    ```python
+    from django.urls import include, path
+    ```
+    and in the `urlpatterns` list (replacing `APPLICATION_NAME`):
+    ```python
+    path('', include('APPLICATION_NAME.urls')),
+    ```
+    * Register the application in the `PROJECT_NAME\apps.py` file and to add it to the `INSTALLED_APPS` list in `settings.py` or the project won't be able to load it when running!
+    * Add the following test content in `APPLICATION_NAME\views.py`:
+    ```python
+    from django.shortcuts import render
+    from django.http import HttpResponse
+
+    def index(request):
+        return HttpResponse("Hello, world!")
+    ```
 * The live web server is started with `py -m django manage runserver` and is reachable at <http://localhost:8000>
 * Django follows the MVC architecture (Model-View-Controller), although it uses a non-idiomatic way of naming its parts:  
 ```
 Idiomatic term | Django term | Meaning
-Model          | Model       | Contains all the business logic. At the very least the database access logic
-View           | Template    | Responsible for generating the HTML and other UI
+Model          | Model       | Contains all the business logic. At the very least the database access logicView           | Template    | Responsible for generating the HTML and other UI
 Controller     | View        | Contains the logic to tie the other parts together and to generate a response to a user request
 ```
 A schematic view is available below:
@@ -250,7 +276,38 @@ ALLOWED_HOSTS = [
     * In the manual deploy from the Heroku app page, you may need to remove some specific requirements' versions (as described in [:material-stack-overflow: this post](https://stackoverflow.com/questions/47304291/heroku-upload-could-not-find-a-version-that-satisfies-the-requirement-anaconda/56754565)) from `requirements.txt` (but first, remember to [check this](#pip-freeze-warning)!)
     * Heroku doesn't know how to serve static files, so it is better to install [Whitenoise](http://whitenoise.evans.io/en/stable/) and use it in the `MIDDLEWARE` section of your `settings.py` file
 
-* To deploy on [:material-docker: Docker](https://www.docker.com/) :warning: TBD
+* To deploy on [:material-docker: Docker](https://www.docker.com/):
+    * Write your Dockerfile: the base image is the [official Python Docker image](https://hub.docker.com/_/python) as the Django image is deprecated. The application directory is copied in the workdir `/usr/src/app` and the requirements are installed using the `requirements.txt` file. Lastly, the `manage runserver` command is executed to start the web server.
+    ```dockerfile
+    # Base image
+    FROM python
+
+    # Working directory
+    WORKDIR /usr/src/app
+
+    # Install dependencies
+    COPY requirements.txt ./
+    RUN pip install --upgrade pip
+    RUN pip install --no-cache-dir -r requirements.txt
+
+    # Copy the whole app folder
+    COPY . .
+
+    # Run web server
+    CMD [ "python", "manage.py", "runserver", "0.0.0.0:8000" ]
+    ```
+    * Build the image using `docker build -t my-django-image .` from the path of the Dockerfile (it may require a few minutes 🕰)
+    * Start the container with `docker run --name my-django-cont -d -p 8000:8000 my-django-image`
+    * Verify that your container has been created with `docker ps -a`
+    * Open your web application on a browser with <http://HOSTNAME:8000> where `HOSTNAME` is included in the `ALLOWED_HOSTS` list in `settings.py` 
+    * [optional] Interact with your container with `docker exec -it my-django-cont bash`
+
+!!! info
+    Clean your environment:
+    * docker stop my-django-cont
+    * docker rm my-django-cont
+    * docker image rm my-django-image 
+    * docker image rm python
 
 * To deploy on [:material-microsoft-azure: Azure Web Apps](https://docs.microsoft.com/en-us/learn/modules/django-deployment/) :warning: TBD
 
