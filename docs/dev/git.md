@@ -74,5 +74,13 @@ Sample procedure:
   
 ## Misc.
 
+* Additional stuff:
 `git gui`: it opens the integrated git GUI
 `gitk`: it opens the commit viewer di Git
+
+* Just reinstall git:
+```
+sudo apt-get purge git
+sudo apt-get autoremove
+sudo apt-get install git
+```
