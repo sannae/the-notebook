@@ -14,7 +14,7 @@ nav:
     - sqlserver: db/sqlserver.md
   - dev: 
     - git: dev/git.md
-    #- github: dev/github.md
+    - github: dev/github.md
     #- gitpod: dev/gitpod.md
   - hw:
     - raspberry: hw/raspberrypi3.md
