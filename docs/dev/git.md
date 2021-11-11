@@ -1,4 +1,4 @@
-# git
+# git :material-git:
 
 ??? Resources
 	* Official documentation in [:material-git: Git docs](https://git-scm.com/docs).
