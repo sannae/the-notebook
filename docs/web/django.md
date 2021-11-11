@@ -19,6 +19,8 @@ All the required Python packages are listed in `requirements.txt` (to be updatab
 
 ### About Django's architecture and MVT pattern
 
+#### Create a project
+
 * A **Django project** is "A Python package – i.e. a directory of code – that contains all the settings for an instance of Django. This would include database configuration, Django-specific options and application-specific settings." ([source](https://docs.djangoproject.com/en/3.2/glossary/#term-project) and [tutorial](https://docs.djangoproject.com/en/3.2/intro/tutorial01/#creating-a-project))
 * To get started with a project:
     * Create a folder for your project: `mkdir PROJECT_NAME`:
@@ -36,6 +38,9 @@ All the required Python packages are listed in `requirements.txt` (to be updatab
         asgi.py             # entry point for your web servers if asgi server is deployed
         wsgi.py             # entry point for your web servers if wsgi server is deployed
     ``` 
+
+#### Create an app
+
 * Within the project, there may be several *apps*: each app structure is created in your project folder with `py -m django startapp APPLICATION_NAME` (from the same directory as `manage.py`)
     * The app has the following structure:
     ```
@@ -76,6 +81,9 @@ All the required Python packages are listed in `requirements.txt` (to be updatab
         return HttpResponse("Hello, world!")
     ```
 * The live web server is started with `py -m django manage runserver` and is reachable at <http://localhost:8000>
+
+#### Misc.
+
 * Django follows the MVC architecture (Model-View-Controller), although it uses a non-idiomatic way of naming its parts:  
 ```
 Idiomatic term | Django term | Meaning
@@ -160,6 +168,13 @@ Django's ORM caching
 **************************************** -->
 
 ### About models
+
+* In your `models.py` file, you can add a first test model like:
+```python
+class MODEL_NAME(models.Model):
+    pass
+```
+
 
 * In using the `ForeignKey` relationship between a 'parent' field and a 'child' field in `models.py`, Django automatically adds a property to the parent to provide access to all children called `<child>_set`, where `<child>` is the name of the child object. Below an example:
 ```python
