@@ -58,6 +58,26 @@ Sample procedure:
 * `git branch -d NEW-FEATURE`: delete the branch
 * `git push`: sync with remote repo
 
+## Switch remote URLs from HTTPS to SSH
+
+From your local project folder,
+```
+$ git remote -v
+> origin  https://github.com/USERNAME/REPOSITORY.git (fetch)
+> origin  https://github.com/USERNAME/REPOSITORY.git (push)
+```
+Set
+```
+git remote set-url origin git@github.com:USERNAME/REPOSITORY.git
+```
+Then verify that the remote URL has changed:
+```
+$ git remote -v
+# Verify new remote URL
+> origin  git@github.com:USERNAME/REPOSITORY.git (fetch)
+> origin  git@github.com:USERNAME/REPOSITORY.git (push)
+```
+
 ## .gitignore
 
 * Compile your `\.gitignore` file to prevent git from tracking files. Sample file:
