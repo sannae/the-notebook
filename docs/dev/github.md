@@ -45,4 +45,52 @@ Hi USERNAME! You've successfully authenticated, but GitHub does not provide shel
 
 #### [:material-github:](https://docs.github.com/en/actions/hosting-your-own-runners/adding-self-hosted-runners) Add a self-hosted runner on your repository
 
+* Go on **Your GitHub profile > Your repo > Settings > Actions > Runners > New self-hosted runner**
+* Choose your OS (macOS, Linux, Windows) and architecture
+* `cd` in the path where you will store the runner
+* Download the runner with
+```bash
+# Create a folder
+$ mkdir actions-runner && cd actions-runner
+# Download the latest runner package
+$ curl -o actions-runner-linux-x64-2.284.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.284.0/actions-runner-linux-x64-2.284.0.tar.gz
+# Optional: Validate the hash
+$ echo "1ddfd7bbd3f2b8f5684a7d88d6ecb6de3cb2281a2a359543a018cc6e177067fc  actions-runner-linux-x64-2.284.0.tar.gz" | shasum -a 256 -c
+# Extract the installer
+$ tar xzf ./actions-runner-linux-x64-2.284.0.tar.gz
+```
+* Configure the runner with:
+```bash
+# Create the runner and start the configuration experience
+$ ./config.sh --url https://github.com/<YOUR_USERNAME>/<YOUR_REPOSITORY> --token <YOUR_TOKEN>
+# Last step, run it!
+$ ./run.sh
+```
+When the runner is actually running, you will see it with the **:green-circle: Idle** label in **Settings > Actions > Runner**.
+
+#### [:material-github:]() Configure your runner as a service
+
+In the runner folder (`actions-runner`), 
+* Stop the runner if it is running
+* Install the service with
+```bash
+sudo ./svc.sh install
+```
+* Start the service with
+```bash
+sudo ./svc.sh start
+```
+* Check the service status with
+```bash
+sudo ./svc.sh status
+```
+
+#### [:material-github:](https://docs.github.com/en/actions/hosting-your-own-runners/using-self-hosted-runners-in-a-workflow) Use the self-hosted runner in a workflow
+
+* To use the runner, add in your `.github/workflows/WORFLOW_NAME.yml` file:
+```bash
+# Use this YAML in your workflow file for each job
+runs-on: self-hosted
+```
+
 ## Github API
