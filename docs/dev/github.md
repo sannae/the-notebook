@@ -71,6 +71,7 @@ When the runner is actually running, you will see it with the **:green-circle: I
 #### [:material-github:]() Configure your runner as a service
 
 In the runner folder (`actions-runner`), 
+
 * Stop the runner if it is running
 * Install the service with
 ```bash
@@ -87,8 +88,8 @@ sudo ./svc.sh status
 
 #### [:material-github:](https://docs.github.com/en/actions/hosting-your-own-runners/using-self-hosted-runners-in-a-workflow) Use the self-hosted runner in a workflow
 
-* To use the runner, add in your `.github/workflows/WORFLOW_NAME.yml` file:
-```bash
+To use the runner, add in your `.github/workflows/WORFLOW_NAME.yml` file:
+```yaml
 # Use this YAML in your workflow file for each job
 runs-on: self-hosted
 ```
