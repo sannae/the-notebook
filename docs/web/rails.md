@@ -1,4 +1,4 @@
-# Ruby on Rails :material-rails:
+# Ruby on Rails :material-language-ruby-on-rails:
 
 ## Set up your dev environment
 
