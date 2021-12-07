@@ -235,3 +235,37 @@ INSERT INTO @Totals VALUES
 	('Table2',@Total2)
 SELECT * FROM @Totals
 ```
+
+* In case you keep seeing the `Invalid object name` error in the query editor, even if SSMS properly shows the objects you're browsing, try [:material-stack-overflow: refreshing the IntelliSense cache](https://stackoverflow.com/questions/1362531/sql-server-invalid-object-name-but-tables-are-listed-in-ssms-tables-list).
+
+## Triggers and automation
+
+* To create an INSERT trigger, follow this template:
+```sql
+USE DATABASENAME
+GO
+
+-- Start transaction
+BEGIN TRAN
+GO
+
+-- Create trigger
+CREATE TRIGGER [dbo].[T_TableName_TriggerName] ON TableName
+AFTER INSERT
+AS
+BEGIN
+    /* Trigger body */
+END
+GO
+
+-- Disable trigger after creation
+DISABLE TRIGGER [dbo].[T_TableName_TriggerName] ON TableName
+
+-- Commit transaction
+COMMIT
+GO
+```
+The trigger can then be enabled manually on SSMS, or by using
+```sql
+ENABLE TRIGGER [dbo].[T_TableName_TriggerName] ON TableName
+```
