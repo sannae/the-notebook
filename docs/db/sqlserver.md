@@ -269,3 +269,23 @@ The trigger can then be enabled manually on SSMS, or by using
 ```sql
 ENABLE TRIGGER [dbo].[T_TableName_TriggerName] ON TableName
 ```
+
+* In the trigger body, the records inserted at each transaction are accessible through the virtual table `INSERTED`. Here's an example on how to reach for the values just inserted, i.e. the ones activating the trigger:
+```sql
+    /* This is the trigger body */
+    /* The following example copies some values of the record inserted in TableName directly into DestinationTable */
+
+  -- SET NOCOUNT ON added to prevent extra result sets from
+  -- interfering with SELECT statements.
+  SET NOCOUNT ON;
+
+    -- Select the record from TableName and add it to DestinationTable
+  INSERT INTO DestinationTable
+	(field1, field2, ...)
+	SELECT
+		TableName.Field1, TableName.Field2, ...
+	FROM INSERTED
+	-- Some other conditions like JOIN or WHERE
+```
+
+* The same applies for a DELETE trigger (`CREATE TRIGGER [dbo].[T_TableName_TriggerName] ON TableName AFTER DELETE`): the deleted record are accessible by the trigger from the `DELETED` table
