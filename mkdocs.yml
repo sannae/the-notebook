@@ -25,6 +25,7 @@ nav:
   - web:
     - django: web/django.md
     - rails: web/rails.md
+    - reactjs: web/reactjs.md
 
 # Repo info
 repo_url: https://github.com/sannae/the-notebook

@@ -36,8 +36,42 @@ To run the development server,
 cd MY-APP
 npm start
 ```
-The browser should automatically refresh at each change.
+The browser should automatically refresh at each change, as soon as you save your files. If it doesn't, you probably have to [:material-stack-overflow: increase the frequency](https://stackoverflow.com/questions/42189575/create-react-app-reload-not-working) of the [`inotify`](https://man7.org/linux/man-pages/man7/inotify.7.html) event monitoring process.
 
 ### Architecture
 
 Reactjs is used to build Single-Page Apps (SPAs), meaning that each page and each component in the page is rendered as an independent javascript file. You may therefore implement each page or each component separately.
+
+The main html page is `/public/index.html`:
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <title>Hotline front-end</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
+```
+
+The `root` element is rendered by `/src/index.js`:
+```javascript
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+);
+```
+Which contains the main `App` element, the one where all the routing and component rendering is implemented:
+```javascript
+function App() {
+    return (
+        /* Your app here */
+    );
+}
+export default App;
+```
