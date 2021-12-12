@@ -79,6 +79,11 @@
 sudo docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs sudo docker rm
 ```
 
+* To take advantage of the ~20 free private repositories of Canister, configure the docker CLI to use it as the default registry with
+```bash
+docker login --username=yourcanisterID --password=yourpassword cloud.canister.io:5000
+```
+
 * To avoid typing long bash commands, automate the most usual ones with a [Makefile](https://www.gnu.org/software/make/manual/make.html) (also a tutorial at [Makefiletutorial](https://makefiletutorial.com/)). The Makefile follows the syntax:
 ```bash
 target: prerequisites
