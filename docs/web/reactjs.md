@@ -75,3 +75,7 @@ function App() {
 }
 export default App;
 ```
+
+### Data
+
+Use [mockaroo](https://www.mockaroo.com) to create a large mock dataset in JSON format to feed your React App. 

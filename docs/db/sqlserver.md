@@ -1,4 +1,4 @@
-# Microsoft SQL Server :material-db:
+# Microsoft SQL Server :material-database:
 
 The reference repository is [:material-github: sannae/tsql-queries](https://github.com/sannae/tsql-queries).
 
