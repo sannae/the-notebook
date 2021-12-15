@@ -119,8 +119,8 @@ USE DATABASE_NAME
 CREATE LOGIN YOUR_USERNAME WITH PASSWORD = 'YOUR_PASSWORD';
 GO
 -- Assigns the sysadmin server role
-EXEC master..sp_addsrvrolemember @loginame = N'YOUR_USERNAME', @rolename = N'sysadmin'
-GO
+ALTER SERVER ROLE sysadmin ADD MEMBER YOUR_USERNAME ;  
+GO 
 ```
 
 ### Data and log files
