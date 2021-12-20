@@ -1,5 +1,8 @@
 # Ruby on Rails :material-language-ruby-on-rails:
 
+!!! Resources
+    * [:material-youtube: Ruby on Rails for beginners] (https://youtube.com/playlist?list=PLm8ctt9NhMNV75T9WYIrA6m9I_uw7vS56)
+
 ## Set up your dev environment
 
 There are several good instllation guides online, such as [GoRails](https://gorails.com/setup/windows/10) and [Seriva's WSL2 Rails setup](https://github.com/serivas/wsl2_rails_setup).
