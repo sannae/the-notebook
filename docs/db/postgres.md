@@ -1,5 +1,8 @@
 # postgresql
 
+!!! Resources
+    * [:material-youtube: Backend master class](https://youtube.com/playlist?list=PLy_6D98if3ULEtXtNSY_2qN21VCKgoQAE) with Golang, Postgres and Docker :star:
+
 ## Getting started commands
 
 * To send a command from bash, `sudo su - postgres -c "COMMAND"` 
