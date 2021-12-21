@@ -1,7 +1,10 @@
 # reactjs :material-react:
 
 !!! **Resources:*
-    * :material-react: [React docs](https://reactjs.org/docs/hello-world.html)
+    * [:material-react: React docs](https://reactjs.org/docs/hello-world.html)
+
+??? Tutorials:
+    * [:material-youtube: Build a stock app with ReactJs](https://youtube.com/playlist?list=PL_kr51suci7WkVde-b09G4XHEWQrmzcpJ)
 
 ## Prerequisites
 

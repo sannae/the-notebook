@@ -6,6 +6,14 @@ The reference repository is [:material-github: sannae/djangocrm](https://github.
     * The main Django documentation is available [here](https://docs.djangoproject.com/en/).
     * Another nice learning path is in [:material-microsoft: Microsoft Learn](https://docs.microsoft.com/en-us/learn/paths/django-create-data-driven-websites/) and in the [:material-youtube: Microsoft Developers](https://www.youtube.com/playlist?list=PLlrxD0HtieHjHCQ0JB_RrhbQp_9ccJztr) Youtube channel.
 
+??? Tutorials
+    * [:material-youtube: Create a CRM web app](https://youtube.com/playlist?list=PL-51WBLyFTg2vW-_6XBoUpE7vpmoR3ztO) by Dennis Ivy
+    * [:material-youtube: Create an expense tracking web app](https://youtube.com/playlist?list=PLx-q4INfd95G-wrEjKDAcTB1K-8n1sIiz)
+    * [:material-youtube: Django tutorial](https://youtube.com/playlist?list=PL1WVjBsN-_NIdlnACz0Mxuq8VcuxER-is)
+    * [:material-youtube: Django Testing](https://youtube.com/playlist?list=PLbpAWbHbi5rMF2j5n6imm0enrSD9eQUaM)
+    * [:material-youtube: Django Testing Automation with GitHub Actions](https://youtube.com/playlist?list=PLOLrQ9Pn6caxeUIXRVOZpDJ_2PbGAa_Io) by VeryAcademy
+    * [:material-youtube: Django and Docker](https://youtube.com/playlist?list=PLOLrQ9Pn6cazCfL7v4CdaykNoWMQymM_C) by VeryAcademy
+
 ## Requirements
 
 * [Python](https://www.python.org/downloads/) (`python3 -V` on Linux, `python -V` on Windows)
