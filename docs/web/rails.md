@@ -1,8 +1,8 @@
 # Ruby on Rails :material-language-ruby-on-rails:
 
 ??? Resources
-    * [:material-youtube: Ruby on Rails for beginners] (https://youtube.com/playlist?list=PLm8ctt9NhMNV75T9WYIrA6m9I_uw7vS56)
-    * [:material-youtube: Let's build with Ruby on Rails] (https://youtube.com/playlist?list=PL01nNIgQ4uxNkDZNMON-TrzDVNIk3cOz4) :star:
+    * [:material-youtube: Ruby on Rails for beginners](https://youtube.com/playlist?list=PLm8ctt9NhMNV75T9WYIrA6m9I_uw7vS56)
+    * [:material-youtube: Let's build with Ruby on Rails](https://youtube.com/playlist?list=PL01nNIgQ4uxNkDZNMON-TrzDVNIk3cOz4) :star:
 
 ## Set up your dev environment
 
