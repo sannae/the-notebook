@@ -1,8 +1,6 @@
 # Raspberry Pi 3 :material-raspberry-pi:
 
-A few notes on setting up a Raspberry Pi 3 for some experiments.
-
-??? Resources
+!!! Resources
     * "Getting started" documentation: <https://www.raspberrypi.com/documentation/computers/getting-started.html> 
 
 ## Initial

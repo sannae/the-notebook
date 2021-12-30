@@ -1,8 +1,10 @@
 # git :material-git:
 
-??? Resources
+!!! Resources
 	* Official documentation in [:material-git: Git docs](https://git-scm.com/docs).
 	* [:material-gitlab: Atlassian's tutorials](https://www.atlassian.com/git/tutorials).
+	* [:material-youtube: Git for professionals](https://youtu.be/Uszj_k0DGsg) by [FreeCodeCamp](https://www.freecodecamp.org/)
+	* [:material-youtube: Advanced Git](https://youtu.be/qsTthZi23VE) by [FreeCodeCamp](https://www.freecodecamp.org/)
 
 ## Most used commands
 

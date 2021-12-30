@@ -1,8 +1,42 @@
 # docker :material-docker:
 
-??? Resources
+!!! Resources
     * [:material-docker: Docker docs](https://docs.docker.com/)! The starting point
     * [:material-youtube: Dev containers](https://www.youtube.com/playlist?list=PLj6YeMhvp2S5G_X6ZyMc8gfXPMFPg3O31), a playlist from the VS Code YouTube channel about containerized dev environments
+
+## Getting started
+
+### Install docker on Debian (ref. [:material-docker: here](https://docs.docker.com/engine/install/debian/))
+
+* Compare your Debian version (in `/etc/issue`) with the current [:material-docker: installation requirements](https://docs.docker.com/engine/install/debian/#os-requirements)
+* Set up the stable Docker repository with 
+```bash
+sudo apt-get update
+sudo apt-get install ca-certificates curl gnupg lsb-release
+sudo curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+sudo echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
+* Install the Docker engine:
+```bash
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+```
+* Test the installation with:
+```bash
+docker --version
+```
+* Create a new user group called 'docker' and add your user to it:
+```bash
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+```
+Test the last commands by running `docker` without having to preface `sudo`.
+* Configure Docker to start on boot:
+```bash
+sudo systemctl enable docker.service
+sudo systemctl enable containerd.service
+```
 
 ## Architecture
 

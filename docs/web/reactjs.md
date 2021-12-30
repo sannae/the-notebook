@@ -1,6 +1,6 @@
 # reactjs :material-react:
 
-??? Resources
+!!! Resources
     * [:material-react: React docs](https://reactjs.org/docs/hello-world.html)
 
 ??? Tutorials

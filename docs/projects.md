@@ -4,11 +4,13 @@
 
 <a href="https://www.commitstrip.com/en/?"><img src="https://www.commitstrip.com/wp-content/uploads/2014/11/Strip-Side-project-650-finalenglish.jpg"></a>
 
+## Working on...
+
+* [:material-github: CRM dockerized web application](https://github.com/sannae/djangocrm): Django, Postgresql, Bootstrap, Docker
+* [:material-github: Software support service ticket manager](https://github.com/sannae/hotline): Django, SQLite3, Bootstrap, Docker
+
 ## Just ideas for now :bulb:
 
-* Store management website CRUD app
-* CRM dockerized web application
-* Ecommerce web site
 * Outlook Add-on to write directly on a SQL database
 * A financial independence calculator 
 * A weather monitoring app that sends daily notifications on the temperature and the wind

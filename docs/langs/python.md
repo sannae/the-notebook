@@ -1,6 +1,6 @@
 # Python
 
-??? Resources
+!!! Resources
     * Setting up Python 3.x in [VS Code](https://code.visualstudio.com/docs/python/python-tutorial)
 
 ## Package management

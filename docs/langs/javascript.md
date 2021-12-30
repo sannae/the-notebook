@@ -1,6 +1,7 @@
 # javascript :material-language-javascript:
 
-??? Resources
+!!! Resources
+    * [:material-youtube: Javascript for Beginners](https://www.youtube.com/playlist?list=PLlrxD0HtieHhW0NCG7M536uHGOtJ95Ut2) by Microsoft Developers
 
 ## Intro
 
