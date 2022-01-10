@@ -33,14 +33,34 @@ oci iam compartment list
 !!! info
     The output of the CLI are JSON records (readability is improved using `--output table`). Save them in a variable with `VARIABLENAME=$(oci ...)` then parse them in bash with [jq](https://stedolan.github.io/jq/) using `echo $VARIABLENAME | jq '.'`
 
-Get the list of compartments' OCIDs:
+Get the list of compartments' OCIDs into an array:
 ```bash
 COMPARTMENTS=$(oci iam compartment list)
 echo $COMPARTMENTS > compartments.json
-cat compartments.json | jq -r '.data[].id'
+COMPARTMENTS_OCID=$(cat compartments.json | jq -r '.data[].id')
+COMPARTMENT_ARRAY=($(echo $COMPARTMENTS_OCID | tr " " "\n"))
+```
+You can access them with a `for` loop like:
+```bash
+for compartment_ocid in "${COMPARTMENT_ARRAY[@]}"
+do
+    echo $compartment_ocid
+done
 ```
 
-* Get the list of available instance shapes ([reference](https://docs.oracle.com/en-us/iaas/tools/oci-cli/3.4.1/oci_cli_docs/cmdref/compute/shape/list.html))
+* Using the same `for` loop as above, get the list of available instance shapes ([reference](https://docs.oracle.com/en-us/iaas/tools/oci-cli/3.4.1/oci_cli_docs/cmdref/compute/shape/list.html)). The `grep` part is used to check if a specific shape is available in each compartment:
+```bash
+for compartment_ocid in "${COMPARTMENT_ARRAY[@]}"
+do
+    SHAPE=$(oci compute shape list --compartment-id $compartment_ocid | grep "VM.Standard.A1.Flex")
+    # Check if shape is available
+    if [ -z "$SHAPE" ]
+    then
+        echo "No shape found in compartment $compartment_ocid"
+    else
+        echo $SHAPE
+    fi
+done
 ```
-oci compute shape list --compartment-id COMPARTMENT-ID
-```
+
+* :green_circle: **Next:** create a .NET worker service with the [.NET SDK](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/dotnetsdk.htm) (documentation also available [:material-github: here](https://github.com/oracle/oci-dotnet-sdk))
