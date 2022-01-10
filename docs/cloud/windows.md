@@ -28,3 +28,5 @@
     * Procedure: https://superuser.com/questions/1533291/how-do-i-change-the-dns-settings-for-wsl2
     * Also helpful: https://www.ricmedia.com/set-permanent-dns-nameservers-ubuntu-debian-resolv-conf/
     * Watch out the firewall!
+
+* Create a SSH key pair on Windows
