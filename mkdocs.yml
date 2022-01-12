@@ -25,6 +25,7 @@ nav:
     - python: langs/python.md
   - web:
     - django: web/django.md
+    - dotnet: web/dotnet.md
     - rails: web/rails.md
     - reactjs: web/reactjs.md
 

@@ -19,8 +19,9 @@ oci --version
 ```
 
 Configure the CLI with `oci setup config`; the prompts will ask for 
-    * your `.oci/config` file location
-    * your [user's OCID, tenancy's OCID, API Key fingerprint and region](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm#five)
+
+* your `.oci/config` file location
+* your [user's OCID, tenancy's OCID, API Key fingerprint and region](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm#five)
 
 Test the connection with
 ```bash
