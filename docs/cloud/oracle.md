@@ -48,6 +48,7 @@ COMPARTMENTS=$(oci iam compartment list)
 echo $COMPARTMENTS > compartments.json
 COMPARTMENTS_OCID=$(cat compartments.json | jq -r '.data[].id')
 COMPARTMENT_ARRAY=($(echo $COMPARTMENTS_OCID | tr " " "\n"))
+rm compartments.json
 ```
 
 You can access them with a `for` loop like:

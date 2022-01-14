@@ -108,6 +108,13 @@ sudo systemctl enable containerd.service
 
 ## Quick ones
 
+* Get the docker image ID by its name (`IMAGE-NAME`):
+```bash
+docker images --format="{{.Repository}} {{.ID}}" |      # Reformat the output of 'docker images'
+grep "IMAGE-NAME" |         # Find your image
+cut -d' ' -f2               # Cut the output and pick the ID
+```
+
 * [Remove all Exited containers](https://coderwall.com/p/zguz_w/docker-remove-all-exited-containers): it may occur that some containers with running processes are in the `Exited` status and therefore won't be deleted with the `docker container rm` command - or, the specific ID will be removed and immediately replaced with another one. Then just run:
 ```bash
 sudo docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs sudo docker rm
