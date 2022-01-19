@@ -11,17 +11,12 @@
 
 ## Just ideas for now :bulb:
 
-* Outlook Add-on to write directly on a SQL database
-* A financial independence calculator 
-* A weather monitoring app that sends daily notifications on the temperature and the wind
-* A condo building management application, like [this](https://www.danea.it/software/domustudio/) or [this](https://valore24.ilsole24ore.com/condominio/condominio/?gclid=CjwKCAjw-sqKBhBjEiwAVaQ9axXYLqBzWWII8B0QNndG-fXeYfXAUAXrqRuM0rpuRr7syVKmnT-vZBoCca4QAvD_BwE)
-    * Scheduling meetings
-    * User proposing checklists for meetings 
-    * Sharing documents
-    * Send notifications via email
+* `etf-tracker`, an ASP.NET Core web application to track ETFs from multiple trading platforms
+* `oci-shape-monitor`, a web client to track the availability of different OCI shapes (inspired by [:material-github: this idea made in PHP](https://github.com/hitrov/oci-arm-host-capacity))
+* `lang-progress-tracker`, a WebAPI client interacting with the GitHub API to track the progress of the languages used in GitHub, based on the number of commits
 * Convert `porelli/bash_scripts/Move_containers.sh` in PowerShell and test on Windows Containers
 
-## Misc.
+## Maybe one day
 General ["build-your-own-x" projects](https://github.com/danistefanovic/build-your-own-x):
 
 * Python: Build a [stock market predictor](https://www.datacamp.com/community/tutorials/lstm-python-stock-market), a [Web Server](https://ruslanspivak.com/lsbaws-part1/), a [Docker mocker](https://github.com/tonybaloney/mocker), a [Continuous Integration system](http://aosabook.org/en/500L/a-continuous-integration-system.html)
