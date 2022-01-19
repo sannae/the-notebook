@@ -97,3 +97,49 @@ runs-on: self-hosted
 
 
 ## Github API
+
+### Test the API via console (using `curl`)
+
+#### Details of the user:
+
+```bash
+user=$"YOUR-GITHUB-USERNAME"
+token=$"YOUR-GITHUB-PERSONAL-ACCESS-TOKEN"
+curl -i -u "$user:$token" https://api.github.com/users/$user`
+```
+The switch `-i` will display also the HTTP headers: notice the `content-type` header (it should be `application/json`) and the `x-ratelimit-limit` header (maximum amount of available request per hour, it should be 5000 for authenticated requests - usage is tracked by the `x-ratelimit-remaining`).
+
+#### Details of the user's repos (both public and private):
+
+```bash
+user=$"YOUR-GITHUB-USERNAME"
+token=$"YOUR-GITHUB-PERSONAL-ACCESS-TOKEN"
+curl -i -H "Authorization: token $token" https://api.github.com/users/$user/repos
+```
+
+#### Details of a specific repo
+
+```bash
+user=$"YOUR-GITHUB-USERNAME"
+token=$"YOUR-GITHUB-PERSONAL-ACCESS-TOKEN"
+repo=$REPO_NAME
+curl -i -H "Authorization: token $token" https://api.github.com/repos/$user/$repo
+```
+
+#### Commits of a specific repo
+
+```bash
+user=$"YOUR-GITHUB-USERNAME"
+token=$"YOUR-GITHUB-PERSONAL-ACCESS-TOKEN"
+repo=$REPO_NAME
+curl -i -H "Authorization: token $token" https://api.github.com/repos/$user/$repo/commits
+```
+
+#### Language statistics of a specific repo
+
+```bash
+user=$"YOUR-GITHUB-USERNAME"
+token=$"YOUR-GITHUB-PERSONAL-ACCESS-TOKEN"
+repo=$REPO_NAME
+curl -i -H "Authorization: token $token" https://api.github.com/repos/$user/$repo/languages
+```
