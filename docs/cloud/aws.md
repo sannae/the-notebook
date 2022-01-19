@@ -13,6 +13,31 @@
 * Forward used ports (`Rails` uses port 3000): `ssh -L 3000:localhost:3000 USER@REMOTE-HOSTNAME`
 * Ready to go! :star_struck:
 
+### Remote VSCode over SSH crashes EC2 instance :warning:
+
+The main symptom is that the instance is not reachable via SSH anymore. Using `ssh -v`, the connection hangs with something like
+
+```bash
+OpenSSH_7.4p1, LibreSSL 2.5.0
+debug1: Reading configuration data /Users/UserName/.ssh/config
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: /etc/ssh/ssh_config line 53: Applying options for *
+debug1: Connecting to host.domain [123.456.123.456] port 22.
+debug1: Connection established.
+debug1: identity file /Users/UserName/.ssh/ke> type 1
+debug1: key_load_public: No such file or directory
+debug1: identity file /Users/UserName/.ssh/key-cert type -1
+debug1: Enabling compatibility mode for protocol 2.0
+debug1: Local version string SSH-2.0-OpenSSH_7.4
+```
+
+According to [:material-github: this GitHub issue](https://github.com/microsoft/vscode-remote-release/issues/2692), the problem may be related to a [corrupted log file](https://github.com/microsoft/vscode-remote-release/issues/2692#issuecomment-778310041). 
+
+Deleting all `~/.vscode-server/*.log` and `*.pid` files should solve the issue - the deletion apparently has not effect on VSCode Server whatsoever.
+
+For additional troubleshooting, check `~/.vscode-server/data/logs/DATETIME/remoteagent.log` where `DATETIME` is the crashing datetime.
+
+
 ## S3
 
 ### Connect your web project with an S3 bucket
