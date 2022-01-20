@@ -60,6 +60,14 @@ Sample procedure:
 * `git branch -d NEW-FEATURE`: delete the branch
 * `git push`: sync with remote repo
 
+!!! warning
+	If you get the `not something we can merge` error, it's probably because you don't have a local copy of the branch that you want to merge, as explained [:material-stack-overflow: here](https://stackoverflow.com/questions/16862933/how-to-resolve-gits-not-something-we-can-merge-error). Go on with:
+	```
+	git checkout BRANCH-NAME
+	git checkout main
+	git merge BRANCH-NAME
+	```
+
 ## Switch remote URLs from HTTPS to SSH
 
 From your local project folder,
