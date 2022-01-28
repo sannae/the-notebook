@@ -51,23 +51,15 @@ sudo systemctl enable containerd.service
 * Container lifecycle:
 ![container-lifecycle](https://docs.microsoft.com/en-us/learn/modules/intro-to-docker-containers/media/4-docker-container-lifecycle.svg)
 
-## Most used commands
+## Help
 
-### Processes
+### Basics
 
-* `docker ps -a`: list of all containers and their statuses
+* `docker ps -a`: list all containers and their statuses
 
-### Images
-
-* `docker images`: main command for managing images; by itself, it lists the available images
-    * `docker images rm IMAGE_ID`: it removes the image with the specified ID
-    * `docker images --filter "dangling=true"`: lists all dangling images
-    * `docker images prune`: deletes all [:material-stack-overflow: dangling images](https://stackoverflow.com/a/45143234)
-    * `docker images prune -a`: deletes all [:material-stack-overflow: dangling and unused images](https://stackoverflow.com/a/45143234)
-
-* `docker pull IMAGE_NAME:TAG`: it downloads the image with the specified name (and the specified `TAG`, or `latest` if not specified) from the default repository ([:material-docker: Docker Hub](https://hub.docker.com))
-
-> Example: `docker pull postgres:14.0-alpine` will download the official `postgres` image at its 14th version on Linux Alpine
+* `docker images ls`: list all images
+* `docker images prune --all`: deletes all [:material-stack-overflow: dangling images](https://stackoverflow.com/a/45143234), check before deleting with `docker images --filter "dangling=true"`
+* `docker pull IMAGE-NAME:TAG`: it downloads the image with the specified name (and the specified `TAG`, or `latest` if not specified) from the default repository ([:material-docker: Docker Hub](https://hub.docker.com))
 
 !!! info
     **How to pull the image of a specific distro (es. Alpine) without specifying the tag version?** (:warning: to be tested): get all the tags of a specific `image` in a list (you will need the JSON processor [jq](https://stedolan.github.io/jq/), just use `apt-get install jq`) and filtering them by distro with `grep`:
@@ -76,33 +68,20 @@ sudo systemctl enable containerd.service
     ```
     Replace `postgres` with your image name
 
-### Containers
-
-### Operate on containers
-
-* `docker container`: main command for managing containers
-    * `docker container ls -al`: it lists all the containers, even the stopped ones
-    * `docker container rm CONTAINER_ID`: it removes the container with the specified ID
-    * `docker container cp FILE CONTAINER_NAME:/`: it copies `FILE` in the root folder of the `CONTAINER_NAME`
-
-### Run containers
+* `docker container ls -al`: list all the containers
+* `docker container cp FILE CONTAINER_NAME:/`: it copies `FILE` in the root folder of the `CONTAINER_NAME`
 
 * `docker run`: main command for running containers
-    * `docker run --name YOUR_CONTAINER_NAME -e ENVIRONMENT_VARIABLE=variable_value -d IMAGE_NAME`: it will run (and optionally pull, if the corresponding `IMAGE_NAME` hasn't been downloaded yet) a new container in the background (detached mode, or `-d`), naming it `YOUR_CONTAINER_NAME` and setting the specified `ENVIRONMENT_VARIABLE`
-    * `docker run -p HOST_PORT:CONTAINER_PORT`: it runs the specified container mapping the specified `CONTAINER_PORT` (handled in the container's virtual network) to the specified `HOST_PORT`
+* `docker run -p HOST_PORT:CONTAINER_PORT --name YOUR_CONTAINER_NAME -e ENVIRONMENT_VARIABLE=variable_value -d IMAGE_NAME`: it will run (and optionally pull, if the corresponding `IMAGE_NAME` hasn't been downloaded yet) a new container in the background (detached mode, or `-d`), naming it `YOUR_CONTAINER_NAME`, mapping the specified `CONTAINER_PORT` (handled in the container's virtual network) to the specified `HOST_PORT` and setting the specified `ENVIRONMENT_VARIABLE`
 
-> Example: `docker run --name postgres14 -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secretpassword -d postgres:14-alpine`
+    > Example: `docker run --name postgres14 -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secretpassword -d postgres:14-alpine`
 
-:warning: The error **docker: Error response from daemon: driver failed programming external connectivity on endpoint ...: Error starting userland proxy: listen tcp4 0.0.0.0:5432: bind: address already in use** means that the specified local port (i.e. in the example, the bind `0.0.0.0:5432`) is already used by another process... Just change the host port :ok_hand:.
+!!! warning :warning: 
+    The error **docker: Error response from daemon: driver failed programming external connectivity on endpoint ...: Error starting userland proxy: listen tcp4 0.0.0.0:5432: bind: address already in use** means that the specified local port (i.e. in the example, the bind `0.0.0.0:5432`) is already used by another process... Just change the host port :ok_hand:.
 
-### Execute commands on containers
+* `docker exec -it CONTAINER_NAME_OR_ID COMMAND [ARGS]`: it will run interactively (i.e. by opening a shell session, `-it`) the `COMMAND` with its `ARGS` in the `CONTAINER_NAME_OR_ID`
 
-* `docker exec`: main command for executing commands on a container
-    * `docker exec -it CONTAINER_NAME_OR_ID COMMAND [ARGS]`: it will run interactively (i.e. by opening a shell session, `-it`) the `COMMAND` with its `ARGS` in the `CONTAINER_NAME_OR_ID`
-
-> Example: `docker exec -it postgres14 psql -U root`
-
-### View container logs
+    > Example: `docker exec -it postgres14 psql -U root`
 
 * `docker logs CONTAINER_NAME_OR_ID`: it shows the logs of the specified `CONTAINER_NAME_OR_ID`
 
@@ -118,11 +97,6 @@ cut -d' ' -f2               # Cut the output and pick the ID
 * [Remove all Exited containers](https://coderwall.com/p/zguz_w/docker-remove-all-exited-containers): it may occur that some containers with running processes are in the `Exited` status and therefore won't be deleted with the `docker container rm` command - or, the specific ID will be removed and immediately replaced with another one. Then just run:
 ```bash
 sudo docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs sudo docker rm
-```
-
-* To take advantage of the ~20 free private repositories of Canister, configure the docker CLI to use it as the default registry with
-```bash
-docker login --username=yourcanisterID --password=yourpassword cloud.canister.io:5000
 ```
 
 * To avoid typing long bash commands, automate the most usual ones with a [Makefile](https://www.gnu.org/software/make/manual/make.html) (also a tutorial at [Makefiletutorial](https://makefiletutorial.com/)). The Makefile follows the syntax:
