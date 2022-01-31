@@ -149,3 +149,14 @@ make migrateup # Run the first migration to create the schema
 make runpsql # Start the psql CLI
 ```
 :warning: Watch out for tabs in the Makefile, as explained in [:material-stack-overflow: this StackOverflow answer](https://stackoverflow.com/a/16945143). Use `cat -etv Makefile` to look for missing tabs (`^I`).
+
+* To install an unpacked service using its executable on Docker, use the following Dockerfile:
+```
+FROM mcr.microsoft.com/windows/servercore:ltsc2019
+WORKDIR /app
+COPY . "C:/app"
+RUN ["C:/Windows/Microsoft.NET/Framework/v4.0.30319/InstallUtil.exe", "/i", "EXECUTABLE_NAME.exe"]
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+CMD c:\app\Wait-Service.ps1 -ServiceName 'SERVICE_NAME' -AllowServiceRestart
+```
+Where the `Wait-Service.ps1` script is [:material-github: here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/main/windows-server-container-tools/Wait-Service/Wait-Service.ps1).
