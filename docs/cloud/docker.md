@@ -2,10 +2,23 @@
 
 !!! Resources
     * [:material-docker: Docker docs](https://docs.docker.com/)! The starting point
-    * [:material-youtube: Docker and Kubernetes complete tutorial](https://www.youtube.com/playlist?list=PL0hSJrxggIQoKLETBSmgbbvE4FO_eEgoB), a very detailed playlist from beginner to advanced level in both Docker and Kubernetes 
+    * [:material-youtube: Docker and Kubernetes complete tutorial](https://www.youtube.com/playlist?list=PL0hSJrxggIQoKLETBSmgbbvE4FO_eEgoB), a very detailed playlist from beginner to advanced level in both Docker and Kubernetes - it's also a [:fontawesome-solid-book: Udemy course](https://www.udemy.com/course/docker-and-kubernetes-the-complete-guide/), by the way
     * [:material-youtube: Dev containers](https://www.youtube.com/playlist?list=PLj6YeMhvp2S5G_X6ZyMc8gfXPMFPg3O31), a playlist from the VS Code YouTube channel about containerized dev environments
+    * [:fontawesome-solid-euro-sign: Docker Mastery](https://www.udemy.com/course/docker-mastery/) Udemy course on Docker and Kubernetes, by a Docker Captain
 
 ## Getting started
+
+### Misc
+
+* Docker takes advantage of the kernel's property of _namespacing_ (isolating resources per process or group of processes, e.g. when a process needs a specific portion of the actual hardware such as the hard drive, but not the rest) and _control groups (cgroups)_ (limiting the amount of resources - RAM, CPU, HD I/O, network bandwith, etc. per process or group of processes)
+
+* So a _container_ is basically a process whose system calls are redirected to a namespaced portion of dedicated hardware (HD, RAM, network, CPU, etc.) through the host's kernel
+
+* An _image_ is essentially a filesystem snapshot with a startup command
+
+* Since _namespacing_ and _cgroups_ are specifically properties of a Linux-based OS, this means that Docker on both Windows and MacOS use a lightweight Linux virtual machine to run Linux containers
+
+* Learn on a running container: `docker run -d IMAGE_NAME ping google.com`, where the `ping google.com` command overrides the default image's startup command
 
 ### Install docker on Debian (ref. [:material-docker: here](https://docs.docker.com/engine/install/debian/))
 
@@ -72,7 +85,7 @@ sudo systemctl enable containerd.service
 * `docker container ls -al`: list all the containers
 * `docker container cp FILE CONTAINER_NAME:/`: it copies `FILE` in the root folder of the `CONTAINER_NAME`
 
-* `docker run`: main command for running containers
+* `docker run`: main command for running containers (`docker run` = `docker create IMAGE_NAME` + `docker start --attached CREATED_CONTAINER_ID`)
 * `docker run -p HOST_PORT:CONTAINER_PORT --name YOUR_CONTAINER_NAME -e ENVIRONMENT_VARIABLE=variable_value -d IMAGE_NAME`: it will run (and optionally pull, if the corresponding `IMAGE_NAME` hasn't been downloaded yet) a new container in the background (detached mode, or `-d`), naming it `YOUR_CONTAINER_NAME`, mapping the specified `CONTAINER_PORT` (handled in the container's virtual network) to the specified `HOST_PORT` and setting the specified `ENVIRONMENT_VARIABLE`
 
     > Example: `docker run --name postgres14 -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secretpassword -d postgres:14-alpine`
@@ -84,7 +97,12 @@ sudo systemctl enable containerd.service
 
     > Example: `docker exec -it postgres14 psql -U root`
 
+* `docker stop CONTAINER_NAME_OR_ID`: it sends a `SIGTERM` signal to the primary process inside the container, letting it shut down on its own time and with its own clean-up procedure
+* `docker kill CONTAINER_NAME_OR_ID`: it sends a `SIGKILL` signal to the primary process inside the container, shutting it down _immediately_; it's automatically used by the Docker Server if the container's process does not respond to the `docker stop` command within 10 seconds. 
+
 * `docker logs CONTAINER_NAME_OR_ID`: it shows the logs of the specified `CONTAINER_NAME_OR_ID`
+
+* `docker system prune`: it removes all stopped containers, all networks not used, all dangling images, all build cache
 
 ## `Dockerfile`
 
