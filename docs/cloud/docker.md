@@ -86,6 +86,20 @@ sudo systemctl enable containerd.service
 
 * `docker logs CONTAINER_NAME_OR_ID`: it shows the logs of the specified `CONTAINER_NAME_OR_ID`
 
+## `Dockerfile`
+
+`FROM` is the base image
+
+`WORKDIR` is the working directory on the container, set as reference to the next instructions
+
+`COPY source dest` copies files from the relative path in `source` to the relative path in `dest`
+
+`SHELL` changes the shell from the default one
+
+`RUN` runs a command or a script in the selected shell
+
+`CMD` contains the command to be executed once the container is started (`CMD`s are not committed into the built image, and the ones preceding the last one will be ignored)
+
 ## Quick ones
 
 * Get the docker image ID by its name (`IMAGE-NAME`):
