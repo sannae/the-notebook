@@ -5,6 +5,9 @@
     * [:material-youtube: Docker and Kubernetes complete tutorial](https://www.youtube.com/playlist?list=PL0hSJrxggIQoKLETBSmgbbvE4FO_eEgoB), a very detailed playlist from beginner to advanced level in both Docker and Kubernetes - it's also a [:fontawesome-solid-book: Udemy course](https://www.udemy.com/course/docker-and-kubernetes-the-complete-guide/), by the way
     * [:material-youtube: Dev containers](https://www.youtube.com/playlist?list=PLj6YeMhvp2S5G_X6ZyMc8gfXPMFPg3O31), a playlist from the VS Code YouTube channel about containerized dev environments
     * [:fontawesome-solid-euro-sign: Docker Mastery](https://www.udemy.com/course/docker-mastery/) Udemy course on Docker and Kubernetes, by a Docker Captain
+    * [15 Quick Docker Tips](https://www.ctl.io/developers/blog/post/15-quick-docker-tips)
+
+![docker-moby](https://www.docker.com/sites/default/files/Whale%20Logo332_5.png)
 
 ## Concepts
 
@@ -59,13 +62,22 @@ sudo systemctl enable docker.service
 sudo systemctl enable containerd.service
 ```
 
-## Basics
+## Administration
 
-### [:material-docker: docker image](https://docs.docker.com/engine/reference/commandline/image/)
+### Images and containers
 
-* `docker image ls`: list all images
+* `docker image ls`: all the images in the docker host's cache
+* `docker container ls -al`: all the containers with all the statuses (running, created, exited, stopped, etc)
+
+* `docker container run --detach --name postgres14 --publish 5432:5432 --env POSTGRES_USER=root --env POSTGRES_PASSWORD=secretpassword postgres:14-alpine`: runs a new detached instance of the `postgres:14-alpine` image by publishing the container's port `5432` and using the specified environment variables
+
+* `docker container run --interactive --tty --name ubuntu ubuntu bash`: will overwrite the startup command included with the `ubuntu:latest` image with the `bash` command, thus opening an interactive pseudo-tty shell
+
 * `docker image prune --all`: deletes all [:material-stack-overflow: dangling images](https://stackoverflow.com/a/45143234), check before deleting with `docker images --filter "dangling=true"`
+<<<<<<< HEAD
 * `docker image pull IMAGE_NAME:TAG`: it downloads the image with the specified name (and the specified `TAG`, or `latest` if not specified) from the default repository ([:material-docker: Docker Hub](https://hub.docker.com))
+=======
+>>>>>>> 429d98799df91d98f2113af3f12f27b04610ceeb
 
 !!! info
     **How to pull the image of a specific distro (es. Alpine) without specifying the tag version?** (:warning: to be tested): get all the tags of a specific `image` in a list (you will need the JSON processor [jq](https://stedolan.github.io/jq/), just use `apt-get install jq`) and filtering them by distro with `grep`:
@@ -74,10 +86,8 @@ sudo systemctl enable containerd.service
     ```
     Replace `postgres` with your image name
 
-### [:material-docker: docker container](https://docs.docker.com/engine/reference/commandline/container/)
-
-* `docker container ls -al`: list all the containers
 * `docker container cp FILE CONTAINER_NAME:/`: it copies `FILE` in the root folder of the `CONTAINER_NAME`
+<<<<<<< HEAD
 * `docker container run --detach --publish HOST_PORT:CONTAINER_PORT --name YOUR_CONTAINER_NAME --env ENVIRONMENT_VARIABLE=variable_value IMAGE_NAME`: it will run (and optionally pull, if the corresponding `IMAGE_NAME` is not in the local cache) a new container in the background (detached mode, or `-d`), naming it `YOUR_CONTAINER_NAME`, mapping the specified `CONTAINER_PORT` (handled in the container's virtual network) to the specified `HOST_PORT` and setting the specified `ENVIRONMENT_VARIABLE`
 
 > Example: `docker container run --name postgres14 --publish 5432:5432 --env POSTGRES_USER=root --env POSTGRES_PASSWORD=secretpassword --detach postgres:14-alpine`
@@ -98,11 +108,16 @@ sudo systemctl enable containerd.service
 
 * `docker container logs CONTAINER_NAME_OR_ID`: log of the specified `CONTAINER_NAME_OR_ID`. This is the same output as running the container without the `--detach` flag.
 * `docker container top CONTAINER_NAME_OR_ID`: list of processes running in the container
+=======
 
-### Misc.
+* `docker container stop CONTAINER_NAME_OR_ID`: it sends a `SIGTERM` signal to the primary process inside the container, letting it shut down on its own time and with its own clean-up procedure
+>>>>>>> 429d98799df91d98f2113af3f12f27b04610ceeb
+
+* `docker container kill CONTAINER_NAME_OR_ID`: it sends a `SIGKILL` signal to the primary process inside the container, shutting it down _immediately_; it's automatically used by the Docker Server if the container's process does not respond to the `docker stop` command within 10 seconds. 
 
 * `docker system prune`: it removes all stopped containers, all networks not used, all dangling images, all build cache
 
+<<<<<<< HEAD
 ## `Dockerfile`
 
 `FROM` is the base image
@@ -119,6 +134,8 @@ sudo systemctl enable containerd.service
 
 ## Quick tips
 
+=======
+>>>>>>> 429d98799df91d98f2113af3f12f27b04610ceeb
 * Get the docker image ID by its name (`IMAGE-NAME`):
 ```bash
 docker images --format="{{.Repository}} {{.ID}}" |      # Reformat the output of 'docker images'
@@ -131,7 +148,22 @@ cut -d' ' -f2               # Cut the output and pick the ID
 docker rm $(docker ps -a -f status=exited -q)
 ```
 
-* To avoid typing long bash commands, automate the most usual ones with a [Makefile](https://www.gnu.org/software/make/manual/make.html) (also a tutorial at [Makefiletutorial](https://makefiletutorial.com/)). The Makefile follows the syntax:
+### Network drivers
+
+* `docker network ls`: all the networks in docker
+
+:warning: Remember that the `bridge` default network does not support the internal DNS - which you can find in any new bridge network created with `docker network create --driver bridge you_net`. So, it's a best practice to always create your custom networks and attach your containers to them (with `docker network connect your_net your_container`). 
+
+* `docker network inspect --format "{{json .Containers }}" bridge | jq`: lists all the containers connected to the default docker network `bridge`
+
+* `docker network inspect --format "{{json .IPAM.Config }}" bridge | jq` : gives the IP range used by the default docker network `bridge`
+
+* `docker container inspect --format "{{json .NetworkSettings.IPAddress }}" nginx | jq` : the `nginx` container's internal IP address read from the `inspect` output (:warning: use the container's hostname instead of IP address... containers _really are_ ephemeral!)
+
+
+### Using a `makefile` to speed up the docker commands
+
+To avoid typing long bash commands, automate the most usual ones with a [Makefile](https://www.gnu.org/software/make/manual/make.html) (also a tutorial at [Makefiletutorial](https://makefiletutorial.com/)). The Makefile follows the syntax:
 ```bash
 target: prerequisites
     command
@@ -182,8 +214,68 @@ make runpsql # Start the psql CLI
 ```
 :warning: Watch out for tabs in the Makefile, as explained in [:material-stack-overflow: this StackOverflow answer](https://stackoverflow.com/a/16945143). Use `cat -etv Makefile` to look for missing tabs (`^I`).
 
+<<<<<<< HEAD
 * To install an unpacked .NET Framework service using its executable on Docker, use the following Dockerfile:
 ```dockerfile
+=======
+## Troubleshooting
+
+> Learn on a running container: `docker run -d IMAGE_NAME ping google.com`, where the `ping google.com` command overrides the default image's startup command and leaves the container always running
+
+!!! warning
+    The error **docker: Error response from daemon: driver failed programming external connectivity on endpoint ...: Error starting userland proxy: listen tcp4 0.0.0.0:5432: bind: address already in use** means that the specified local port (i.e. in the example, the bind `0.0.0.0:5432`) is already used by another process... Just change the host port :ok_hand:.
+
+* `docker container exec --interactive --tty postgres14 psql -U root`: it will start a command (the one specified after the image's name, here `psql -U root`) running _in addition_ to the startup command
+
+* `docker container logs CONTAINER_NAME_OR_ID`: it shows the logs of the specified `CONTAINER_NAME_OR_ID`. This is the same output as running the container without the `--detach` flag.
+
+## Developing
+
+An example of Dockerfile for a Python application (references [:material-docker: here](https://docs.docker.com/language/python/build-images/)):
+
+```dockerfile
+# syntax=docker/dockerfile:1
+
+# Base image
+FROM python:3.8-slim-buster
+
+# Container's default location for all subsequent commands
+WORKDIR /app
+
+# Copy command from the Dockerfile local folder to the path relative to WORKDIR 
+COPY requirements.txt requirements.txt
+
+# Running a command with the image's default shell (it can be changed with a SHELL command)
+RUN pip3 install -r requirements.txt
+
+# Copy the whole source code
+COPY . .
+
+# Command we want to run when our image is executed inside a container
+# Notice the "0.0.0.0" meant to make the application visible from outside of the container
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+```
+
+* `CMD` arguments can be over-ridden:
+```dockerfile
+cat Dockerfile
+FROM ubuntu
+CMD ["echo"]
+$ docker run imagename echo hello
+hello
+```
+`ENTRYPOINT` arguments can NOT be over-ridden:
+```dockerfile
+cat Dockerfile
+FROM ubuntu
+ENTRYPOINT ["echo"]
+$ docker run imagename echo hello
+echo hello
+```
+
+* To install an unpacked service using its executable on Docker, use the following Dockerfile:
+```
+>>>>>>> 429d98799df91d98f2113af3f12f27b04610ceeb
 FROM mcr.microsoft.com/windows/servercore:ltsc2019
 WORKDIR /app
 COPY . "C:/app"
@@ -191,4 +283,10 @@ RUN ["C:/Windows/Microsoft.NET/Framework/v4.0.30319/InstallUtil.exe", "/i", "EXE
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 CMD c:\app\Wait-Service.ps1 -ServiceName 'SERVICE_NAME' -AllowServiceRestart
 ```
+<<<<<<< HEAD
 Where the `Wait-Service.ps1` script, meant to wait for a service to stop, is available [:material-github: here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/main/windows-server-container-tools/Wait-Service/Wait-Service.ps1).
+=======
+Where the `Wait-Service.ps1` script is [:material-github: here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/main/windows-server-container-tools/Wait-Service/Wait-Service.ps1).
+
+
+>>>>>>> 429d98799df91d98f2113af3f12f27b04610ceeb
