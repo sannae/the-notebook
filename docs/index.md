@@ -10,9 +10,7 @@ This notebook is a collection of ideas, code snippets, projects, interesting art
 
 > 📖 _"By relying on an internal database (or “second brain”) they can reduce their reliance on external search engines. I've found when encountering a similar issue it is often more efficient to reference my own notes as I’ve already written them in a way that makes sense to me rather than to go through the process of parsing through search results until I encounter what I am looking for and then go through the process of translating how it’s written into a mental model that works for me."_ -- M.Powell, [The ReadME Project](https://github.com/readme/guides/private-documentation).
 
-## 
-
-### Workflow behind these docs
+## Workflow behind these docs
 
 This notebook is a static website based on markdown documentation built with [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
 

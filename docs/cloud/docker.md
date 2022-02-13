@@ -1,24 +1,29 @@
 # docker :material-docker:
 
-!!! Resources
+??? Resources
     * [:material-docker: Docker docs](https://docs.docker.com/)! The starting point
     * [:material-youtube: Docker and Kubernetes complete tutorial](https://www.youtube.com/playlist?list=PL0hSJrxggIQoKLETBSmgbbvE4FO_eEgoB), a very detailed playlist from beginner to advanced level in both Docker and Kubernetes - it's also a [:fontawesome-solid-book: Udemy course](https://www.udemy.com/course/docker-and-kubernetes-the-complete-guide/), by the way
     * [:material-youtube: Dev containers](https://www.youtube.com/playlist?list=PLj6YeMhvp2S5G_X6ZyMc8gfXPMFPg3O31), a playlist from the VS Code YouTube channel about containerized dev environments
     * [:fontawesome-solid-euro-sign: Docker Mastery](https://www.udemy.com/course/docker-mastery/) Udemy course on Docker and Kubernetes, by a Docker Captain
 
-## Getting started
+## Concepts
 
-### Misc
+* Docker takes advantage of the kernel's property of **namespacing** (isolating resources per process or group of processes, e.g. when a process needs a specific portion of the actual hardware such as the hard drive, but not the rest) and **control groups (cgroups)** (limiting the amount of resources - RAM, CPU, HD I/O, network bandwith, etc. per process or group of processes)
 
-* Docker takes advantage of the kernel's property of _namespacing_ (isolating resources per process or group of processes, e.g. when a process needs a specific portion of the actual hardware such as the hard drive, but not the rest) and _control groups (cgroups)_ (limiting the amount of resources - RAM, CPU, HD I/O, network bandwith, etc. per process or group of processes)
+![docker-namespacing](http://vicch.github.io/pkb/programming/images/docker_and_kubernetes/04.png)
 
-* So a _container_ is basically a process whose system calls are redirected to a namespaced portion of dedicated hardware (HD, RAM, network, CPU, etc.) through the host's kernel
+* So a **container** is basically a process whose system calls are redirected to a namespaced portion of dedicated hardware (HD, RAM, network, CPU, etc.) through the host's kernel
 
-* An _image_ is essentially a filesystem snapshot with a startup command
+![docker-container](http://vicch.github.io/pkb/programming/images/docker_and_kubernetes/05.png)
 
-* Since _namespacing_ and _cgroups_ are specifically properties of a Linux-based OS, this means that Docker on both Windows and MacOS use a lightweight Linux virtual machine to run Linux containers
+* An **image** is essentially a filesystem snapshot with a startup command
 
-* Learn on a running container: `docker run -d IMAGE_NAME ping google.com`, where the `ping google.com` command overrides the default image's startup command
+![docker-image](http://vicch.github.io/pkb/programming/images/docker_and_kubernetes/06.png)
+
+* Docker's architecture:
+
+![components-of-docker-engine](https://docs.microsoft.com/en-us/learn/modules/intro-to-docker-containers/media/2-docker-architecture.svg)
+
 
 ### Install docker on Debian (ref. [:material-docker: here](https://docs.docker.com/engine/install/debian/))
 
@@ -52,28 +57,13 @@ sudo systemctl enable docker.service
 sudo systemctl enable containerd.service
 ```
 
-## Architecture
+## Basics
 
-* Container virtualization layers:
-![container-virtualization-layers](https://docs.microsoft.com/en-us/learn/modules/intro-to-docker-containers/media/5-efficient-use-hardware.svg)
+### [:material-docker: docker image](https://docs.docker.com/engine/reference/commandline/image/)
 
-* Components of the Docker Engine:
-    * **docker client**: a CLI-based application named `docker` to interact with the local or remote Docker server via the Docker REST API. 
-    * **docker server** or **docker daemon**: a daemon named `dockerd`, responding to requests from the client via the Docker REST API and interacting with other daemons.
-![components-of-docker-engine](https://docs.microsoft.com/en-us/learn/modules/intro-to-docker-containers/media/2-docker-architecture.svg)
-
-* Container lifecycle:
-![container-lifecycle](https://docs.microsoft.com/en-us/learn/modules/intro-to-docker-containers/media/4-docker-container-lifecycle.svg)
-
-## Help
-
-### Basics
-
-* `docker ps -a`: list all containers and their statuses
-
-* `docker images ls`: list all images
-* `docker images prune --all`: deletes all [:material-stack-overflow: dangling images](https://stackoverflow.com/a/45143234), check before deleting with `docker images --filter "dangling=true"`
-* `docker pull IMAGE-NAME:TAG`: it downloads the image with the specified name (and the specified `TAG`, or `latest` if not specified) from the default repository ([:material-docker: Docker Hub](https://hub.docker.com))
+* `docker image ls`: list all images
+* `docker image prune --all`: deletes all [:material-stack-overflow: dangling images](https://stackoverflow.com/a/45143234), check before deleting with `docker images --filter "dangling=true"`
+* `docker image pull IMAGE-NAME:TAG`: it downloads the image with the specified name (and the specified `TAG`, or `latest` if not specified) from the default repository ([:material-docker: Docker Hub](https://hub.docker.com))
 
 !!! info
     **How to pull the image of a specific distro (es. Alpine) without specifying the tag version?** (:warning: to be tested): get all the tags of a specific `image` in a list (you will need the JSON processor [jq](https://stedolan.github.io/jq/), just use `apt-get install jq`) and filtering them by distro with `grep`:
@@ -82,25 +72,29 @@ sudo systemctl enable containerd.service
     ```
     Replace `postgres` with your image name
 
+### [:material-docker: docker container](https://docs.docker.com/engine/reference/commandline/container/)
+
 * `docker container ls -al`: list all the containers
 * `docker container cp FILE CONTAINER_NAME:/`: it copies `FILE` in the root folder of the `CONTAINER_NAME`
+* `docker container run --detach --publish HOST_PORT:CONTAINER_PORT --name YOUR_CONTAINER_NAME --env ENVIRONMENT_VARIABLE=variable_value IMAGE_NAME`: it will run (and optionally pull, if the corresponding `IMAGE_NAME` hasn't been downloaded yet) a new container in the background (detached mode, or `-d`), naming it `YOUR_CONTAINER_NAME`, mapping the specified `CONTAINER_PORT` (handled in the container's virtual network) to the specified `HOST_PORT` and setting the specified `ENVIRONMENT_VARIABLE`
 
-* `docker run`: main command for running containers (`docker run` = `docker create IMAGE_NAME` + `docker start --attached CREATED_CONTAINER_ID`)
-* `docker run -p HOST_PORT:CONTAINER_PORT --name YOUR_CONTAINER_NAME -e ENVIRONMENT_VARIABLE=variable_value -d IMAGE_NAME`: it will run (and optionally pull, if the corresponding `IMAGE_NAME` hasn't been downloaded yet) a new container in the background (detached mode, or `-d`), naming it `YOUR_CONTAINER_NAME`, mapping the specified `CONTAINER_PORT` (handled in the container's virtual network) to the specified `HOST_PORT` and setting the specified `ENVIRONMENT_VARIABLE`
+> Example: `docker container run --name postgres14 --publish 5432:5432 --env POSTGRES_USER=root --env POSTGRES_PASSWORD=secretpassword --detach postgres:14-alpine`
 
-    > Example: `docker run --name postgres14 -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secretpassword -d postgres:14-alpine`
+> Learn on a running container: `docker run -d IMAGE_NAME ping google.com`, where the `ping google.com` command overrides the default image's startup command and leaves the container always running
 
 !!! warning :warning: 
     The error **docker: Error response from daemon: driver failed programming external connectivity on endpoint ...: Error starting userland proxy: listen tcp4 0.0.0.0:5432: bind: address already in use** means that the specified local port (i.e. in the example, the bind `0.0.0.0:5432`) is already used by another process... Just change the host port :ok_hand:.
 
-* `docker exec -it CONTAINER_NAME_OR_ID COMMAND [ARGS]`: it will run interactively (i.e. by opening a shell session, `-it`) the `COMMAND` with its `ARGS` in the `CONTAINER_NAME_OR_ID`
+* `docker container exec -it CONTAINER_NAME_OR_ID COMMAND [ARGS]`: it will run interactively (i.e. by opening a shell session, `-it`) the `COMMAND` with its `ARGS` in the `CONTAINER_NAME_OR_ID`
 
-    > Example: `docker exec -it postgres14 psql -U root`
+    > Example: `docker container exec -it postgres14 psql -U root`
 
-* `docker stop CONTAINER_NAME_OR_ID`: it sends a `SIGTERM` signal to the primary process inside the container, letting it shut down on its own time and with its own clean-up procedure
-* `docker kill CONTAINER_NAME_OR_ID`: it sends a `SIGKILL` signal to the primary process inside the container, shutting it down _immediately_; it's automatically used by the Docker Server if the container's process does not respond to the `docker stop` command within 10 seconds. 
+* `docker container stop CONTAINER_NAME_OR_ID`: it sends a `SIGTERM` signal to the primary process inside the container, letting it shut down on its own time and with its own clean-up procedure
+* `docker container kill CONTAINER_NAME_OR_ID`: it sends a `SIGKILL` signal to the primary process inside the container, shutting it down _immediately_; it's automatically used by the Docker Server if the container's process does not respond to the `docker stop` command within 10 seconds. 
 
-* `docker logs CONTAINER_NAME_OR_ID`: it shows the logs of the specified `CONTAINER_NAME_OR_ID`
+* `docker container logs CONTAINER_NAME_OR_ID`: it shows the logs of the specified `CONTAINER_NAME_OR_ID`. This is the same output as running the container without the `--detach` flag.
+
+### Misc.
 
 * `docker system prune`: it removes all stopped containers, all networks not used, all dangling images, all build cache
 
