@@ -5,6 +5,9 @@
     * [:material-youtube: Docker and Kubernetes complete tutorial](https://www.youtube.com/playlist?list=PL0hSJrxggIQoKLETBSmgbbvE4FO_eEgoB), a very detailed playlist from beginner to advanced level in both Docker and Kubernetes - it's also a [:fontawesome-solid-book: Udemy course](https://www.udemy.com/course/docker-and-kubernetes-the-complete-guide/), by the way
     * [:material-youtube: Dev containers](https://www.youtube.com/playlist?list=PLj6YeMhvp2S5G_X6ZyMc8gfXPMFPg3O31), a playlist from the VS Code YouTube channel about containerized dev environments
     * [:fontawesome-solid-euro-sign: Docker Mastery](https://www.udemy.com/course/docker-mastery/) Udemy course on Docker and Kubernetes, by a Docker Captain
+    * [15 Quick Docker Tips](https://www.ctl.io/developers/blog/post/15-quick-docker-tips)
+
+![docker-moby](https://www.docker.com/sites/default/files/Whale%20Logo332_5.png)
 
 ## Concepts
 
@@ -59,6 +62,8 @@ sudo systemctl enable containerd.service
 
 ## Administration
 
+### Images and containers
+
 * `docker image ls`: all the images in the docker host's cache
 * `docker container ls -al`: all the containers with all the statuses (running, created, exited, stopped, etc)
 
@@ -95,7 +100,20 @@ cut -d' ' -f2               # Cut the output and pick the ID
 sudo docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs sudo docker rm
 ```
 
-## Using a `makefile` to speed up the docker commands
+### Network drivers
+
+* `docker network ls`: all the networks in docker
+
+:warning: Remember that the `bridge` default network does not support the internal DNS - which you can find in any new bridge network created with `docker network create --driver bridge you_net`. So, it's a best practice to always create your custom networks and attach your containers to them (with `docker network connect your_net your_container`). 
+
+* `docker network inspect --format "{{json .Containers }}" bridge | jq`: lists all the containers connected to the default docker network `bridge`
+
+* `docker network inspect --format "{{json .IPAM.Config }}" bridge | jq` : gives the IP range used by the default docker network `bridge`
+
+* `docker container inspect --format "{{json .NetworkSettings.IPAddress }}" nginx | jq` : the `nginx` container's internal IP address read from the `inspect` output (:warning: use the container's hostname instead of IP address... containers _really are_ ephemeral!)
+
+
+### Using a `makefile` to speed up the docker commands
 
 To avoid typing long bash commands, automate the most usual ones with a [Makefile](https://www.gnu.org/software/make/manual/make.html) (also a tutorial at [Makefiletutorial](https://makefiletutorial.com/)). The Makefile follows the syntax:
 ```bash
@@ -148,8 +166,6 @@ make runpsql # Start the psql CLI
 ```
 :warning: Watch out for tabs in the Makefile, as explained in [:material-stack-overflow: this StackOverflow answer](https://stackoverflow.com/a/16945143). Use `cat -etv Makefile` to look for missing tabs (`^I`).
 
-
-
 ## Troubleshooting
 
 > Learn on a running container: `docker run -d IMAGE_NAME ping google.com`, where the `ping google.com` command overrides the default image's startup command and leaves the container always running
@@ -160,7 +176,6 @@ make runpsql # Start the psql CLI
 * `docker container exec --interactive --tty postgres14 psql -U root`: it will start a command (the one specified after the image's name, here `psql -U root`) running _in addition_ to the startup command
 
 * `docker container logs CONTAINER_NAME_OR_ID`: it shows the logs of the specified `CONTAINER_NAME_OR_ID`. This is the same output as running the container without the `--detach` flag.
-
 
 ## Developing
 
@@ -187,6 +202,23 @@ COPY . .
 # Command we want to run when our image is executed inside a container
 # Notice the "0.0.0.0" meant to make the application visible from outside of the container
 CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+```
+
+* `CMD` arguments can be over-ridden:
+```dockerfile
+cat Dockerfile
+FROM ubuntu
+CMD ["echo"]
+$ docker run imagename echo hello
+hello
+```
+`ENTRYPOINT` arguments can NOT be over-ridden:
+```dockerfile
+cat Dockerfile
+FROM ubuntu
+ENTRYPOINT ["echo"]
+$ docker run imagename echo hello
+echo hello
 ```
 
 * To install an unpacked service using its executable on Docker, use the following Dockerfile:
