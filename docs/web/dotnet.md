@@ -26,4 +26,7 @@ and so on
 </Project>
 ```
 Basically it contains the information needed to build the project.
-* To build and run your application, use `dotnet run` in your project folder. The command will automatically build the project (an `obj/` folder will appear in your project)
+
+* To build and run your application, use `dotnet run` in your project folder. The command will automatically build the project. 
+
+* To activate a watcher and dynamically reloading the web page while editing the source file, use `dotnet watch run`
