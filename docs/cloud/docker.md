@@ -22,10 +22,12 @@
 
 * Docker's architecture:
 
-![components-of-docker-engine](https://docs.microsoft.com/en-us/learn/modules/intro-to-docker-containers/media/2-docker-architecture.svg)
+![components-of-docker-engine](https://docs.docker.com/engine/images/architecture.svg)
 
 
-### Install docker on Debian (ref. [:material-docker: here](https://docs.docker.com/engine/install/debian/))
+## Install docker on Debian 
+
+Reference [:material-docker: here](https://docs.docker.com/engine/install/debian/))
 
 * Compare your Debian version (in `/etc/issue`) with the current [:material-docker: installation requirements](https://docs.docker.com/engine/install/debian/#os-requirements)
 * Set up the stable Docker repository with 
@@ -63,7 +65,7 @@ sudo systemctl enable containerd.service
 
 * `docker image ls`: list all images
 * `docker image prune --all`: deletes all [:material-stack-overflow: dangling images](https://stackoverflow.com/a/45143234), check before deleting with `docker images --filter "dangling=true"`
-* `docker image pull IMAGE-NAME:TAG`: it downloads the image with the specified name (and the specified `TAG`, or `latest` if not specified) from the default repository ([:material-docker: Docker Hub](https://hub.docker.com))
+* `docker image pull IMAGE_NAME:TAG`: it downloads the image with the specified name (and the specified `TAG`, or `latest` if not specified) from the default repository ([:material-docker: Docker Hub](https://hub.docker.com))
 
 !!! info
     **How to pull the image of a specific distro (es. Alpine) without specifying the tag version?** (:warning: to be tested): get all the tags of a specific `image` in a list (you will need the JSON processor [jq](https://stedolan.github.io/jq/), just use `apt-get install jq`) and filtering them by distro with `grep`:
@@ -76,23 +78,26 @@ sudo systemctl enable containerd.service
 
 * `docker container ls -al`: list all the containers
 * `docker container cp FILE CONTAINER_NAME:/`: it copies `FILE` in the root folder of the `CONTAINER_NAME`
-* `docker container run --detach --publish HOST_PORT:CONTAINER_PORT --name YOUR_CONTAINER_NAME --env ENVIRONMENT_VARIABLE=variable_value IMAGE_NAME`: it will run (and optionally pull, if the corresponding `IMAGE_NAME` hasn't been downloaded yet) a new container in the background (detached mode, or `-d`), naming it `YOUR_CONTAINER_NAME`, mapping the specified `CONTAINER_PORT` (handled in the container's virtual network) to the specified `HOST_PORT` and setting the specified `ENVIRONMENT_VARIABLE`
+* `docker container run --detach --publish HOST_PORT:CONTAINER_PORT --name YOUR_CONTAINER_NAME --env ENVIRONMENT_VARIABLE=variable_value IMAGE_NAME`: it will run (and optionally pull, if the corresponding `IMAGE_NAME` is not in the local cache) a new container in the background (detached mode, or `-d`), naming it `YOUR_CONTAINER_NAME`, mapping the specified `CONTAINER_PORT` (handled in the container's virtual network) to the specified `HOST_PORT` and setting the specified `ENVIRONMENT_VARIABLE`
 
 > Example: `docker container run --name postgres14 --publish 5432:5432 --env POSTGRES_USER=root --env POSTGRES_PASSWORD=secretpassword --detach postgres:14-alpine`
 
 > Learn on a running container: `docker run -d IMAGE_NAME ping google.com`, where the `ping google.com` command overrides the default image's startup command and leaves the container always running
 
-!!! warning :warning: 
-    The error **docker: Error response from daemon: driver failed programming external connectivity on endpoint ...: Error starting userland proxy: listen tcp4 0.0.0.0:5432: bind: address already in use** means that the specified local port (i.e. in the example, the bind `0.0.0.0:5432`) is already used by another process... Just change the host port :ok_hand:.
+!!! warning 
+    :warning: The error **docker: Error response from daemon: driver failed programming external connectivity on endpoint ...: Error starting userland proxy: listen tcp4 0.0.0.0:5432: bind: address already in use** means that the specified local port (i.e. in the example, the bind `0.0.0.0:5432`) is already used by another process... Just change the host port :ok_hand:.
 
-* `docker container exec -it CONTAINER_NAME_OR_ID COMMAND [ARGS]`: it will run interactively (i.e. by opening a shell session, `-it`) the `COMMAND` with its `ARGS` in the `CONTAINER_NAME_OR_ID`
+* `docker container exec --interactive --tty CONTAINER_NAME_OR_ID COMMAND [ARGS]`: it will run interactively (i.e. by opening a shell session, `-it`) the `COMMAND` with its `ARGS` in the `CONTAINER_NAME_OR_ID`
 
-    > Example: `docker container exec -it postgres14 psql -U root`
+> Example: `docker container exec -it postgres14 psql -U root`
 
 * `docker container stop CONTAINER_NAME_OR_ID`: it sends a `SIGTERM` signal to the primary process inside the container, letting it shut down on its own time and with its own clean-up procedure
 * `docker container kill CONTAINER_NAME_OR_ID`: it sends a `SIGKILL` signal to the primary process inside the container, shutting it down _immediately_; it's automatically used by the Docker Server if the container's process does not respond to the `docker stop` command within 10 seconds. 
 
-* `docker container logs CONTAINER_NAME_OR_ID`: it shows the logs of the specified `CONTAINER_NAME_OR_ID`. This is the same output as running the container without the `--detach` flag.
+#### Troubleshoot a container
+
+* `docker container logs CONTAINER_NAME_OR_ID`: log of the specified `CONTAINER_NAME_OR_ID`. This is the same output as running the container without the `--detach` flag.
+* `docker container top CONTAINER_NAME_OR_ID`: list of processes running in the container
 
 ### Misc.
 
@@ -112,7 +117,7 @@ sudo systemctl enable containerd.service
 
 `CMD` contains the command to be executed once the container is started (`CMD`s are not committed into the built image, and the ones preceding the last one will be ignored)
 
-## Quick ones
+## Quick tips
 
 * Get the docker image ID by its name (`IMAGE-NAME`):
 ```bash
@@ -123,7 +128,7 @@ cut -d' ' -f2               # Cut the output and pick the ID
 
 * [Remove all Exited containers](https://coderwall.com/p/zguz_w/docker-remove-all-exited-containers): it may occur that some containers with running processes are in the `Exited` status and therefore won't be deleted with the `docker container rm` command - or, the specific ID will be removed and immediately replaced with another one. Then just run:
 ```bash
-sudo docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs sudo docker rm
+docker rm $(docker ps -a -f status=exited -q)
 ```
 
 * To avoid typing long bash commands, automate the most usual ones with a [Makefile](https://www.gnu.org/software/make/manual/make.html) (also a tutorial at [Makefiletutorial](https://makefiletutorial.com/)). The Makefile follows the syntax:
@@ -177,8 +182,8 @@ make runpsql # Start the psql CLI
 ```
 :warning: Watch out for tabs in the Makefile, as explained in [:material-stack-overflow: this StackOverflow answer](https://stackoverflow.com/a/16945143). Use `cat -etv Makefile` to look for missing tabs (`^I`).
 
-* To install an unpacked service using its executable on Docker, use the following Dockerfile:
-```
+* To install an unpacked .NET Framework service using its executable on Docker, use the following Dockerfile:
+```dockerfile
 FROM mcr.microsoft.com/windows/servercore:ltsc2019
 WORKDIR /app
 COPY . "C:/app"
@@ -186,4 +191,4 @@ RUN ["C:/Windows/Microsoft.NET/Framework/v4.0.30319/InstallUtil.exe", "/i", "EXE
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 CMD c:\app\Wait-Service.ps1 -ServiceName 'SERVICE_NAME' -AllowServiceRestart
 ```
-Where the `Wait-Service.ps1` script is [:material-github: here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/main/windows-server-container-tools/Wait-Service/Wait-Service.ps1).
+Where the `Wait-Service.ps1` script, meant to wait for a service to stop, is available [:material-github: here](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/main/windows-server-container-tools/Wait-Service/Wait-Service.ps1).
