@@ -102,11 +102,13 @@ cut -d' ' -f2               # Cut the output and pick the ID
 docker rm $(docker ps -a -f status=exited -q)
 ```
 
-### Network drivers
+### Network drivers and aliases
+
+Reference [:material-docker: here](https://docs.docker.com/engine/tutorials/networkingcontainers/).
 
 * `docker network ls`: all the networks in docker
 
-:warning: Remember that the `bridge` default network does not support the internal DNS - which you can find in any new bridge network created with `docker network create --driver bridge you_net`. So, it's a best practice to always create your custom networks and attach your containers to them (with `docker network connect your_net your_container`). 
+> :warning: Remember that the `bridge` default network does not support the internal DNS - which you can find in any new bridge network created with `docker network create --driver bridge NETWORK`. So, it's a best practice to always create your custom networks and attach your containers to them (with `docker network connect NETWORK CONTAINER`). 
 
 * `docker network inspect --format "{{json .Containers }}" bridge | jq`: lists all the containers connected to the default docker network `bridge`
 
@@ -114,59 +116,62 @@ docker rm $(docker ps -a -f status=exited -q)
 
 * `docker container inspect --format "{{json .NetworkSettings.IPAddress }}" nginx | jq` : the `nginx` container's internal IP address read from the `inspect` output (:warning: use the container's hostname instead of IP address... containers _really are_ ephemeral!)
 
+* `docker network connect NETWORK CONTAINER --alias ALIAS`: will set the `ALIAS` of the container in the network. 
 
-### Using a `makefile` to speed up the docker commands
+> Multiple containers can even have the same alias. That's used for [:material-wiki: DNS Round-Robin](https://en.wikipedia.org/wiki/Round-robin_DNS), a form of DNS-based load-balacing test.
 
-To avoid typing long bash commands, automate the most usual ones with a [Makefile](https://www.gnu.org/software/make/manual/make.html) (also a tutorial at [Makefiletutorial](https://makefiletutorial.com/)). The Makefile follows the syntax:
-```bash
-target: prerequisites
-    command
-    command
-    command
-```
-Therefore an example of handling database migrations on a [PostgreSQL](./../db/postgres.md) container would be:
-```bash
-# Variables
-containername = YOUR-CONTAINER-NAME
-dbname = YOUR-DB-NAME
-dbuser = YOUR-DB-USER
-dbpassword = YOUR-DB-PASSWORD
+!!! note "Using a `makefile` to speed up the docker commands"
 
-runbash: # It opens a bash shell on the target container
-	sudo docker exec -it $(containername) bash
+    To avoid typing long bash commands, automate the most usual ones with a [Makefile](https://www.gnu.org/software/make/manual/make.html) (also a tutorial at [Makefiletutorial](https://makefiletutorial.com/)). The Makefile follows the syntax:
+    ```bash
+    target: prerequisites
+        command
+        command
+        command
+    ```
+    Therefore an example of handling database migrations on a [PostgreSQL](./../db/postgres.md) container would be:
+    ```bash
+    # Variables
+    containername = YOUR-CONTAINER-NAME
+    dbname = YOUR-DB-NAME
+    dbuser = YOUR-DB-USER
+    dbpassword = YOUR-DB-PASSWORD
 
-runpostgres: # It runs a PostgreSQL container
-	sudo docker run -d --name $(containername) -p 54325:5432 -e POSTGRES_DB=root -e POSTGRES_USER=$(dbuser) -e POSTGRES_PASSWORD=$(dbpassword) postgres:14-alpine
+    runbash: # It opens a bash shell on the target container
+        sudo docker exec -it $(containername) bash
 
-createdb: # It creates the PostgreSQL database in the container
-	sudo docker exec -it $(containername) createdb --username=$(dbuser) --owner=$(dbuser) $(dbname)
+    runpostgres: # It runs a PostgreSQL container
+        sudo docker run -d --name $(containername) -p 54325:5432 -e POSTGRES_DB=root -e POSTGRES_USER=$(dbuser) -e POSTGRES_PASSWORD=$(dbpassword) postgres:14-alpine
 
-dropdb: # It drops the PostgreSQL database in the container
-	sudo docker exec -it $(containername) dropdb $(dbname)
+    createdb: # It creates the PostgreSQL database in the container
+        sudo docker exec -it $(containername) createdb --username=$(dbuser) --owner=$(dbuser) $(dbname)
 
-migrateup: # It performs a forward db migration
-	migrate -path db/migrations -database "postgresql://$(dbuser):$(dbpassword)@localhost:54325/$(dbname)?sslmode=disable" -verbose up
+    dropdb: # It drops the PostgreSQL database in the container
+        sudo docker exec -it $(containername) dropdb $(dbname)
 
-migratedown: # It performs a backward db migration
-	migrate -path db/migrations -database "postgresql://$(dbuser):$(dbpassword)@localhost:54325/$(dbname)?sslmode=disable" -verbose down	
+    migrateup: # It performs a forward db migration
+        migrate -path db/migrations -database "postgresql://$(dbuser):$(dbpassword)@localhost:54325/$(dbname)?sslmode=disable" -verbose up
 
-runpsql: # It opens a psql shell on the target container
-	sudo docker exec -it $(containername) psql $(dbname)
+    migratedown: # It performs a backward db migration
+        migrate -path db/migrations -database "postgresql://$(dbuser):$(dbpassword)@localhost:54325/$(dbname)?sslmode=disable" -verbose down	
 
-.PHONY: runbash runpostgres createdb dropdb runpsql migrateup migratedown
-```
-Then quickly recall the commands with `make`! 🎉🎊 For example:
-```bash
-make runbash    # It will open a bash shell on the specified container
-```
-For instance, to quickly set up your new containerized database, just:
-```bash
-make runpostgres # Create the container and start it
-make createdb # Create the database
-make migrateup # Run the first migration to create the schema
-make runpsql # Start the psql CLI
-```
-:warning: Watch out for tabs in the Makefile, as explained in [:material-stack-overflow: this StackOverflow answer](https://stackoverflow.com/a/16945143). Use `cat -etv Makefile` to look for missing tabs (`^I`).
+    runpsql: # It opens a psql shell on the target container
+        sudo docker exec -it $(containername) psql $(dbname)
+
+    .PHONY: runbash runpostgres createdb dropdb runpsql migrateup migratedown
+    ```
+    Then quickly recall the commands with `make`! 🎉🎊 For example:
+    ```bash
+    make runbash    # It will open a bash shell on the specified container
+    ```
+    For instance, to quickly set up your new containerized database, just:
+    ```bash
+    make runpostgres # Create the container and start it
+    make createdb # Create the database
+    make migrateup # Run the first migration to create the schema
+    make runpsql # Start the psql CLI
+    ```
+    :warning: Watch out for tabs in the Makefile, as explained in [:material-stack-overflow: this StackOverflow answer](https://stackoverflow.com/a/16945143). Use `cat -etv Makefile` to look for missing tabs (`^I`).
 
 ## Troubleshooting
 
