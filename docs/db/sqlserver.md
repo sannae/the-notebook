@@ -154,6 +154,8 @@ INNER JOIN sys.databases d ON d.database_id = f.database_id
 GO
 ```
 
+* Migrating a SQL Server database to a lower version is not supported, in any version of SQL Server. You may want to consider [generating scripts for the whole database schema and the data](https://www.mssqltips.com/sqlservertip/2810/how-to-migrate-a-sql-server-database-to-a-lower-version) to be executed on the older-version instance.
+
 ### Troubleshooting
 
 * [:material-github:](https://github.com/sannae/tsql-queries/blob/master/TSQL/Stop-SqlConnections.sql) Isolate the database (i.e. put it in "single user mode") from any connection in order to perform maintenance tasks:

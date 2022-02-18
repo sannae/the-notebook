@@ -7,8 +7,6 @@
     * [:fontawesome-solid-euro-sign: Docker Mastery](https://www.udemy.com/course/docker-mastery/) Udemy course on Docker and Kubernetes, by a Docker Captain
     * [15 Quick Docker Tips](https://www.ctl.io/developers/blog/post/15-quick-docker-tips)
 
-![docker-moby](https://www.docker.com/sites/default/files/Whale%20Logo332_5.png)
-
 ## Concepts
 
 * Docker takes advantage of the kernel's property of **namespacing** (isolating resources per process or group of processes, e.g. when a process needs a specific portion of the actual hardware such as the hard drive, but not the rest) and **control groups (cgroups)** (limiting the amount of resources - RAM, CPU, HD I/O, network bandwith, etc. per process or group of processes)
@@ -19,7 +17,7 @@
 
 ![docker-container](http://vicch.github.io/pkb/programming/images/docker_and_kubernetes/05.png)
 
-* An **image** is essentially a filesystem snapshot with a startup command
+* An **image** is essentially a read-only filesystem snapshot with a startup command
 
 ![docker-image](http://vicch.github.io/pkb/programming/images/docker_and_kubernetes/06.png)
 
@@ -61,15 +59,25 @@ Test the last commands by running `docker` without having to preface `sudo`.
 sudo systemctl enable docker.service
 sudo systemctl enable containerd.service
 ```
+* The docker daemon configuration is stored in `~/.docker/config.json`
 
 ## Administration
 
 ### Images and containers
 
 * `docker image ls`: all the images in the docker host's cache
+
+> Images are referred to with `USER/REPOSITORY:TAG`
+
+> "Official" images live at the 'root namespace' of the registry, therefore you can call them by the repository name without specifying the `USER` (es. `nginx:latest`)
+
+> Tags are basically a specific image _commit_ into its repository, similarly to Git. Multiple tags can refer to the same image ID.
+
+* `docker image history nginx:latest`: list all the layers in the `nginx:latest` image (sorted by datetime descending)
+
 * `docker container ls -al`: all the containers with all the statuses (running, created, exited, stopped, etc)
 
-* `docker container run --detach --name postgres14 --publish 5432:5432 --env POSTGRES_USER=root --env POSTGRES_PASSWORD=secretpassword postgres:14-alpine`: runs a new detached instance of the `postgres:14-alpine` image by publishing the container's port `5432` and using the specified environment variables
+* `docker container run --detach --name postgres14 --publish 5432:5432 --env POSTGRES_USER=root --env POSTGRES_PASSWORD=secretpassword postgres:14-alpine`: runs a new detached instance of the `postgres:14-alpine` image by publishing the container's port `5432` (syntax is `--publish HOST:CONTAINER`) and using the specified environment variables
 
 * `docker container run --interactive --tty --name ubuntu ubuntu bash`: will overwrite the startup command included with the `ubuntu:latest` image with the `bash` command, thus opening an interactive pseudo-tty shell
 
@@ -95,6 +103,15 @@ sudo systemctl enable containerd.service
 docker images --format="{{.Repository}} {{.ID}}" |      # Reformat the output of 'docker images'
 grep "IMAGE-NAME" |         # Find your image
 cut -d' ' -f2               # Cut the output and pick the ID
+```
+
+* `docker system df` gives you stats about the occupied space, like
+```bash
+TYPE            TOTAL     ACTIVE    SIZE      RECLAIMABLE
+Images          8         0         1.665GB   1.665GB (100%)
+Containers      0         0         0B        0B
+Local Volumes   6         0         205.1MB   205.1MB (100%)
+Build Cache     0         0         0B        0B
 ```
 
 * [Remove all Exited containers](https://coderwall.com/p/zguz_w/docker-remove-all-exited-containers): it may occur that some containers with running processes are in the `Exited` status and therefore won't be deleted with the `docker container rm` command - or, the specific ID will be removed and immediately replaced with another one. Then just run:
@@ -186,7 +203,9 @@ Reference [:material-docker: here](https://docs.docker.com/engine/tutorials/netw
 
 ## Developing
 
-An example of Dockerfile for a Python application (references [:material-docker: here](https://docs.docker.com/language/python/build-images/)):
+An example of Dockerfile for a Python application (references [:material-docker: here](https://docs.docker.com/language/python/build-images/)) with multiple 'stanzas'.
+
+Here you can find some [:material-docker: best practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/) for writing Dockerfile.
 
 ```dockerfile
 # syntax=docker/dockerfile:1
