@@ -22,7 +22,11 @@ jobs:
           python-version: 3.x
       
       # Install requirements
-      - run: pip install mkdocs-material
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install mkdocs-material
       
       # Deploy mkdocs
       - run: mkdocs gh-deploy --force
