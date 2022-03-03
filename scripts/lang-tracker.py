@@ -15,6 +15,8 @@ def get_secret(setting, secrets=secrets):
 g = Github(get_secret('ACCESS_TOKEN'))
 """
 
+print(os.environ['ACCESS_TOKEN'])
+
 g = Github(os.environ['ACCESS_TOKEN'])
 
 lang_dict = dict()
