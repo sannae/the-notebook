@@ -11,7 +11,8 @@ with open(os.path.join(os.getcwd(),'secrets.json')) as secrets_file:
 def get_secret(setting, secrets=secrets):
     return secrets[setting]
 
-g = Github(get_secret('ACCESS_TOKEN'))
+g = Github(os.environ['ACCESS_TOKEN'])
+# g = Github(get_secret('ACCESS_TOKEN'))
 
 lang_dict = dict()
 today_langs = dict()
