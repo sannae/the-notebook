@@ -9,7 +9,6 @@ with open(os.path.join(os.getcwd(),'secrets.json')) as secrets_file:
     secrets = json.load(secrets_file)
 
 def get_secret(setting, secrets=secrets):
-    """Get secret setting or fail with ImproperlyConfigured"""
     return secrets[setting]
 
 g = Github(get_secret('ACCESS_TOKEN'))
