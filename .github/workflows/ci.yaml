@@ -33,5 +33,5 @@ jobs:
 
       # Run language tracker
       - env:
-          ACCESS_TOKEN: "{{ secrets.ACCESS_TOKEN }}"
+          ACCESS_TOKEN: "${{ secrets.ACCESS_TOKEN }}"
         run: python3 ${GITHUB_WORKSPACE}/scripts/lang-tracker.py
