@@ -32,4 +32,4 @@ jobs:
       - run: mkdocs gh-deploy --force
 
       # Run language tracker
-      - run: python3 lang-tracker.py
+      - run: python3 ${GITHUB_WORKSPACE}/scripts/lang-tracker.py
