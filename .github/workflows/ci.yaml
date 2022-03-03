@@ -12,9 +12,17 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+    
+      # Checkout latest commit
       - uses: actions/checkout@v2
+      
+      # Setup Python
       - uses: actions/setup-python@v2
         with:
           python-version: 3.x
-      - run: pip install mkdocs-material 
+      
+      # Install requirements
+      - run: pip install mkdocs-material
+      
+      # Deploy mkdocs
       - run: mkdocs gh-deploy --force
