@@ -40,7 +40,6 @@ repo_url: https://github.com/sannae/the-notebook
 # Graphics
 theme:
   name: material
-  custom_dir: overrides
   favicon: images/logo.png
   language: en
 
