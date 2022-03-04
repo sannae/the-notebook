@@ -1,4 +1,8 @@
+# Project information
 site_name: The Notebook
+site_url: https://sannae.github.io/the-notebook
+site_author: sannae
+site_description: Welcome to my online knowledge base!
 
 # Nav bar
 nav:
@@ -36,11 +40,19 @@ repo_url: https://github.com/sannae/the-notebook
 # Graphics
 theme:
   name: material
+  custom_dir: overrides
   favicon: images/logo.png
+  language: en
+
+  # Themes
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+  # Icons
   icon:
     repo: fontawesome/brands/git-alt
     logo: material/library
-  # custom_dir: material
 
   # Color theme
   palette:

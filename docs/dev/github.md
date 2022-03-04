@@ -94,6 +94,34 @@ To use the runner, add in your `.github/workflows/WORFLOW_NAME.yml` file:
 runs-on: self-hosted
 ```
 
+### Define a workflow
+
+#### Generic env variables
+
+* `${GITHUB_WORKSPACE}`: the project root folder (i.e. the one containing the `.github\workflows` subfolder)
+* `${{ github.event.repository.name }}`: the project name, in our case `the-notebook`
+* `${{ github.repository_owner }}`: the repository owner, in our case `sannae` (i.e. myself!)
+
+
+#### Use the secrets as env variables
+
+Once you've defined a GitHub Secret, you can access it in your workflow as an environment variable from the step/job/workflow scope:
+
+```yaml
+      - name: Your step name
+
+        # Define an environment variable ACCESS_TOKEN 
+        # whose value is read from the GitHub Secret with the same name
+        env:
+          ACCESS_TOKEN: "${{ secrets.ACCESS_TOKEN }}"
+        run: python3 ${GITHUB_WORKSPACE}/scripts/lang-tracker.py
+```
+
+In the example above, the script `lang-tracker.py` is able to see the environment variable with the `os.environ[]` function:
+
+```python
+g = Github(os.environ['ACCESS_TOKEN'])
+```
 
 
 ## Github API
