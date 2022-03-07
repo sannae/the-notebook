@@ -171,3 +171,20 @@ token=$"YOUR-GITHUB-PERSONAL-ACCESS-TOKEN"
 repo=$REPO_NAME
 curl -i -H "Authorization: token $token" https://api.github.com/repos/$user/$repo/languages
 ```
+
+### Calling the API with [:material-github: PyGithub](https://github.com/PyGithub/PyGithub)
+
+Simply install with
+```bash
+pip install PyGithub
+```
+
+Then use it by calling all the supported Github objects:
+```python
+from github import Github
+
+g = Github("YOUR_ACCESS_TOKEN_HERE")
+
+for repo in g.get_user().get_repos():
+  print(repo_name)
+```
