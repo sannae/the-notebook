@@ -13,7 +13,7 @@
 
 * `etf-tracker`, an ASP.NET Core web application to track ETFs from multiple trading platforms
 * `oci-shape-monitor`, a web client to track the availability of different OCI shapes (inspired by [:material-github: this idea made in PHP](https://github.com/hitrov/oci-arm-host-capacity))
-* `lang-progress-tracker`, a WebAPI client interacting with the GitHub API to track the progress of the languages used in GitHub, based on the number of commits
+* `lang-progress-tracker`, a WebAPI client interacting with the GitHub API to track the progress of the languages used in GitHub, based on the number of commits 
 * Convert `porelli/bash_scripts/Move_containers.sh` in PowerShell and test on Windows Containers
 
 ## Maybe one day

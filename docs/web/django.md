@@ -199,6 +199,12 @@ class Category(models.Model):
     # product_set will be automatically created
 ```
 
+### About URLs
+
+This is how URLs work in Django:
+
+<img href="https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Home_page/basic-django.png" alt="django-urls">
+
 ### About static files
 
 * To upload the static files into an [AWS S3 bucket](./../cloud/aws.md), check out the documentation of [django-storages](https://django-storages.readthedocs.io/en/latest/). You basically need the `django-storages` and `boto3` Python libraries, as well as the following additional settings in `settings.py`:
@@ -216,6 +222,7 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 Here's a [nice tutorial on creating a Django project with static files on AWS S3](https://testdriven.io/blog/storing-django-static-and-media-files-on-amazon-s3/) and Docker Compose. [This one also](https://www.caktusgroup.com/blog/2014/11/10/Using-Amazon-S3-to-store-your-Django-sites-static-and-media-files/#s3-bucket-access) is a _very_ good article.
 
 ### About user authentication
+
 * Django comes with a built-in user management and authentication system, where you can manage: 
   * Simple users (`user`), unable to access the admin site
   * Staff users (`staff`), i.e. accessing the admin site but unable to change Data
