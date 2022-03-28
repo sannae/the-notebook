@@ -190,6 +190,22 @@ GO
     1. SQL Server Configuration Manager > SQL Server Services > SQL Server (INSTANCE_NAME) > Properties > Startup Parameters > add `-e`
     2. Open **regedit** > Go to `Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SQL Server\(version)\MSSQLServer\Parameters`
 
+* [:material-stack-overflow:](https://stackoverflow.com/questions/5658457/not-equal-operator-on-null) Check out any condition with `NULL` by using `IS NULL` instead of `=` (and similarly for `IS NOT NULL` and `<>`)! This is especially true with SQL Server:
+```sql
+/* NULL cheat sheet */
+DECLARE @MyNullVariable nvarchar(1)
+DECLARE @MyNonNullVariable nvarchar(1)
+SET @MyNullVariable = NULL
+SET @MyNonNullVariable = '1'
+
+IF (@MyNullVariable = NULL) PRINT 'True' ELSE PRINT 'False'	-- Returns FALSE
+IF (@MyNullVariable IS NULL) PRINT 'True' ELSE PRINT 'False' -- Returns TRUE
+IF (@MyNullVariable <> NULL) PRINT 'True' ELSE PRINT 'False' -- Returns FALSE
+IF (@MyNonNullVariable IS NOT NULL) PRINT 'True' ELSE PRINT 'False' -- Returns TRUE
+IF (@MyNonNullVariable <> NULL) PRINT 'True' ELSE PRINT 'False' -- Returns FALSE
+```
+
+
 ## Browsing data and tables
 
 * [:material-github:](https://github.com/sannae/tsql-queries/blob/master/TSQL/Get-TableName.sql) It searches a table in the specified DATABASE_NAME by looking for PATTERN in table name
