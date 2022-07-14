@@ -3,9 +3,19 @@
 !!! Resources
     * [:material-youtube: Backend master class](https://youtube.com/playlist?list=PLy_6D98if3ULEtXtNSY_2qN21VCKgoQAE) with Golang, Postgres and Docker :star:
 
+## Install
+
+* Here's the [installation tutorial](https://www.postgresqltutorial.com/postgresql-getting-started/install-postgresql-linux/)
+
+* To get started with Python, use the [psycopg](https://www.psycopg.org/install/) driver:
+```
+sudo apt install python3-dev libpq-dev
+pip install psycopg2
+```
+
 ## Getting started commands
 
-* To send a command from bash, `sudo su - postgres -c "COMMAND"` 
+* To send a command directly from bash, `sudo u postgres psql -c "SELECT 1"` 
 
 * To start PostgreSQL CLI **psql**, `sudo -u postgres psql`
     * To list databases, `\l`
@@ -25,6 +35,33 @@ The command `echo $?` will return the exit code of `pg_isready`, i.e.
     * `3` = no attempt was made (for example due to invalid parameters).
 
 To test a login, try `psql -d "postgresql://USER:PASSWORD@HOST:PORT/t" -c "select now()"`.
+
+### Create a database
+
+Log in to Postgres
+```bash
+sudo su - postgres
+psql
+```
+Create a user with password and database and grant permission on the db itself:
+```sql
+create user hero;
+create database my_db;
+alter role hero with password 'my_db@123';
+grant all privileges on database my_db to hero;
+alter database my_db owner to hero;
+```
+#### Reset the user's password
+
+Enter without password:
+```
+sudo -u postgres psql
+```
+Then
+```
+ALTER USER user_name WITH PASSWORD 'new_password';
+```
+
 
 ## Random notes
 

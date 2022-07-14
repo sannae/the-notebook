@@ -275,6 +275,9 @@ Product(name="Shoes", customer=first_customer).save()
 
 * After first testing, migrate the db from SQLite to PostgreSQL using [these instructions](https://medium.com/djangotube/django-sqlite-to-postgresql-database-migration-e3c1f76711e1).
 
+!!! warning
+    When following the above link, if incurring in the error `ModuleNotFoundError: No module named 'django.db.migrations.migration'`, you may have deleted also the migrations in the `/django/db/migrations` folder. You may just need to [:material-stack-overflow: force reinstall Django](https://stackoverflow.com/questions/48812105/django-no-module-named-django-db-migrations-migration).
+
 
 ## Tests
 
