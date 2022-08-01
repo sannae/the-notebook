@@ -20,8 +20,6 @@ Publishing is made on [GitHub Pages](https://pages.github.com/) and is handled b
 
 The workflow YAML file is available [here](https://github.com/sannae/the-notebook/blob/main/.github/workflows/ci.yaml) and is triggered by any push on the `main` branch.
 
-<div id="demo">
-
 ## Similar brilliant projects
 
 * [:material-github: javierobcn/Notas](https://www.javieranto.com/)
