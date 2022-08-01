@@ -7,7 +7,7 @@ site_description: Welcome to my online knowledge base!
 # Nav bar
 nav:
   - home: index.md
-  - projects: projects.md
+  #- projects: projects.md
   - cloud:
     - aws: cloud/aws.md
     - azure: cloud/azure.md
