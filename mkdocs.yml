@@ -29,8 +29,8 @@ nav:
     #- powershell: langs/powershell.md
     - python: langs/python.md
   - web:
+    - aspnetcore: web/aspnetcore.md
     - django: web/django.md
-    - dotnet: web/dotnet.md
     - rails: web/rails.md
     # - reactjs: web/reactjs.md
 
