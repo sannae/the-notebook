@@ -28,6 +28,11 @@
 		`Verified/DESCRIPTION`	: For verified branches, to be merged to main
 * `git push --set-upstream origin NEWBRANCH`: it creates the remote branch from the local one, pushing to it as well; as epxlained [here](https://forum.freecodecamp.org/t/push-a-new-local-branch-to-a-remote-git-repository-and-track-it-too/13222)
 
+## Pull from a different remote branch [:material-stack-overflow:](https://stackoverflow.com/questions/9537392/git-fetch-remote-branch)
+
+* Check the remote branches (`git branch -r`) and the local branches (`git branch`)
+* Switch to a specified branch (`git switch BRANCH_NAME`)
+
 ### Publish a local repo to a new remote repo
 
 :warning: **Requirement**: the remote repo _must_ exist, otherwise it will return the error _Repository not found_
