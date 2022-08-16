@@ -11,6 +11,9 @@
 * `git add FILENAME(S)`: it adds the files in "stage", i.e. preparing to commit
 * `git commit -m "MESSAGE"`: it does the commit (i.e. basically saving) the staged changes in the local repository 
 * `git push`: it pushes the last commit towards the remote repository
+* `git pull`: it updates your current HEAD branch with the latest diffs from remote
+
+![git pull](https://girliemac.com/assets/images/articles/2017/12/git-purr.jpg)
 
 ### Used branches
 
