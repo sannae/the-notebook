@@ -13,6 +13,7 @@ nav:
     - azure: cloud/azure.md
     - docker: cloud/docker.md
     - oracle: cloud/oracle.md
+    - vagrant: cloud/vagrant.md
     - windows: cloud/windows.md
   - db:
     - postgres: db/postgres.md
