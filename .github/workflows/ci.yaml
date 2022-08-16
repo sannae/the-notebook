@@ -32,7 +32,7 @@ jobs:
       - run: mkdocs gh-deploy --force
 
       # Run language tracker
-      - name: Run language tracker
-        env:
-          ACCESS_TOKEN: "${{ secrets.ACCESS_TOKEN }}"
-        run: python3 ${GITHUB_WORKSPACE}/scripts/lang-tracker.py
+      # - name: Run language tracker
+      #  env:
+      #    ACCESS_TOKEN: "${{ secrets.ACCESS_TOKEN }}"
+      #  run: python3 ${GITHUB_WORKSPACE}/scripts/lang-tracker.py
