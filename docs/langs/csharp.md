@@ -4,6 +4,8 @@
 
 ### `Task`, `async`, `await`, Event handlers
 
+:material-warning: TBD
+
 * Per metodi `void`:
 
 ```csharp
@@ -21,6 +23,8 @@ public Task FnVoidTask() {
 ```
 
 ### `yield return`
+
+:material-warning: TBD
 
 https://exercism.org/tracks/csharp/exercises/accumulate
 
@@ -213,4 +217,20 @@ public class OuterClass
 
 ### Operator overloading
 
+:material-warning: TBD
+
 https://exercism.org/tracks/csharp/exercises/hyperia-forex
+
+### Reflection methods
+
+#### Get the list of properties of an object in order of declaration
+
+```csharp
+    // https://stackoverflow.com/questions/9062235/get-properties-in-order-of-declaration-using-reflection
+    var properties = typeof(YOUR_TYPE_HERE)
+      .GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+      .OrderBy(x => x.MetadataToken);
+    
+    // just printing
+    foreach(var property in properties){ Console.WriteLine(property.Name); }
+```
