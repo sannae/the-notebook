@@ -1,26 +1,84 @@
 # csharp
 
-## Hard stuff
+## Advanced stuff
 
 ### `Task`, `async`, `await`, Event handlers
 
 :material-warning: TBD
 
-* Per metodi `void`:
+* A synchronous job using `Thread.Sleep()` to wait for 5 seconds before completion (execution time: ~5030ms):
 
 ```csharp
-// Standard
-public void FnVoid() { }
-// il prefisso async permette di usare await all'interno del metodo
-public async Task FnVoidTask() {
-	Console.WriteLine("xxx");
-}
-// oppure
-public Task FnVoidTask() {
-	Console.WriteLine("xxx");
-	return Task.CompletedTask;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
+
+namespace Kitchen
+{
+    class Program
+    {
+        static async Task Main(string[] args)
+        {
+            Program program = new Program();
+            program.MakeFoodSync("Lentils soup");
+        }
+
+        public void MakeFoodSync(string foodItem)
+        {
+            // start timer
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+
+            Console.WriteLine($"Preparing {foodItem}...");
+            Thread.Sleep(5000); // <---- Notice the Thread namespace
+            Console.WriteLine($"{foodItem} is ready!");
+
+            // stop timer
+            watch.Stop();
+            Console.WriteLine("Elapsed : " + watch.ElapsedMilliseconds);
+        }
+    }
 }
 ```
+
+* An asynchronous job using `await Task.Delay()` (execution time: ~5030ms)
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
+
+namespace Kitchen
+{
+    class Program
+    {
+        static async Task Main(string[] args)
+        {
+            Program program = new Program();
+            await program.MakeFoodAsync("Lentils soup");
+        }
+
+        public async Task MakeFoodAsync(string foodItem)
+        {
+            // start timer
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+
+            Console.WriteLine($"Preparing {foodItem}...");
+            await Task.Delay(5000);
+            Console.WriteLine($"{foodItem} is ready!");
+
+            // stop timer
+            watch.Stop();
+            Console.WriteLine("Elapsed : " + watch.ElapsedMilliseconds);
+        }
+    }
+}
+```
+
+
 
 ### `yield return`
 
