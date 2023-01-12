@@ -90,7 +90,7 @@ GO
 EXEC xp_instance_regwrite N'HKEY_LOCAL_MACHINE', N'Software\Microsoft\MSSQLServer\MSSQLServer', N'LoginMode', REG_DWORD, 2
 GO
 ```
-:warning: Remember to restart the SQL Server engine service!
+⚠️ Remember to restart the SQL Server engine service!
 
 
 * [:material-github:](https://github.com/sannae/tsql-queries/blob/master/TSQL/Get-SqlUsersRoles.sql) It lists all SQL server users, specifying the corresponding roles:
@@ -122,6 +122,20 @@ GO
 ALTER SERVER ROLE sysadmin ADD MEMBER YOUR_USERNAME ;  
 GO 
 ```
+
+* Find any object from its description with:
+
+```sql
+USE [YOUR_DATABASE]
+Select 
+  [name] as ObjectName, 
+  Type as ObjectType
+From Sys.Objects
+Where 1=1
+    and [Name] like '%YOUR_OBJECT_DESCRIPTION%'
+```
+
+Object Types acronyms and names are listed in [:material-microsoft: this MS Learn article](https://learn.microsoft.com/en-us/sql/relational-databases/system-catalog-views/sys-objects-transact-sql?view=sql-server-ver16).
 
 ### Data and log files
 
@@ -204,6 +218,24 @@ IF (@MyNullVariable <> NULL) PRINT 'True' ELSE PRINT 'False' -- Returns FALSE
 IF (@MyNonNullVariable IS NOT NULL) PRINT 'True' ELSE PRINT 'False' -- Returns TRUE
 IF (@MyNonNullVariable <> NULL) PRINT 'True' ELSE PRINT 'False' -- Returns FALSE
 ```
+
+* ⚠️ **Error SQL71564: Error validating element [YOUR_USER]: The element [YOUR_USER] has been orphaned from its login and cannot be deployed** - means that the user specified in [YOUR_USER] is orphaned, i.e. does not have a corresponding login object, and this can occur even if there _actually_ is a login whose GUID is matching the user's GUID.
+
+So first of all, list the orphaned users:
+
+```sql
+EXEC sp_change_users_login 'Report'
+```
+
+If you already have a login id and password for this user, fix it by doing:
+
+```sql
+EXEC sp_change_users_login 'Auto_Fix', 'YOUR_USER'
+```
+
+[:material-github: Here's a GitHub Gist](https://gist.github.com/bradchristie-velir/98b2a730b5594e0d8fccde95cf641d7b) to fix all the orphaned users.
+
+* ⚠️ **Error SQL71654: Error validating element [YOUR_ELEMENT]: the element [YOUR_ELEMENT] cannot be deployed as the script body is encrypted** - in this case the database element [YOUR_ELEMENT] has been encrypted with TDE - i.e. `WITH ENCRYPTION`. [Find the element](#about-database-administration) and check if you can retrieve the encryption, or delete it.
 
 
 ## Browsing data and tables

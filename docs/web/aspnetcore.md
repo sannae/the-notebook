@@ -1,10 +1,13 @@
 # ASP.NET Core [:material-dot-net:]
 
+!!! Resources
+    * To be completed
+
 ![architecture](https://docs.microsoft.com/it-it/dotnet/architecture/modern-web-apps-azure/media/image5-12.png)
 
 ![stack](https://files.speakerdeck.com/presentations/ae3a80c1020e47f5af633bb96e0968fd/slide_5.jpg)
 
-## dotnet cli
+## Creating the project with the `dotnet` cli
 
 Obviously you're going to need the latest .NET SDK (check it with `dotnet check`).
 
@@ -16,20 +19,18 @@ dotnet new sln --name MyMvcWebApplicationSolutionName
 dotnet sln ./MyMvcWebApplicationSolutionName.sln add ./MyMvcWebApplicationProjectName.csproj 
 ```
 
-### Using an OrchardCore Project
+!!! Info: Using an OrchardCore Project
 
-The following example is to create a new project with an OrchardCoreCMS template in the current directory:
+	The following example is to create a new project with an OrchardCoreCMS template in the current directory:
 
-```powershell
-dotnet new install OrchardCore.ProjectTemplates # Optional: to install 'dotnet new' templates
-dotnet new occms --name OrchardCoreTest
-dotnet new sln --name OrchardCoreTest
-dotnet sln ./OrchardCoreTest.sln add ./OrchardCoreTest.csproj
-dotnet build --verbosity normal # Optional: testing that the project is building
-dotnet run # Run Kestrel
-```
-
-## Creating the project
+	```powershell
+	dotnet new install OrchardCore.ProjectTemplates # Optional: to install 'dotnet new' templates
+	dotnet new occms --name OrchardCoreTest
+	dotnet new sln --name OrchardCoreTest
+	dotnet sln ./OrchardCoreTest.sln add ./OrchardCoreTest.csproj
+	dotnet build --verbosity normal # Optional: testing that the project is building
+	dotnet run # Run Kestrel
+	```
 
 ## Using Entity Framework Core
 
@@ -38,10 +39,10 @@ dotnet run # Run Kestrel
 ### Creating a database
 
 * Install NuGet packages:
-	* EntityFrameworkCore
-	* EntityFrameworkCore.Design
-	* EntityFrameworkCore.Tools
-	* EntityFrameworkCore.SqlServer (if you're planning to use SqlServer)
+	* `Microsoft.EntityFrameworkCore`
+	* `Microsoft.EntityFrameworkCore.Design`
+	* `Microsoft.EntityFrameworkCore.Tools`
+	* `Microsoft.EntityFrameworkCore.SqlServer` (if you're planning to use SqlServer)
 * In VSCode, use
 ```csharp
 dotnet tool install --global dotnet-ef
@@ -49,6 +50,7 @@ dotnet tool install --global dotnet-ef
 * Create the classes in `/Models` mirroring the data models
 * Create the database context in `/Data/DATABASENAMEContext.cs`
 	* The connection string should _not_ be hardcoded: instead it should be securely stored, e.g. [follow here](https://aka.ms/ef-core-connection-strings)
+	* If you don't want/need to create it manually, you could [scaffold it](https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/adding-model?view=aspnetcore-7.0&tabs=visual-studio#scaffold-movie-pages) together with the corresponding Controller
 	
 > One way to do this is by storing them in a separate JSON file using [User Secrets](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-6.0&tabs=windows) ([YourProject]>[Manage User Secrets]) that you can exclude from source control. 
 
@@ -177,6 +179,16 @@ builder.Services.AddDbContext<YOURNEWCONTEXTNAME>(options =>
 	* then `dotnet aspnet-codegenerator razorpage --model MODELNAME --dataContext DBCONTEXTNAME --relativeFolderPath Pages/MODELNAMEs --referenceScriptLibraries`
 
 * Test the model directly on the web app by running the debugger on IISExpress and going to `http://localhost:PORT/MODELNAMEs`
+
+## Controllers
+
+* Controllers are routed using the `app.MapControllerRoute` method of the `WebApplication` instance
+	* Multiple patterns can be used, the `default` one is `"{controller=Home}/{action=Index}/{id?}`
+		* Meaning that the default route (`/`) is made by the `Home` controller (`HomeController`) on the default action `Index` with an optional `id`
+
+* The default HTTP method on Controllers is `get` (therefore, it's like every controller has the `[HttpGet]` attribute in front of it, except when specified otherwise)
+	* For any POST method (like `Create` or `Edit`), both `[HttpGet]` and `[HttpPost]` methods are implemented, depending on the web request received
+		* That's why there are two `Edit` methods (the first one shows the selected item's properties in the form, the second one updates the item with the edited values), but only one `Create` method 
 
 ## A little bit of style
 
