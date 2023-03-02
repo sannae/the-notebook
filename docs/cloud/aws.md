@@ -1,5 +1,25 @@
 # aws :material-aws:
 
+## AWS CLI
+
+* Installation instructions on Linux:
+```bash
+$ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+$ unzip awscliv2.zip
+$ sudo ./aws/install
+```
+For test:
+```
+$ aws --version
+```
+* Authenticate the workstation against the AWS API:
+    * Create an Access Key in AWS Management Console > User account > Security Credentials > Access Key
+    * On AWS CLI, `aws configure`
+    * Insert the generated Access Key ID 
+    * Insert the corresponding generated Secret Access Key
+    * Insert your reference region (using region naming convention)
+    
+
 ## EC2
 
 ### Set up a remote dev environment on an EC2 Debian machine
