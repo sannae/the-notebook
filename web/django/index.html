@@ -1,0 +1,1694 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Welcome to my online knowledge base!">
+      
+      
+        <meta name="author" content="sannae">
+      
+      
+        <link rel="canonical" href="https://sannae.github.io/the-notebook/web/django/">
+      
+      
+        <link rel="prev" href="../aspnetcore/">
+      
+      
+        <link rel="next" href="../rails/">
+      
+      <link rel="icon" href="../../images/logo.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.4">
+    
+    
+      
+        <title>django - The Notebook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.240905d7.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.a0c5b2b5.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="red">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#django" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="The Notebook" class="md-header__button md-logo" aria-label="The Notebook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            The Notebook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              django
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="red"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+            </label>
+          
+        
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/sannae/the-notebook" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      home
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../cloud/aws/" class="md-tabs__link">
+        cloud
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../db/mysql/" class="md-tabs__link">
+        db
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../dev/git/" class="md-tabs__link">
+        dev
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../hw/raspberrypi3/" class="md-tabs__link">
+        hw
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../langs/javascript/" class="md-tabs__link">
+        langs
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../aspnetcore/" class="md-tabs__link md-tabs__link--active">
+        web
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="The Notebook" class="md-nav__button md-logo" aria-label="The Notebook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    The Notebook
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/sannae/the-notebook" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          cloud
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          cloud
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cloud/aws/" class="md-nav__link">
+        aws
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cloud/azure/" class="md-nav__link">
+        azure
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cloud/azure-pipelines/" class="md-nav__link">
+        azure-pipelines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cloud/docker/" class="md-nav__link">
+        docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cloud/oracle/" class="md-nav__link">
+        oracle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cloud/vagrant/" class="md-nav__link">
+        vagrant
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cloud/windows/" class="md-nav__link">
+        windows
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          db
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          db
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../db/mysql/" class="md-nav__link">
+        mysql
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../db/postgres/" class="md-nav__link">
+        postgres
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../db/sqlserver/" class="md-nav__link">
+        sqlserver
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          dev
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          dev
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/git/" class="md-nav__link">
+        git
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/github/" class="md-nav__link">
+        github
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          hw
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          hw
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/raspberrypi3/" class="md-nav__link">
+        raspberry
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          langs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          langs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../langs/javascript/" class="md-nav__link">
+        javascript
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../langs/python/" class="md-nav__link">
+        python
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          web
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          web
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aspnetcore/" class="md-nav__link">
+        aspnetcore
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          django
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        django
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#random-notes" class="md-nav__link">
+    Random notes
+  </a>
+  
+    <nav class="md-nav" aria-label="Random notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#about-djangos-architecture-and-mvt-pattern" class="md-nav__link">
+    About Django's architecture and MVT pattern
+  </a>
+  
+    <nav class="md-nav" aria-label="About Django's architecture and MVT pattern">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-project" class="md-nav__link">
+    Create a project
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-an-app" class="md-nav__link">
+    Create an app
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#misc" class="md-nav__link">
+    Misc.
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#about-templates" class="md-nav__link">
+    About templates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#about-models" class="md-nav__link">
+    About models
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#about-urls" class="md-nav__link">
+    About URLs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#about-static-files" class="md-nav__link">
+    About static files
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#about-user-authentication" class="md-nav__link">
+    About user authentication
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sending-emails-eg-to-reset-the-users-password" class="md-nav__link">
+    Sending emails (e.g. to reset the user's password)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#about-database-and-relationships" class="md-nav__link">
+    About database and relationships
+  </a>
+  
+    <nav class="md-nav" aria-label="About database and relationships">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#postgresql" class="md-nav__link">
+    Postgresql
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    Tests
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment" class="md-nav__link">
+    Deployment
+  </a>
+  
+    <nav class="md-nav" aria-label="Deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deploy-on-heroku" class="md-nav__link">
+    Deploy on Heroku
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploy-on-docker" class="md-nav__link">
+    Deploy on  Docker
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploy-on-azure-web-apps" class="md-nav__link">
+    Deploy on  Azure Web Apps
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#definitely-review" class="md-nav__link">
+    Definitely review
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rails/" class="md-nav__link">
+        rails
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#random-notes" class="md-nav__link">
+    Random notes
+  </a>
+  
+    <nav class="md-nav" aria-label="Random notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#about-djangos-architecture-and-mvt-pattern" class="md-nav__link">
+    About Django's architecture and MVT pattern
+  </a>
+  
+    <nav class="md-nav" aria-label="About Django's architecture and MVT pattern">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-project" class="md-nav__link">
+    Create a project
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-an-app" class="md-nav__link">
+    Create an app
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#misc" class="md-nav__link">
+    Misc.
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#about-templates" class="md-nav__link">
+    About templates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#about-models" class="md-nav__link">
+    About models
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#about-urls" class="md-nav__link">
+    About URLs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#about-static-files" class="md-nav__link">
+    About static files
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#about-user-authentication" class="md-nav__link">
+    About user authentication
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sending-emails-eg-to-reset-the-users-password" class="md-nav__link">
+    Sending emails (e.g. to reset the user's password)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#about-database-and-relationships" class="md-nav__link">
+    About database and relationships
+  </a>
+  
+    <nav class="md-nav" aria-label="About database and relationships">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#postgresql" class="md-nav__link">
+    Postgresql
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    Tests
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment" class="md-nav__link">
+    Deployment
+  </a>
+  
+    <nav class="md-nav" aria-label="Deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deploy-on-heroku" class="md-nav__link">
+    Deploy on Heroku
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploy-on-docker" class="md-nav__link">
+    Deploy on  Docker
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploy-on-azure-web-apps" class="md-nav__link">
+    Deploy on  Azure Web Apps
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#definitely-review" class="md-nav__link">
+    Definitely review
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="django">Django<a class="headerlink" href="#django" title="Permanent link">⚓︎</a></h1>
+<p>The reference repository is <a href="https://github.com/sannae/djangocrm"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg></span> sannae/djangocrm</a>.</p>
+<div class="admonition resources">
+<p class="admonition-title">Resources</p>
+<ul>
+<li>The main Django documentation is available <a href="https://docs.djangoproject.com/en/">here</a>.</li>
+<li>Another nice learning path is in <a href="https://docs.microsoft.com/en-us/learn/paths/django-create-data-driven-websites/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 3h9v9H2V3m9 19H2v-9h9v9M21 3v9h-9V3h9m0 19h-9v-9h9v9Z"/></svg></span> Microsoft Learn</a> and in the <a href="https://www.youtube.com/playlist?list=PLlrxD0HtieHjHCQ0JB_RrhbQp_9ccJztr"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m10 15 5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73Z"/></svg></span> Microsoft Developers</a> Youtube channel.</li>
+</ul>
+</div>
+<details class="tutorials">
+<summary>Tutorials</summary>
+<ul>
+<li><a href="https://youtube.com/playlist?list=PL-51WBLyFTg2vW-_6XBoUpE7vpmoR3ztO"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m10 15 5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73Z"/></svg></span> Create a CRM web app</a> by Dennis Ivy</li>
+<li><a href="https://youtube.com/playlist?list=PLx-q4INfd95G-wrEjKDAcTB1K-8n1sIiz"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m10 15 5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73Z"/></svg></span> Create an expense tracking web app</a></li>
+<li><a href="https://youtube.com/playlist?list=PL1WVjBsN-_NIdlnACz0Mxuq8VcuxER-is"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m10 15 5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73Z"/></svg></span> Django tutorial</a></li>
+<li><a href="https://youtube.com/playlist?list=PLbpAWbHbi5rMF2j5n6imm0enrSD9eQUaM"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m10 15 5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73Z"/></svg></span> Django Testing</a></li>
+<li><a href="https://youtube.com/playlist?list=PLOLrQ9Pn6caxeUIXRVOZpDJ_2PbGAa_Io"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m10 15 5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73Z"/></svg></span> Django Testing Automation with GitHub Actions</a> by VeryAcademy</li>
+<li><a href="https://youtube.com/playlist?list=PLOLrQ9Pn6cazCfL7v4CdaykNoWMQymM_C"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m10 15 5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73Z"/></svg></span> Django and Docker</a> by VeryAcademy</li>
+</ul>
+</details>
+<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">⚓︎</a></h2>
+<ul>
+<li><a href="https://www.python.org/downloads/">Python</a> (<code>python3 -V</code> on Linux, <code>python -V</code> on Windows)</li>
+<li><a href="https://www.djangoproject.com/download/">Django</a>, check if it's installed with a simple <code>python -m django --version</code></li>
+</ul>
+<p>All the required Python packages are listed in <code>requirements.txt</code> (to be updatable with <code>pip freeze &gt; requirements.txt</code>), run <code>pip install -r requirements.txt</code> to load them in your environment.</p>
+<p><a name="pip-freeze-warning"><img alt="⚠" class="twemoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/26a0.svg" title=":warning:" /></a> <strong>Always</strong> run <code>pip freeze</code> from a virtual environment! Or it will just go on filling with c**p when deploying from any Cloud platform.</p>
+<h2 id="random-notes">Random notes<a class="headerlink" href="#random-notes" title="Permanent link">⚓︎</a></h2>
+<h3 id="about-djangos-architecture-and-mvt-pattern">About Django's architecture and MVT pattern<a class="headerlink" href="#about-djangos-architecture-and-mvt-pattern" title="Permanent link">⚓︎</a></h3>
+<h4 id="create-a-project">Create a project<a class="headerlink" href="#create-a-project" title="Permanent link">⚓︎</a></h4>
+<ul>
+<li>A <strong>Django project</strong> is "A Python package – i.e. a directory of code – that contains all the settings for an instance of Django. This would include database configuration, Django-specific options and application-specific settings." (<a href="https://docs.djangoproject.com/en/3.2/glossary/#term-project">source</a> and <a href="https://docs.djangoproject.com/en/3.2/intro/tutorial01/#creating-a-project">tutorial</a>)</li>
+<li>To get started with a project:<ul>
+<li>Create a folder for your project: <code>mkdir PROJECT_NAME</code>:</li>
+<li>Move in your project folder: <code>cd PROJECT_NAME</code></li>
+<li>Remember to activate your <a href="../../langs/python/">virtual environment</a>: <code>python3 -m venv venv</code> and <code>source venv/bin/activate</code></li>
+<li>Install the dependencies (<code>python3 -m pip install django</code>) and freeze them in a file (<code>python3 -m pip freeze &gt; requirements.txt</code>)</li>
+<li>Create the core of the project: <code>django startproject core .</code></li>
+<li>The command <code>startproject</code> will create the following folder structure in your project folder:
+<div class="highlight"><pre><span></span><code>manage.py           # django command-line utility (check &quot;python manage.py --help&quot;)
+core/           # main project folder
+    __init__.py         # empty file telling Python that this directory should be considered a package
+    settings.py         # all of your settings or configurations
+    urls.py             # URLs within the project
+    asgi.py             # entry point for your web servers if asgi server is deployed
+    wsgi.py             # entry point for your web servers if wsgi server is deployed
+</code></pre></div></li>
+</ul>
+</li>
+</ul>
+<h4 id="create-an-app">Create an app<a class="headerlink" href="#create-an-app" title="Permanent link">⚓︎</a></h4>
+<ul>
+<li>Within the project, there may be several <em>apps</em>: each app structure is created in your project folder with <code>py -m django startapp APPLICATION_NAME</code> (from the same directory as <code>manage.py</code>)<ul>
+<li>The app has the following structure:
+<div class="highlight"><pre><span></span><code>APPLICATION_NAME/           # main app folder
+    __init__.py         # empty file telling Python that this directory should be considered a package   
+    admin.py            # file used to register admin templates
+    apps.py             # list of apps
+    migrations/         # list of migrations
+        __init__.py         # empty file telling Python that this directory should be considered a package 
+    models.py           # models of the app
+    tests.py            # tests included in the app, see the corresponding section
+    views.py            # views of the app
+</code></pre></div></li>
+<li>Add the <code>APPLICATION_NAME\urls.py</code> to map the routes in your application, with the following default content to create the home path:
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">views</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+<span class="n">path</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">),</span>
+<span class="p">]</span>
+</code></pre></div></li>
+<li>The path management must also be handled by the main <code>PROJECT_NAME\urls.py</code> file, where you should add at the beginning:
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">include</span><span class="p">,</span> <span class="n">path</span>
+</code></pre></div>
+and in the <code>urlpatterns</code> list (replacing <code>APPLICATION_NAME</code>):
+<div class="highlight"><pre><span></span><code><span class="n">path</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;APPLICATION_NAME.urls&#39;</span><span class="p">)),</span>
+</code></pre></div></li>
+<li>Register the application in the <code>PROJECT_NAME\apps.py</code> file and to add it to the <code>INSTALLED_APPS</code> list in <code>settings.py</code> or the project won't be able to load it when running!</li>
+<li>Add the following test content in <code>APPLICATION_NAME\views.py</code>:
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;Hello, world!&quot;</span><span class="p">)</span>
+</code></pre></div></li>
+</ul>
+</li>
+<li>The live web server is started with <code>py -m django manage runserver</code> and is reachable at <a href="http://localhost:8000">http://localhost:8000</a></li>
+</ul>
+<h4 id="misc">Misc.<a class="headerlink" href="#misc" title="Permanent link">⚓︎</a></h4>
+<ul>
+<li>Django follows the MVC architecture (Model-View-Controller), although it uses a non-idiomatic way of naming its parts:<br />
+<div class="highlight"><pre><span></span><code>Idiomatic term | Django term | Meaning
+Model          | Model       | Contains all the business logic. At the very least the database access logicView           | Template    | Responsible for generating the HTML and other UI
+Controller     | View        | Contains the logic to tie the other parts together and to generate a response to a user request
+</code></pre></div>
+A schematic view is available below:
+<img alt="Django Structure" src="../../static/images/django-structure.png" /></li>
+<li>Oversimplifying, to add a feature you
+  1) Update the model in <code>models.py</code> (if needed)
+  2) Create or update the corresponding view in <code>views.py</code>
+  3) If the new feature opens a new page, create the new html page in <code>templates/</code> and add it to <code>urls.py</code></li>
+<li>General application secrets (i.e. database user, database password, secret key, etc.) are decoupled from the application with a JSON file not tracked by Git and using the <code>get_secret</code> function in <code>settings.py</code>. The function is:
+<div class="highlight"><pre><span></span><code><span class="c1"># Secrets</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">&#39;secrets.json&#39;</span><span class="p">))</span> <span class="k">as</span> <span class="n">secrets_file</span><span class="p">:</span>
+    <span class="n">secrets</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">secrets_file</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_secret</span><span class="p">(</span><span class="n">setting</span><span class="p">,</span> <span class="n">secrets</span><span class="o">=</span><span class="n">secrets</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get secret setting or fail with ImproperlyConfigured&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">secrets</span><span class="p">[</span><span class="n">setting</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span><span class="s2">&quot;Set the </span><span class="si">{}</span><span class="s2"> setting&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">setting</span><span class="p">))</span>
+</code></pre></div>
+Then create your git-untracked <code>secrets.json</code> file with the following structure:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;SECRET_KEY&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YOUR_SECRET_KEY&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;DB_USER&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YOUR_DB_USER&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;DB_PASSWORD&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YOUR_DB_PASSWORD&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="err">...</span>
+<span class="p">}</span>
+</code></pre></div>
+So that you can call your secrets from within the rest of the app by using:
+<div class="highlight"><pre><span></span><code><span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="n">get_secret</span><span class="p">(</span><span class="s1">&#39;SECRET_KEY&#39;</span><span class="p">)</span>
+</code></pre></div></li>
+<li>In the admin site, the display shows the <strong>name</strong> of the <code>Customer</code> or the <code>Product</code> for the registered models. This information appears because we set the <code>__str__</code> method on our objects. The default display of any object is the value returned by <code>__str__</code>.</li>
+</ul>
+<h3 id="about-templates">About templates<a class="headerlink" href="#about-templates" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li>Django is embedded in HTML via <a href="https://docs.djangoproject.com/en/3.2/ref/templates/builtins/">template tags</a></li>
+<li>The views of the app call the templates saved in <code>APPLICATION_NAME/templates/APPLICATION_NAME</code> (according to a Django's convention)</li>
+<li>
+<p>The templates use a combination of HTML/CSS/JS and Django's <code>{% templatetags %}</code> syntax: this lets you modularize the code</p>
+<ul>
+<li>Template tags can also be used to create the usual blocks to be run inside the template:<ul>
+<li>if/else statements:
+<div class="highlight"><pre><span></span><code>{% if somethings %}
+    <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>There are {{ somethings.length }} things<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+{% else %}
+    <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Nothing here!<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+{% endif %}
+</code></pre></div></li>
+<li>for loops:
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+{% for thing in somethings %}
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>{{ thing.name}}<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+{% endfor %}
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</code></pre></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>The variables in the templates are called like in the corresponding views and rendered with the field <code>{{ variable }}</code></p>
+<ul>
+<li>They can even be piped to a specific function or filter within the double curly braces, like in <code>{{ variable.field | function }}</code></li>
+</ul>
+</li>
+<li>The HTML/CSS/JS templates use <a href="https://getbootstrap.com/docs/5.1/getting-started/introduction/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.79 11.5H9.72V8.19h2.47c1.26 0 1.96.56 1.96 1.59 0 1.12-.83 1.72-2.36 1.72m.37 1.13H9.72v3.64h2.56c1.56 0 2.38-.63 2.38-1.83s-.85-1.81-2.5-1.81M22 5.31v13.38C22 20.5 20.5 22 18.69 22H5.31C3.5 22 2 20.5 2 18.69V5.31C2 3.5 3.5 2 5.31 2h13.38C20.5 2 22 3.5 22 5.31m-6 9.19c0-1.38-.92-2.37-2.33-2.55v-.06c1-.18 1.79-1.18 1.79-2.26 0-1.55-1.2-2.58-2.96-2.58H8.43v10.36h4.04c2.21 0 3.53-1.09 3.53-2.91Z"/></svg></span> Bootstrap</a></li>
+<li><img alt="⚠" class="twemoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/26a0.svg" title=":warning:" /> Do <em>not</em> comment Django template tags with usual HTML comments, as described <a href="https://stackoverflow.com/questions/62793267/reverse-for-create-order-with-no-arguments-not-found"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.36 20.2v-5.38h1.79V22H3v-7.18h1.8v5.38h12.56M6.77 14.32l.37-1.76 8.79 1.85-.37 1.76-8.79-1.85m1.16-4.21.76-1.61 8.14 3.78-.76 1.62-8.14-3.79m2.26-3.99 1.15-1.38 6.9 5.76-1.15 1.37-6.9-5.75m4.45-4.25L20 9.08l-1.44 1.07-5.36-7.21 1.44-1.07M6.59 18.41v-1.8h8.98v1.8H6.59Z"/></svg></span> in this Stack Overflow post</a>!! 
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- this is the usual HTML comment --&gt;</span>
+<span class="cm">&lt;!-- {% This is an uncommented Django tag %} --&gt;</span>
+<span class="cm">&lt;!-- {#% This is a commented Django tag %#} --&gt;</span>
+</code></pre></div></li>
+</ul>
+<!-- ********************************* TO BE COMPLETED
+
+* The {% url %} tag
+* [Template inheritance]()
+Parent page
+Child page
+Default values
+Django's ORM caching
+**************************************** -->
+
+<h3 id="about-models">About models<a class="headerlink" href="#about-models" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li>
+<p>In your <code>models.py</code> file, you can add a first test model like:
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">MODEL_NAME</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="k">pass</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>In using the <code>ForeignKey</code> relationship between a 'parent' field and a 'child' field in <code>models.py</code>, Django automatically adds a property to the parent to provide access to all children called <code>&lt;child&gt;_set</code>, where <code>&lt;child&gt;</code> is the name of the child object. Below an example:
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="k">class</span> <span class="nc">Product</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">()</span>
+    <span class="n">category</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span>
+        <span class="s1">&#39;Category&#39;</span><span class="p">,</span> <span class="c1">#The name of the model</span>
+        <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">PROTECT</span>
+    <span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Category</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">()</span>
+    <span class="c1"># product_set will be automatically created</span>
+</code></pre></div></p>
+</li>
+</ul>
+<h3 id="about-urls">About URLs<a class="headerlink" href="#about-urls" title="Permanent link">⚓︎</a></h3>
+<p>This is how URLs work in Django:</p>
+<p><img href="https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Home_page/basic-django.png" alt="django-urls"></p>
+<h3 id="about-static-files">About static files<a class="headerlink" href="#about-static-files" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li>To upload the static files into an <a href="../../cloud/aws/">AWS S3 bucket</a>, check out the documentation of <a href="https://django-storages.readthedocs.io/en/latest/">django-storages</a>. You basically need the <code>django-storages</code> and <code>boto3</code> Python libraries, as well as the following additional settings in <code>settings.py</code>:
+<div class="highlight"><pre><span></span><code><span class="n">AWS_ACCESS_KEY_ID</span> <span class="o">=</span> <span class="n">get_secret</span><span class="p">(</span><span class="s1">&#39;AWS_ACCESS_KEY_ID&#39;</span><span class="p">)</span>
+<span class="n">AWS_SECRET_ACCESS_KEY</span> <span class="o">=</span> <span class="n">get_secret</span><span class="p">(</span><span class="s1">&#39;AWS_SECRET_ACCESS_KEY&#39;</span><span class="p">)</span>
+<span class="n">AWS_STORAGE_BUCKET_NAME</span> <span class="o">=</span> <span class="n">get_secret</span><span class="p">(</span><span class="s1">&#39;AWS_STORAGE_BUCKET_NAME&#39;</span><span class="p">)</span>
+<span class="n">AWS_S3_HOST</span> <span class="o">=</span> <span class="s1">&#39;s3.eu-west-3.amazonaws.com&#39;</span>
+<span class="n">AWS_S3_REGION_NAME</span> <span class="o">=</span> <span class="s1">&#39;eu-west-3&#39;</span>
+<span class="n">AWS_S3_FILE_OVERWRITE</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">AWS_DEFAULT_ACL</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">DEFAULT_FILE_STORAGE</span> <span class="o">=</span> <span class="s1">&#39;storages.backends.s3boto3.S3Boto3Storage&#39;</span>
+<span class="n">STATICFILES_STORAGE</span> <span class="o">=</span> <span class="s1">&#39;storages.backends.s3boto3.S3Boto3Storage&#39;</span>
+</code></pre></div>
+Here's a <a href="https://testdriven.io/blog/storing-django-static-and-media-files-on-amazon-s3/">nice tutorial on creating a Django project with static files on AWS S3</a> and Docker Compose. <a href="https://www.caktusgroup.com/blog/2014/11/10/Using-Amazon-S3-to-store-your-Django-sites-static-and-media-files/#s3-bucket-access">This one also</a> is a <em>very</em> good article.</li>
+</ul>
+<h3 id="about-user-authentication">About user authentication<a class="headerlink" href="#about-user-authentication" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li>Django comes with a built-in user management and authentication system, where you can manage: </li>
+<li>Simple users (<code>user</code>), unable to access the admin site</li>
+<li>Staff users (<code>staff</code>), i.e. accessing the admin site but unable to change Data</li>
+<li>
+<p>superusers: you can create one with <code>python manage.py createsuperuser</code></p>
+</li>
+<li>
+<p>To restrict the user's login, add the <code>@login_required(login_url='login')</code> decorator from <code>django.contrib.auth.decorators</code> above any restricted view in <code>views.py</code> [<strong>manual method</strong>]</p>
+</li>
+<li>Likewise, you don't want any logged-in user to be able to access the <code>'login'</code> or the <code>'register'</code> page: add the <code>if request.user.is_authenticated</code> in those views to handle it [ <strong>manual method</strong> ]</li>
+<li>Decorators can be listed in a dedicated <code>\APPLICATION_NAME\decorators.py</code> file. A <strong>decorator</strong> is a function that takes another function as a parameter. Decorators are called with the <code>@</code> symbol</li>
+<li>Adding a property to a user: check <a href="https://docs.djangoproject.com/en/dev/topics/auth/customizing/#extending-the-existing-user-model">this documentation</a></li>
+</ul>
+<h3 id="sending-emails-eg-to-reset-the-users-password">Sending emails (e.g. to reset the user's password)<a class="headerlink" href="#sending-emails-eg-to-reset-the-users-password" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li>The main settings are saved in the <code>settings.py</code> file under the <code>EMAIL_</code> parameters</li>
+<li>In our example, Gmail was used as the SMTP host; any external login attempt would be blocked by default by Gmail unless you allow "less secure apps" access (<a href="https://myaccount.google.com/lesssecureapps">here</a>'s the link). BTW it doesn't work directly with MFA accounts, where you'd need a specific <a href="https://support.google.com/accounts/answer/185833?hl=en">App password</a>.</li>
+<li>The <code>urls.py</code> must met specific criteria: use the predefined <a href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#module-django.contrib.auth.views">Authentication Views</a> from <code>django.contrib.auth</code> and remember to use the corresponding URLs' names</li>
+<li>If you want to customize all the pre-built forms used by Django's Authentication Views, you can find the templates' names within their <a href="https://github.com/django/django/blob/master/django/contrib/auth/views.py">definitions</a>. Override the default in your <code>urls.py</code> by specifying <code>.as_view(template_name="accounts/TEMPLATE_NAME.html")</code> in the URL line</li>
+</ul>
+<h3 id="about-database-and-relationships">About database and relationships<a class="headerlink" href="#about-database-and-relationships" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li>To initiate the database, run <code>py -m manage migrate</code>: the database's settings are in <code>SETTINGS.py</code> and SQLite3 is the default.</li>
+<li>To run progressive migrations, edit your models then run <code>py -m manage makemigrations</code> to create your migration files (preparation files before actual migration) in <code>/APPLICATION_NAME/migrations/</code>. Remember to register your models in the <em>admin</em> panel to see them.<blockquote>
+<p>The <code>makemigrations</code> command uses the current list of migrations to get a starting point, and then uses the current state of your models to determine the delta (the changes that need to be made). It then generates the necessary code to update the database. </p>
+</blockquote>
+</li>
+<li>To view the SQL commands related to a specific migration, run <code>python manage.py sqlmigrate APPLICATION_NAME MIGRATION_NAME</code></li>
+<li>To list the migrations, <code>python manage.py showmigrations</code></li>
+<li>To retrieve data from the db, use <a href="https://docs.djangoproject.com/en/2.2/ref/models/querysets">this reference guide</a>:
+  1) Open your Django shell (<code>py -m manage shell</code>)
+  2) Import all your models (<code>from APPLICATION_NAME.models import *</code>)
+  3) Specific tables are then available as objects with <code>TABLENAME.objects.all()</code> and other methods. 
+     1) Example: to retrieve all the customers saved with the <code>Customer</code> method, run <code>Customer.objects.all()</code>
+     2) Example: to retrieve all the customers with a specific name, run <code>Customer.objects.all().filter(name="YOURNAME")</code></li>
+<li>For foreign keys, you can use the <code>_set</code> property of the parent object:
+<div class="highlight"><pre><span></span><code><span class="n">Product</span><span class="o">.</span><span class="n">customer_set</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</code></pre></div></li>
+<li>Example of <code>INSERT</code> from <code>python manage.py shell</code>:
+<div class="highlight"><pre><span></span><code><span class="n">first_customer</span> <span class="o">=</span> <span class="n">Customer</span><span class="p">(</span>
+  <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Mary Ann&quot;</span><span class="p">,</span> 
+  <span class="n">location</span><span class="o">=</span><span class="s2">&quot;USA&quot;</span><span class="p">,</span>
+  <span class="o">...</span><span class="p">)</span>
+<span class="n">first_customer</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</code></pre></div>
+or
+<div class="highlight"><pre><span></span><code><span class="n">Product</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Shoes&quot;</span><span class="p">,</span> <span class="n">customer</span><span class="o">=</span><span class="n">first_customer</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</code></pre></div></li>
+<li>A function to specifically create random orders was implemented in the <code>management\commands\populate-db.py</code> function, inspired by <a href="https://testdriven.io/blog/django-charts/">this article</a>.</li>
+</ul>
+<h4 id="postgresql">Postgresql<a class="headerlink" href="#postgresql" title="Permanent link">⚓︎</a></h4>
+<ul>
+<li>After first testing, migrate the db from SQLite to PostgreSQL using <a href="https://medium.com/djangotube/django-sqlite-to-postgresql-database-migration-e3c1f76711e1">these instructions</a>.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When following the above link, if incurring in the error <code>ModuleNotFoundError: No module named 'django.db.migrations.migration'</code>, you may have deleted also the migrations in the <code>/django/db/migrations</code> folder. You may just need to <a href="https://stackoverflow.com/questions/48812105/django-no-module-named-django-db-migrations-migration"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.36 20.2v-5.38h1.79V22H3v-7.18h1.8v5.38h12.56M6.77 14.32l.37-1.76 8.79 1.85-.37 1.76-8.79-1.85m1.16-4.21.76-1.61 8.14 3.78-.76 1.62-8.14-3.79m2.26-3.99 1.15-1.38 6.9 5.76-1.15 1.37-6.9-5.75m4.45-4.25L20 9.08l-1.44 1.07-5.36-7.21 1.44-1.07M6.59 18.41v-1.8h8.98v1.8H6.59Z"/></svg></span> force reinstall Django</a>.</p>
+</div>
+<h2 id="tests">Tests<a class="headerlink" href="#tests" title="Permanent link">⚓︎</a></h2>
+<ul>
+<li>Check out the <a href="https://docs.djangoproject.com/en/3.2/topics/testing/tools/">Django documentation about testing tools!</a></li>
+<li>To get started with testing, create a folder <code>APPLICATION_NAME\Tests</code> containing all your <code>test_WHATEVER.py</code> files, where WHATEVER includes models, views, forms, etc.<ul>
+<li>In this case you will have to delete the <code>APPLICATION_NAME\tests.py</code> file, originally created with the app</li>
+<li>Remember to create the <code>__init__.py</code> file in the <code>Tests/</code> folder! Or the tests contained in it won't be found by the Django integrated test runner</li>
+</ul>
+</li>
+<li>To make Django go through the tests, just run <code>python3 -m manage test APPLICATION_NAME</code>: Django will recursively look for all the classes and functions whose name starts with <code>test*</code></li>
+<li>In any test, the <code>assert</code> statement is the one being tested: a failing test will return <code>AssertionError</code></li>
+<li>Assertions are part of the <code>SimpleTestCase</code> class, containing the most simple unit tests (like testing HTML responses, comparing URLs, verifying HTTP redirect, testing form fields, etc.)</li>
+</ul>
+<h2 id="deployment">Deployment<a class="headerlink" href="#deployment" title="Permanent link">⚓︎</a></h2>
+<ul>
+<li>Before deploying, remember to:<ul>
+<li>Turn <code>Debug = FALSE</code> in <code>settings.py</code></li>
+<li>Add the remote host to the <code>ALLOWED_HOSTS</code> in <code>settings.py</code>, like
+<div class="highlight"><pre><span></span><code>ALLOWED_HOSTS = [
+    get_secret(&#39;HEROKU_HOST&#39;),      # For production purposes (Debug=FALSE)
+    &quot;127.0.0.1&quot;                     # For testing purposes (Debug=TRUE)
+    ]
+</code></pre></div></li>
+</ul>
+</li>
+</ul>
+<h3 id="deploy-on-heroku">Deploy on <a href="https://www.heroku.com/">Heroku</a><a class="headerlink" href="#deploy-on-heroku" title="Permanent link">⚓︎</a></h3>
+<p>Your project needs the <a href="https://gunicorn.org/">Gunicorn</a> and <a href="http://whitenoise.evans.io/en/stable/">Whitenoise</a> pip modules installed</p>
+<ul>
+<li>After logging in (<code>heroku login -i</code>), connect to your Heroku app using the Heroku CLI an running <code>heroku git:remote --app=HEROKU_APP_NAME</code> to add a remote origin to your Git tracking in the project</li>
+<li>Add a <a href="https://devcenter.heroku.com/articles/procfile"><code>procfile</code></a> (no extension!) to your project: it's needed by Heroku to specify a process type. Inside of it, just type <code>web: gunicorn YOUR_APP_WSGI_NAME.wsgi --log-file -</code></li>
+<li>Remember to specific a <em>build pack</em> (i.e. Python) in your Heroku app settings</li>
+<li>In the manual deploy from the Heroku app page, you may need to remove some specific requirements' versions (as described in <a href="https://stackoverflow.com/questions/47304291/heroku-upload-could-not-find-a-version-that-satisfies-the-requirement-anaconda/56754565"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.36 20.2v-5.38h1.79V22H3v-7.18h1.8v5.38h12.56M6.77 14.32l.37-1.76 8.79 1.85-.37 1.76-8.79-1.85m1.16-4.21.76-1.61 8.14 3.78-.76 1.62-8.14-3.79m2.26-3.99 1.15-1.38 6.9 5.76-1.15 1.37-6.9-5.75m4.45-4.25L20 9.08l-1.44 1.07-5.36-7.21 1.44-1.07M6.59 18.41v-1.8h8.98v1.8H6.59Z"/></svg></span> this post</a>) from <code>requirements.txt</code> (but first, remember to <a href="#pip-freeze-warning">check this</a>!)</li>
+<li>Heroku doesn't know how to serve static files, so it is better to install <a href="http://whitenoise.evans.io/en/stable/">Whitenoise</a> and use it in the <code>MIDDLEWARE</code> section of your <code>settings.py</code> file</li>
+</ul>
+<h3 id="deploy-on-docker">Deploy on <a href="https://www.docker.com/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.81 10.25c-.06-.04-.56-.43-1.64-.43-.28 0-.56.03-.84.08-.21-1.4-1.38-2.11-1.43-2.14l-.29-.17-.18.27c-.24.36-.43.77-.51 1.19-.2.8-.08 1.56.33 2.21-.49.28-1.29.35-1.46.35H2.62c-.34 0-.62.28-.62.63 0 1.15.18 2.3.58 3.38.45 1.19 1.13 2.07 2 2.61.98.6 2.59.94 4.42.94.79 0 1.61-.07 2.42-.22 1.12-.2 2.2-.59 3.19-1.16A8.3 8.3 0 0 0 16.78 16c1.05-1.17 1.67-2.5 2.12-3.65h.19c1.14 0 1.85-.46 2.24-.85.26-.24.45-.53.59-.87l.08-.24-.19-.14m-17.96.99h1.76c.08 0 .16-.07.16-.16V9.5c0-.08-.07-.16-.16-.16H3.85c-.09 0-.16.07-.16.16v1.58c.01.09.07.16.16.16m2.43 0h1.76c.08 0 .16-.07.16-.16V9.5c0-.08-.07-.16-.16-.16H6.28c-.09 0-.16.07-.16.16v1.58c.01.09.07.16.16.16m2.47 0h1.75c.1 0 .17-.07.17-.16V9.5c0-.08-.06-.16-.17-.16H8.75c-.08 0-.15.07-.15.16v1.58c0 .09.06.16.15.16m2.44 0h1.77c.08 0 .15-.07.15-.16V9.5c0-.08-.06-.16-.15-.16h-1.77c-.08 0-.15.07-.15.16v1.58c0 .09.07.16.15.16M6.28 9h1.76c.08 0 .16-.09.16-.18V7.25c0-.09-.07-.16-.16-.16H6.28c-.09 0-.16.06-.16.16v1.57c.01.09.07.18.16.18m2.47 0h1.75c.1 0 .17-.09.17-.18V7.25c0-.09-.06-.16-.17-.16H8.75c-.08 0-.15.06-.15.16v1.57c0 .09.06.18.15.18m2.44 0h1.77c.08 0 .15-.09.15-.18V7.25c0-.09-.07-.16-.15-.16h-1.77c-.08 0-.15.06-.15.16v1.57c0 .09.07.18.15.18m0-2.28h1.77c.08 0 .15-.07.15-.16V5c0-.1-.07-.17-.15-.17h-1.77c-.08 0-.15.06-.15.17v1.56c0 .08.07.16.15.16m2.46 4.52h1.76c.09 0 .16-.07.16-.16V9.5c0-.08-.07-.16-.16-.16h-1.76c-.08 0-.15.07-.15.16v1.58c0 .09.07.16.15.16"/></svg></span> Docker</a><a class="headerlink" href="#deploy-on-docker" title="Permanent link">⚓︎</a></h3>
+<ul>
+<li>Write your Dockerfile: the base image is the <a href="https://hub.docker.com/_/python">official Python Docker image</a> as the Django image is deprecated. The application directory is copied in the workdir <code>/usr/src/app</code> and the requirements are installed using the <code>requirements.txt</code> file. Lastly, the <code>manage runserver</code> command is executed to start the web server.
+<div class="highlight"><pre><span></span><code><span class="c"># Base image</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">python</span>
+
+<span class="c"># Working directory</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/usr/src/app</span>
+
+<span class="c"># Install dependencies</span>
+<span class="k">COPY</span><span class="w"> </span>requirements.txt<span class="w"> </span>./
+<span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+<span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+
+<span class="c"># Copy the whole app folder</span>
+<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
+
+<span class="c"># Run web server</span>
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;python&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;manage.py&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;runserver&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;0.0.0.0:8000&quot;</span><span class="w"> </span><span class="p">]</span>
+</code></pre></div></li>
+<li>Build the image using <code>docker build -t my-django-image .</code> from the path of the Dockerfile (it may require a few minutes 🕰)</li>
+<li>Start the container with <code>docker run --name my-django-cont -d -p 8000:8000 my-django-image</code></li>
+<li>Verify that your container has been created with <code>docker ps -a</code></li>
+<li>Open your web application on a browser with <a href="http://HOSTNAME:8000">http://HOSTNAME:8000</a> where <code>HOSTNAME</code> is included in the <code>ALLOWED_HOSTS</code> list in <code>settings.py</code> </li>
+<li>[optional] Interact with your container with <code>docker exec -it my-django-cont bash</code></li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Clean your environment</p>
+<ul>
+<li>docker stop my-django-cont</li>
+<li>docker rm my-django-cont</li>
+<li>docker image rm my-django-image </li>
+<li>docker image rm python</li>
+</ul>
+</div>
+<h3 id="deploy-on-azure-web-apps">Deploy on <a href="https://docs.microsoft.com/en-us/learn/modules/django-deployment/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.05 4.24 6.56 18.05 2 18l5.09-8.76 5.96-5m.7 1.09L22 19.76H6.74l9.3-1.66-4.87-5.79 2.58-6.98Z"/></svg></span> Azure Web Apps</a><a class="headerlink" href="#deploy-on-azure-web-apps" title="Permanent link">⚓︎</a></h3>
+<p><img alt="⚠" class="twemoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/26a0.svg" title=":warning:" /> TBD</p>
+<h2 id="definitely-review"><strong>Definitely</strong> review<a class="headerlink" href="#definitely-review" title="Permanent link">⚓︎</a></h2>
+<ul>
+<li><a href="https://docs.djangoproject.com/en/3.2/topics/forms/">Forms</a> and <a href="https://docs.djangoproject.com/en/3.2/topics/forms/formsets/">Formsets</a></li>
+<li>Users' authentication and register page</li>
+<li>How to use decorators</li>
+</ul>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.top"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.19047be9.min.js"></script>
+      
+    
+  </body>
+</html>
