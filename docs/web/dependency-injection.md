@@ -18,7 +18,9 @@ public class Car
 public class PetrolEngine{
   public void Start(){
     Console.WriteLine("Starting the Petrol Engine...");
-    // Do stuff to start the Petrol Engine
+    MixPetrolAndAir();
+    InjectMixture();
+    IgniteBySpark();
   }
 }
 ```
@@ -34,6 +36,7 @@ public class DieselEngine{
 E usare quella nell'oggetto `Car`, di fatto rendendomi la classe interamente dipendente dal tipo di motore che implementa (ovvero sarebbe una `DieselCar` o una `PetrolCar`, ma non una generica `Car`).
 
 In più, in assenza di un'instanziazione di `PetrolEngine`, l'oggetto `Car` non può nemmeno essere instanziato e quindi non può nemmeno essere testato per altre funzioni che non dipendano dall'esistenza di un motore.
+
 
 ### Necessità della Dependency Injection
 
@@ -104,5 +107,3 @@ public class TestEngine : ICarEngine
     };
 }
 ```
-
-
