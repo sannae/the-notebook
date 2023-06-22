@@ -100,8 +100,7 @@ git rm -f readme.md
 
 ### git mv
 
-> It renames a file in the working area, then adds it to staging index and removes the old file from the staging index
-> It's basically the same as:
+> It renames a file in the working area, then adds it to staging index and removes the old file from the staging index. The file will appear as 'R' (for Renamed) in the `git status`. It's basically the same as:
 >   mv readme.txt readme.md
 >   git add readme.md
 >   git rm readme.txt
@@ -148,6 +147,9 @@ git checkout NEW_BRANCH
 > Merges branch NEW_BRANCH into current branch
 > The merge commit will have two commit parents
 git merge NEW_BRANCH
+
+> Open the merge conflict resolution tool to resolve merge conflicts
+git mergetool
 
 ### git rebase
 
@@ -219,6 +221,23 @@ git reset --hard 23b40d196e0a4b81637b255c945feab0084f5f88
 > Just moves the branch to the new commit
 git reset --soft 23b40d196e0a4b81637b255c945feab0084f5f88
 
+### git clean
+
+> Show the untracked files that would be removed, without removing them
+git clean -n
+
+> Deletes all the untracked files, but not the directories
+git clean -f
+
+> Deletes a specific untracked file
+git clean -f untracked_file.md
+
+> Deletes also all the untracked directories
+git clean -f -d
+
+> Deletes also all the ignored files, i.e. the ones added to .gitignore
+git clean -f -x
+
 ### git log
 
 > Commit history in reversed chronological order
@@ -238,6 +257,10 @@ git log --patch
 
 > Graphical version of the git log
 git log --graph --decorate --oneline
+
+> Show only the commits that were merged
+> Particularly useful in the case where you need to retrieve information about deleted branches
+git log --merges
 
 ### git show
 
@@ -384,8 +407,12 @@ git bisect bad 7b4bfe52553128b3f906a3d334d8e35f9a5cae7d
 git bisect run TEST_SCRIPT.sh
 
 > Stop the bisect process
+> To make it effective, after the `bisect start` command you should at least declare both a good and a bad ref 
 git bisect stop
 
+### Garbage collection
+
+Garbage collection is triggered in Git if a detached file is present in the repository after the number of days specified in the `gc.reflogExpireUnreachable` setting. The default is 30 days.
 
 
 ## Switch remote URLs from HTTPS to SSH
