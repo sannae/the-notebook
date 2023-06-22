@@ -29,6 +29,11 @@ The four areas:
 * Repository: contained in .git/objects and in more folders
 	* It's made of immutable objects, they can be created or deleted but not changed
 
+There are three scopes, each one inheriting from the hierarchically superior one:
+* local (repository), stored in REPO_NAME/.git/config
+* global (user account), stored in ~/.gitconfig
+* system (git installation), stored in /PROGRA~1/git/etc/gitconfig
+
 ## Plumbing commands
 
 ### git hash-object
@@ -70,9 +75,18 @@ git status
 
 ### git add
 
-> Moves a file from the working area to the staging index
+> Copies a file from the working area to the staging index
 > "Changes not staged for commit" are changes only present in the working area
 git add readme.md
+
+> It is also used to mark a resolved merge conflict
+> A file in conflict during a merge is in a status of 'unmerged path'
+> Every conflict creates the new .git/MERGE_HEAD, .git/MERGE_MODE and .git/MERGE_MSG files
+
+> Copies part of a file from the working area to the staging index
+> The patch option tells Git to reason on a hunk-by-hunk basis, not on a file-by-file basis
+> Basically it opens an interactive menu to choose how to split the file into hunks, and how to handle each one of them progressivey
+git add --patch readme.md
 
 ### git rm
 
@@ -100,6 +114,9 @@ git mv readme.txt readme.md
 > It basically contains the reference to blobs or trees
 > It also moves the staged files from the index to the repository
 git commit -m "This is a commit"
+
+> It creates a new commit by copying the content of the previous one, optionally adding staged changes and changing the commit message, and moves HEAD to it
+git commit --amend -m "Updated commit message"
 
 ### git branch
 
@@ -138,6 +155,21 @@ git merge NEW_BRANCH
 > Being HEAD on NEW_BRANCH, rebases NEW_BRANCH on top of main
 > Basically it detaches all the commits after the last common commit and reattaches them on top of the destination branch
 git rebase main
+
+> Start an interactive rebase to rewrite the commit history, starting from the reference of the remote branch (origin/master)
+> For each one of the steps, several options are provided to squash commits, change commit messages, etc.
+git rebase -i origin/master
+
+### git reflog
+
+> Gives the log of the actions performed on the reference HEAD
+> It is useful to retrieve the hashes of detached commits
+git reflog HEAD
+
+### git revert
+
+> Creates a new commit containing the opposite of the changes contained in the commit specified by the hash, then moves HEAD to it
+git revert afd7d06486650803c9a1d5bd4ec18c7fe7eb0328
 
 ### git tag
 
@@ -204,6 +236,47 @@ git log --stat
 > Super-detailed commit history, with diff
 git log --patch
 
+> Graphical version of the git log
+git log --graph --decorate --oneline
+
+### git show
+
+> Returns detailed info about the commit, including metadata and diff
+git show afd7d06486650803c9a1d5bd4ec18c7fe7eb0328
+
+> Returns detailed info about the last commit of branch BRANCH
+git show BRANCH
+
+> Returns detailed info about the last commit of current branch
+git show HEAD
+
+> Returns detailed info about one commit before HEAD 
+git show HEAD^
+
+> Returns detailed info about three commits before HEAD
+git show HEAD^^^
+git show HEAD~3
+
+> Returns detailed info about two commits before HEAD, specifically the 2nd parent
+git show HEAD~2^2
+
+> Returns detailed info about commits with date one month before the current one
+git show HEAD@{"1 month ago"}
+
+### git blame
+
+> It returns the coincise commit history of a specific file
+> Provided with the commit hash, the committer, the date time, and the line content
+git blame readme.md
+
+### git diff
+
+> It returns the differences between the last commit and the previous one
+git diff HEAD HEAD^
+
+> It returns the differences between the two head commits of the MAIN and the BRANCH branches
+git diff MAIN BRANCH
+
 ### git stash
 
 > Moves the uncommitted changes (staged and unstaged) to the stash area
@@ -228,6 +301,92 @@ git stash apply stash@{2}
 
 > Deletes all elements in the stash
 git stash clear
+
+## Configuration
+
+### git config
+
+> Shows the config files, together with their path and the corresponding scope
+git config --list --show-origin --show-scope
+
+> Sets the config value myName to the section user and subsection name in the local scope
+git config --local user.name myName
+
+> Shows the config values of the section user.name
+git config user.name
+
+> Removes a specific value from config subsection
+git config --global --unset user.name
+
+> Removes a whole config section
+git config --global --remove-section user
+
+> Sets a specific editor (e.g. code) to edit the config files, opening a new window and waiting for the editor to be closed
+git config --global core.editor "code --new-window --wait"
+
+> Open the default editor to edit the config file
+git config --global -e
+
+> Set 'st' as alias for 'git status'
+git config --global alias.st status
+
+> Set 'ss' as alias for 'git st --short', combining the alias set before
+git config --global alias.ss 'st --short'
+
+### git submodules
+
+> It adds the submodule repo1 in the external folder to the current repository, downloading it from remote 
+> Submodules are an effective way to link two separate git repositories
+> Submodules are their own repos, i.e. they follow their own git configuration
+> A submodule is basically a referene to a commit
+> Submodules don't get updated automatically, they have to be updated manually
+> The following command adds the submodule section to the config file, its the local path and the remote URL
+git submodule add https://server/sample.git external/repo1
+
+> Clone a project with submodules
+git clone https://github.com/sample.git
+
+> Initialize the submodules in the cloned project, i.e. integrate them in your local config
+git submodule init
+
+> Include the code of the submodules in your local project
+git submodule update
+
+> Get information about submodules in your `git status`
+git config --global status.submoduleSummary true
+
+### Customized git commands
+
+> Create a new file, without extensions, containing the git scripts
+> Call it using the `git-COMMANDNAME` naming convention
+> Make it executable
+chmod -x git-COMMANDNAME
+> Export it in PATH and update your profile file
+echo 'export PATH=...:$PATH' >> .bash_profile
+> Source the profile file
+source .bash_profile
+> Use your command
+git-COMMANDNAME
+
+### git bisect
+
+> Start the bisect process
+git bisect start
+
+> Specify to the bisect process that a specific commit was a good one
+git bisect good afd7d06486650803c9a1d5bd4ec18c7fe7eb0328
+
+> Specify to the bisect process that a specific commit was a bad one
+git bisect bad 7b4bfe52553128b3f906a3d334d8e35f9a5cae7d
+
+> Automatically evaluate commits by using a test script, e.g. TEST_SCRIPT.sh
+> It basically provides to the bisect process the 'good' or 'bad' flag depending on the results of the test applied to each commit 
+git bisect run TEST_SCRIPT.sh
+
+> Stop the bisect process
+git bisect stop
+
+
 
 ## Switch remote URLs from HTTPS to SSH
 
