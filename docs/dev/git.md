@@ -6,75 +6,228 @@
 	* [:material-youtube: Git for professionals](https://youtu.be/Uszj_k0DGsg) by [FreeCodeCamp](https://www.freecodecamp.org/)
 	* [:material-youtube: Advanced Git](https://youtu.be/qsTthZi23VE) by [FreeCodeCamp](https://www.freecodecamp.org/)
 
-## Most used commands
 
-* `git add FILENAME(S)`: it adds the files in "stage", i.e. preparing to commit
-* `git commit -m "MESSAGE"`: it does the commit (i.e. basically saving) the staged changes in the local repository 
-* `git push`: it pushes the last commit towards the remote repository
-* `git pull`: it updates your current HEAD branch with the latest diffs from remote
+## Theory
 
-![git pull](https://girliemac.com/assets/images/articles/2017/12/git-purr.jpg)
+Git is:
+* a persistent map
+* a 'stupid' content tracker
+* a revision control system
+* a distributed revision control system
 
-### Used branches
+There are four basic objects in Git's object database:
+* blobs: hashes of files
+* trees: files containing references to other trees or blobs
+* commits: files containing references to blobs or trees
+* annotated tags: files containing references to commits
 
-* `git branch`: it shows the list of current branches
+The four areas:
+* Stash: temporary storage area
+* Working area: the project directory on the local file system
+* Staging index: aka Cached, contained in .git/index
+	* It's a binary file, it cannot be opened
+* Repository: contained in .git/objects and in more folders
+	* It's made of immutable objects, they can be created or deleted but not changed
 
-### Create a new branch:
+## Plumbing commands
 
-* `git checkout -b NEWBRANCH` : it moves towards the newly created branch called NEWBRANCH
-* Some best practices for naming the new branches [:material-stack-overflow: here](https://stackoverflow.com/questions/273695/what-are-some-examples-of-commonly-used-practices-for-naming-git-branches):
-    * Use grouping tokens (words) at the beginning of your branch names. For example: 
-		`Test/DESCRIPTION`  : For test branches
-		`New/DESCRIPTION`   : For new features branches
-		`Bug/DESCRIPTION`	: For bugfixes branches
-		`Exp/DESCRIPTION`	: Experimental: for throwaway branch, to be trashed
-		`Verified/DESCRIPTION`	: For verified branches, to be merged to main
-* `git push --set-upstream origin NEWBRANCH`: it creates the remote branch from the local one, pushing to it as well; as epxlained [here](https://forum.freecodecamp.org/t/push-a-new-local-branch-to-a-remote-git-repository-and-track-it-too/13222)
+### git hash-object
 
-## Pull from a different remote branch [:material-stack-overflow:](https://stackoverflow.com/questions/9537392/git-fetch-remote-branch)
+> Returns the hash (20 hex bytes) of a file 
+> if two files have the same content, they will have the same hash
+git hash-object readme.md
 
-* Check the remote branches (`git branch -r`) and the local branches (`git branch`)
-* Switch to a specified branch (`git switch BRANCH_NAME`)
+> Get the hash of a file and save it into .git/objects/NN/MMMMM...
+> NN are the first two digits of the hash
+> MMMMM.. are the following 38 digits of the hash
+readme.md | git hash-object --stdin --write
 
-### Publish a local repo to a new remote repo
+### git cat-file
 
-:warning: **Requirement**: the remote repo _must_ exist, otherwise it will return the error _Repository not found_
+> Prints the type of the file 
+> There are 4 types in the object database: blobs, trees, commits, annotated tags) from its hash
+git cat-file 23b40d196e0a4b81637b255c945feab0084f5f88 -t
 
-* `git remote add origin https://github.com/.../REPONAME.git`: (right after the first `commit`) it defines the upstream origin. It will ask the credentials:
-```
-	username: [insert USERNAME]
-	password: [insert PERSONAL ACCESS TOKEN]
-```
-* `git push -u origin master`: pusha il branch master sull'origin, da qui in poi basterà usare `git push`
+> Prints the content of a file from its hash
+git cat-file 23b40d196e0a4b81637b255c945feab0084f5f88 -p
 
-### Delete an unused branch:
+### git show-ref
 
-* `git branch --delete|-d BRANCHNAME` : it deletes the local branch BRANCHNAME
-* `git push -d origin BRANCHNAME` : it deletes the remote branch BRANCHNAME
+> Lists all the references of the current commit containing the string 'main'
+> It returns both the local and the remote references
+git show-ref main
 
-### Move to an existing local branch:
+### git count-objects
 
-* `git checkout DESTINATIONBRANCH`: it moves the tracking to the local branch DESTINATIONBRANCH
 
-### Merge a branch
+## Porcelain commands
 
-Sample procedure:
+### git status
 
-* `git checkout -b NEW-FEATURE main` : Start a new feature by creating the branch NEW-FEATURE from MAIN
-* `git add <file>`: add a new file in the feature
-* `git commit -m "Start a feature"`: commit the edit
-* `git checkout main`: move to main
-* `git merge NEW-FEATURE`: merge the branch into main
-* `git branch -d NEW-FEATURE`: delete the branch
-* `git push`: sync with remote repo
+> Gives the current status of the changes across the four areas
+> "Nothing to commit, working tree clean" is referred to as 'Clean Status'
+git status
 
-!!! warning
-	If you get the `not something we can merge` error, it's probably because you don't have a local copy of the branch that you want to merge, as explained [:material-stack-overflow: here](https://stackoverflow.com/questions/16862933/how-to-resolve-gits-not-something-we-can-merge-error). Go on with:
-	```
-	git checkout BRANCH-NAME
-	git checkout main
-	git merge BRANCH-NAME
-	```
+### git add
+
+> Moves a file from the working area to the staging index
+> "Changes not staged for commit" are changes only present in the working area
+git add readme.md
+
+### git rm
+
+> Removes a file from index, keeping it in the working area
+> It doesn't have any effect on the repository area
+git rm --cached readme.md
+
+> Removes a file from the index and the working area, effectively deleting the file
+> It doesn't have any effect on the repository area
+git rm -f readme.md
+
+### git mv
+
+> It renames a file in the working area, then adds it to staging index and removes the old file from the staging index
+> It's basically the same as:
+>   mv readme.txt readme.md
+>   git add readme.md
+>   git rm readme.txt
+git mv readme.txt readme.md
+
+### git commit 
+
+> Creates a 'commit', i.e. a new file in .git/objects/NN/MMMMM.. 
+> The file contains the root of the project ('tree'), author and date, message
+> It basically contains the reference to blobs or trees
+> It also moves the staged files from the index to the repository
+git commit -m "This is a commit"
+
+### git branch
+
+> Get the current branch
+> A branch is a reference to a commit
+> It basically reads the content of .git/HEAD
+> HEAD is our current position 
+git branch
+
+> Creates a new file in .git/refs/heads/NEW_BRANCH pointing to the current commit
+git branch NEW_BRANCH
+
+### git switch
+
+> Moves HEAD to the commit referenced by NEW_BRANCH
+> Restores the state of the working directory to the commit we're pointing
+git switch NEW_BRANCH
+
+### git checkout 
+
+> Moves HEAD to the commit referenced by NEW_BRANCH
+> Restores the state of the working directory to the commit we're pointing
+> May set commits into 'detached head' status: they then will be garbage-collected
+> It also copies the content of the repository into the staging index and the working area
+git checkout NEW_BRANCH
+
+### git merge
+
+> Merges branch NEW_BRANCH into current branch
+> The merge commit will have two commit parents
+git merge NEW_BRANCH
+
+### git rebase
+
+> Rearranges the branches so that they look one single branch
+> Being HEAD on NEW_BRANCH, rebases NEW_BRANCH on top of main
+> Basically it detaches all the commits after the last common commit and reattaches them on top of the destination branch
+git rebase main
+
+### git tag
+
+> Sets the simple tag (i.e. with no metadata) 'release_1' to the current commit
+> The tag is saved in .git/refs/tags/release_1
+> It only contains the reference to the commit
+git tag release_1
+
+> Sets an annotated tag (i.e. with metadata) 'release_1' to the current commit
+> The tag is saved in .git/refs/tags/release_1
+> It contains the reference to the commit, the tagger, the date and the message
+git tag release_1 -a -m "First release"
+
+> Lists all the tags
+git tag
+
+> Checks out the commit with the specific tag 'release_1'
+git checkout 'release_1'
+
+### git pull
+
+> Synchronizes the local changes with the remote changes
+> It's a combination of `git fetch` and `git merge`
+git pull
+
+> In case of conflicts:
+> Force the local push: the remote commit gets detached and garbage-collected
+git push -f
+
+> In case of conflicts:
+> Resolve conflicts locally
+
+### git push
+
+> Synchronizes the remote changes with the local changes
+git push
+
+### git reset 
+
+> Moves the current branch to a different commit, without moving the HEAD reference
+> And copies content of the current commit from the repository to the staging index
+git reset [--mixed] 23b40d196e0a4b81637b255c945feab0084f5f88
+
+> Copies the content of the current commit from the repository into the working area and staging index
+git reset --hard 23b40d196e0a4b81637b255c945feab0084f5f88
+
+> Just moves the branch to the new commit
+git reset --soft 23b40d196e0a4b81637b255c945feab0084f5f88
+
+### git log
+
+> Commit history in reversed chronological order
+git log
+
+> Last commit
+git log -1
+
+> Log in short format
+git log --oneline
+
+> Detailed commit history
+git log --stat
+
+> Super-detailed commit history, with diff
+git log --patch
+
+### git stash
+
+> Moves the uncommitted changes (staged and unstaged) to the stash area
+> Stashed objects are identified by `stash@{N}` number, where `{0}` is always the most recent one
+> It doesn't include the untracked files
+git stash
+
+> Moves the uncommitted changes to the stash area, including the untracked files
+git stash --include-untracked
+
+> List everything in the stash area
+git stash list
+
+> Applies the most recent stashed changes to the working area, removing it from the stash
+git stash pop
+
+> Applies the most recent stashed changes to the working area, while keeping it in the stash
+git stash apply
+
+> Applies the stash element identified by the `stash@{2}`, keeping it in the stash
+git stash apply stash@{2}
+
+> Deletes all elements in the stash
+git stash clear
 
 ## Switch remote URLs from HTTPS to SSH
 
