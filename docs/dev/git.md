@@ -221,6 +221,10 @@ git reset --hard 23b40d196e0a4b81637b255c945feab0084f5f88
 > Just moves the branch to the new commit
 git reset --soft 23b40d196e0a4b81637b255c945feab0084f5f88
 
+> Reset the last committed changes back into the staging index. _Very very_ helpful when wronly committing to the repository
+> Basically, it resets to the status previous to HEAD, keeping the changes in teh staging index
+git reset --soft HEAD^
+
 ### git clean
 
 > Show the untracked files that would be removed, without removing them
