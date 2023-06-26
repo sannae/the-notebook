@@ -117,6 +117,9 @@ git commit -m "This is a commit"
 > It creates a new commit by copying the content of the previous one, optionally adding staged changes and changing the commit message, and moves HEAD to it
 git commit --amend -m "Updated commit message"
 
+> It creates a new commit accepting '#' as a valid message symbol
+git commit -m "#743 Commit message with issue number"
+
 ### git branch
 
 > Get the current branch
@@ -160,7 +163,19 @@ git rebase main
 
 > Start an interactive rebase to rewrite the commit history, starting from the reference of the remote branch (origin/master)
 > For each one of the steps, several options are provided to squash commits, change commit messages, etc.
-git rebase -i origin/master
+git rebase --interactive origin/master
+
+> Example of file to be edited with interactive git rebase
+> Commits are listed in ascending chronological order
+> `pick` will take into consideration the commit
+> `squash` will squash the commit into the previous one, then prompting the user for the new commit message
+> `reword` will prompt the user for a new message for that specific commit
+```
+pick 07c5abd First commit
+squash de9b1eb Fix PostChecker::Post#urls
+squash 3e7ee36 Hey kids, stop all the highlighting
+reword 3e7ee36 Hey kids, stop all the highlighting
+```
 
 ### git reflog
 
