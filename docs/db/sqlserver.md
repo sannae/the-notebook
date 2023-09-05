@@ -237,6 +237,15 @@ EXEC sp_change_users_login 'Auto_Fix', 'YOUR_USER'
 
 * ⚠️ **Error SQL71654: Error validating element [YOUR_ELEMENT]: the element [YOUR_ELEMENT] cannot be deployed as the script body is encrypted** - in this case the database element [YOUR_ELEMENT] has been encrypted with TDE - i.e. `WITH ENCRYPTION`. [Find the element](#about-database-administration) and check if you can retrieve the encryption, or delete it.
 
+* ⚠️ [**Lock request time out period exceeded** when trying to open tables in SSMS](https://sqljana.wordpress.com/2017/04/01/sql-server-ssms-says-lock-request-time-out-period-exceeded-find-blocking-quickly/). This is because someone is altering a table in the database you are working with and that session has reserved a schema-modification lock. 
+  * Run `DBCC OPENTRAN` to find the current open transactions; read the `SPID` number and examine it with `EXEC sp_who2 <SPID>` (an undocumented updated version of [`sp_who2`](https://learn.microsoft.com/en-us/sql/relational-databases/system-stored-procedures/sp-who-transact-sql?view=sql-server-ver16)). Also get the session details with `DBCC INPUTBUFFER(<SPID>)` by reading it in the `BlkBy` column. This should get you the 'offending' running operation.
+  * A way to get the approximate amount of time required by the operation is to run
+  ```sql
+  SELECT *
+  FROM sys.partitions
+  WHERE OBJECT_NAME(object_id)='TransactionPreStage'
+  ```
+  reading the `object_id` from the inputbuffer table.
 
 ## Browsing data and tables
 
